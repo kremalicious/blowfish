@@ -20,9 +20,7 @@ export default class Account extends PureComponent {
 
     return (
       <div className="number-unit">
-        <h1 className="number">
-          <Balance balance={balance} />
-        </h1>
+        <Balance balance={balance} />
         <span className="label" title={address}>
           {address.substring(0, 12)}...
         </span>

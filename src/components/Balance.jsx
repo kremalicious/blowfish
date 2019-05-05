@@ -7,19 +7,21 @@ const Balance = ({ balance }) => {
   const { ocean, eur, usd } = balance
 
   return (
-    <Consumer>
-      {({ currency }) =>
-        currency === 'ocean' ? (
-          <span className="balance" title={numberFormatter(ocean)}>
-            Ọ {numberFormatter(ocean) || 0}
-          </span>
-        ) : currency === 'eur' ? (
-          <span className="balance">{fiatFormatter('EUR', eur)}</span>
-        ) : (
-          <span className="balance">{fiatFormatter('USD', usd)}</span>
-        )
-      }
-    </Consumer>
+    <h1 className="number">
+      <Consumer>
+        {({ currency }) =>
+          currency === 'ocean' ? (
+            <span className="balance" title={numberFormatter(ocean)}>
+              Ọ {numberFormatter(ocean) || 0}
+            </span>
+          ) : currency === 'eur' ? (
+            <span className="balance">{fiatFormatter('EUR', eur)}</span>
+          ) : (
+            <span className="balance">{fiatFormatter('USD', usd)}</span>
+          )
+        }
+      </Consumer>
+    </h1>
   )
 }
 

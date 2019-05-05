@@ -1,5 +1,5 @@
 const path = require('path')
-const { app, BrowserWindow, systemPreferences, ipcMain } = require('electron')
+const { app, BrowserWindow, systemPreferences } = require('electron')
 
 let mainWindow
 
@@ -16,18 +16,18 @@ if (
 const width = 550
 const height = 380
 
+const isDarkMode = systemPreferences.isDarkMode()
+
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: width,
     height: height,
     minWidth: width,
     minHeight: height,
-    // maxWidth: width,
-    // maxHeight: height,
     acceptFirstMouse: true,
     titleBarStyle: 'hiddenInset',
     fullscreenWindowTitle: true,
-    backgroundColor: '#141414',
+    backgroundColor: isDarkMode ? '#141414' : '#fff',
     frame: false,
     show: false,
     webPreferences: {
@@ -126,15 +126,13 @@ app.on('activate', () => {
 })
 
 const switchTheme = () => {
-  if (systemPreferences.isDarkMode()) {
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'dark\')'
-    )
-  } else {
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'dark\')'
-    )
-  }
+  isDarkMode
+    ? mainWindow.webContents.executeJavaScript(
+        'document.getElementsByTagName(\'html\')[0].classList.add(\'dark\')'
+      )
+    : mainWindow.webContents.executeJavaScript(
+        'document.getElementsByTagName(\'html\')[0].classList.remove(\'dark\')'
+      )
 }
 
 // Listen for theme changes in System Preferences

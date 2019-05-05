@@ -1,9 +1,16 @@
+@import '../node_modules/@oceanprotocol/typographies/css/ocean-typo.css';
+
 html,
 body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background: #141414;
+    background: #fcfcfc !important;
+}
+
+html.dark,
+.dark body {
+    background: #141414 !important;
 }
 
 *,
@@ -29,13 +36,32 @@ html.fullscreen {
         'Segoe UI Symbol';
     font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'pnum' 1, 'tnum' 0,
         'onum' 0, 'lnum' 0, 'dlig' 1;
-    color: #e2e2e2;
+    color: #303030;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     transform: translate3d(0, 0, 0);
     -webkit-app-region: drag;
     -webkit-user-select: none;
+}
+
+.dark #root {
+    color: #e2e2e2;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Sharp Sans Display', -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+}
+
+button {
+    font-family: 'Sharp Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Helvetica, Arial, sans-serif;
+    font-weight: 600;
 }
 
 .app__content {
@@ -58,14 +84,19 @@ html.fullscreen {
 .main {
     width: 100%;
     padding: 5%;
-    background: #303030;
+    background: #fff;
     border-radius: 5px;
-    border: .1rem solid #41474e;
+    border: .1rem solid #e2e2e2;
     min-height: 186px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     position: relative;
+}
+
+.dark .main {
+    background: #222;
+    border-color: #303030;
 }
 
 .number-unit-wrap {
@@ -115,7 +146,11 @@ html.fullscreen {
 
 .number-unit--main {
     padding-bottom: 5%;
-    border-bottom: 1px solid #41474e;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.dark .number-unit--main {
+    border-bottom-color: #303030;
 }
 
 .number-unit--main .number {

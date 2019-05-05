@@ -32,11 +32,7 @@ const Total = () => (
           usd: totalUsd
         }
 
-        return (
-          <h1 className="number">
-            <Balance balance={balance} />
-          </h1>
-        )
+        return <Balance balance={balance} />
       }}
     </Consumer>
     <span className="label">Total balance</span>
