@@ -2,17 +2,17 @@
   "name": "ocean-balance",
   "productName": "Ocean",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "🐡 Simple Electron-based desktop app to retrieve and display your total Ocean Token balances.",
   "main": "./src/main.js",
   "scripts": {
-    "test": "eslint ./src/**/*.{js,jsx} && stylelint ./app/*.css",
+    "test": "eslint ./src/**/*.{js,jsx} && stylelint ./src/**/*.css",
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
-    "build": "webpack --config webpack.build.config.js && npm run package:mac",
-    "package:mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --icon=src/images/app.icns --prune=true --out=./builds && open ./builds",
-    "package:win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=./builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Coinbase\"",
-    "package:linux": "electron-packager . --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=./builds",
-    "create-installer-mac": "electron-installer-dmg ./builds/Ocean-darwin-x64/Ocean.app Ocean --out=./builds --overwrite --icon=app/app.icns",
-    "create-installer-win": "node installers/windows/createinstaller.js"
+    "build": "webpack --config webpack.build.config.js && npm run package",
+    "package": "npm run package:mac && npm run package:win && npm run package:linux && open ./builds",
+    "package:mac": "electron-packager . --overwrite --asar --platform=darwin --arch=x64 --icon=src/images/icon.icns --prune --out=./builds",
+    "package:linux": "electron-packager . --overwrite --asar --platform=linux --arch=x64 --icon=src/images/iconset/icon1024.png --prune --out=./builds",
+    "package:win": "electron-packager . --overwrite --asar --platform=win32 --arch=ia32 --icon=src/images/icon.ico --prune --out=./builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Ocean\"",
+    "create-installer-mac": "electron-installer-dmg ./builds/Ocean-darwin-x64/Ocean.app Ocean --out=./builds --overwrite --icon=src/images/icon.icns"
   },
   "repository": "https://github.com/kremalicious/ocean-balance.git",
   "author": "Matthias Kretschmann",
@@ -32,7 +32,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",
-    "electron": "^5.0.0",
+    "electron": "^5.0.1",
     "electron-devtools-installer": "^2.2.4",
     "electron-installer-dmg": "^2.0.0",
     "electron-packager": "^13.1.1",
@@ -47,7 +47,7 @@
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
     "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1",
+    "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1"
   }
 }

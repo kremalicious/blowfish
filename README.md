@@ -1,7 +1,15 @@
 # ocean-balance
 
-> Simple Electron-based desktop app to retrieve and display your total Ocean Token balances.
+> 🐡 Simple Electron-based desktop app to retrieve and display your total Ocean Token balances.
 > https://oceanprotocol.com
+
+---
+
+- [Usage](#usage)
+- [Build packages](#build-packages)
+- [Data Sources](#data-sources)
+
+---
 
 ## Usage
 
@@ -21,9 +29,21 @@ npm install
 npm start
 ```
 
-## Build package
+## Build packages
 
 ```bash
 npm run build
-npm run create-installer-mac
 ```
+
+Will build and package the app into platform specific packages for macOS, Windows & Linux.
+
+On a Mac and Linux machine, packaging requires [`wine`](https://www.winehq.org) in your `PATH`. To install on macOS with [Homebrew](https://brew.sh):
+
+```bash
+brew install wine
+```
+
+## Data Sources
+
+- balances are checked via etherscan.io API
+- spot prices are fetched from coingecko.com API
