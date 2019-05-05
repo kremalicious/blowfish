@@ -55,11 +55,25 @@ html.fullscreen {
     transform: translate3d(0, -36px, 0);
 }
 
+.main {
+    width: 100%;
+    padding: 5%;
+    background: #303030;
+    border-radius: 5px;
+    border: .1rem solid #41474e;
+    min-height: 186px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
 .number-unit-wrap {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-around;
+    position: relative;
 }
 
 .number-unit {
@@ -92,6 +106,20 @@ html.fullscreen {
     font-size: .85rem;
     display: block;
     white-space: nowrap;
+    margin-top: .3rem;
+}
+
+.number-unit-wrap--accounts {
+    min-height: 55px;
+}
+
+.number-unit--main {
+    padding-bottom: 5%;
+    border-bottom: 1px solid #41474e;
+}
+
+.number-unit--main .number {
+    font-size: 2.5rem;
 }
 
 @keyframes updated {

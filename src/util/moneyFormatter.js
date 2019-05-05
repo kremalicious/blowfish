@@ -4,14 +4,14 @@ const locale = navigator.language
 const numberFormatter = number =>
   new Intl.NumberFormat(locale, {
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2
+    maximumFractionDigits: 4
   }).format(number)
 
 const fiatFormatter = (currency, number) =>
   new Intl.NumberFormat(locale, {
     style: 'currency',
     currency,
-    minimumFractionDigits: 0,
+    minimumFractionDigits: 2,
     maximumFractionDigits: 2
   }).format(number)
 

@@ -1,33 +1,27 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { fiatFormatter, numberFormatter } from '../util/moneyFormatter'
+import Balance from './Balance'
 
-class Account extends PureComponent {
+export default class Account extends PureComponent {
   static propTypes = {
-    isNativeShown: PropTypes.bool.isRequired,
     account: PropTypes.shape({
       address: PropTypes.string.isRequired,
       balance: PropTypes.shape({
         ocean: PropTypes.number.isRequired,
-        eur: PropTypes.number.isRequired
+        eur: PropTypes.number.isRequired,
+        usd: PropTypes.number.isRequired
       }).isRequired
     })
   }
 
   render() {
-    const { balance, address } = this.props.account
-    const { ocean, eur } = balance
+    const { account } = this.props
+    const { balance, address } = account
 
     return (
       <div className="number-unit">
         <h1 className="number">
-          {this.props.isNativeShown ? (
-            <span className="balance-native">{fiatFormatter('EUR', eur)}</span>
-          ) : (
-            <span className="balance" title={numberFormatter(ocean)}>
-              {numberFormatter(ocean) || 0} Ọ
-            </span>
-          )}
+          <Balance balance={balance} />
         </h1>
         <span className="label" title={address}>
           {address.substring(0, 12)}...
@@ -36,5 +30,3 @@ class Account extends PureComponent {
     )
   }
 }
-
-export default Account
