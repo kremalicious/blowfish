@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "./node_modules/prettier-stylelint/config.js"
+  ],
+  "rules": {
+    "indentation": 4,
+    "declaration-empty-line-before": null,
+    "number-leading-zero": "never"
+  }
+}

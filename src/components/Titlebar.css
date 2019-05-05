@@ -1,0 +1,48 @@
+.titlebar {
+    align-self: flex-start;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    user-select: none;
+    background: linear-gradient(to top, #ccc 0%, #d6d6d6 1px, #ebebeb 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5);
+    transition: opacity .15s ease-out;
+}
+
+.dark .titlebar {
+    background: linear-gradient(to top, #141416 0%, #38383c 1px, #3f3f44 100%);
+    box-shadow: none;
+}
+
+.fullscreen .titlebar {
+    opacity: 0;
+}
+
+.blur .titlebar {
+    background: #f6f6f6;
+}
+
+.blur.dark .titlebar {
+    background: linear-gradient(to top, #141416 0%, #2d2a32 1px, #2d2a32 100%);
+}
+
+.header-title {
+    line-height: 35px;
+    height: 35px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #555;
+}
+
+.dark .header-title {
+    color: #b6b3ba;
+}
+
+.blur .header-title {
+    color: #b6b6b6;
+}
+
+.blur.dark .header-title {
+    color: #67666e;
+}
