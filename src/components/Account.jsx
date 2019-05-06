@@ -7,11 +7,7 @@ export default class Account extends PureComponent {
   static propTypes = {
     account: PropTypes.shape({
       address: PropTypes.string.isRequired,
-      balance: PropTypes.shape({
-        ocean: PropTypes.number.isRequired,
-        eur: PropTypes.number.isRequired,
-        usd: PropTypes.number.isRequired
-      }).isRequired
+      balance: PropTypes.object.isRequired
     })
   }
 

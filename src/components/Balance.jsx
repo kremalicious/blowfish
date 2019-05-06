@@ -18,8 +18,10 @@ const Balance = ({ balance }) => {
             <span className="balance">Ξ {numberFormatter(eth) || 0}</span>
           ) : currency === 'eur' ? (
             <span className="balance">{fiatFormatter('EUR', eur)}</span>
-          ) : (
+          ) : currency === 'usd' ? (
             <span className="balance">{fiatFormatter('USD', usd)}</span>
+          ) : (
+            <span className="balance">{numberFormatter(currency)}</span>
           )
         }
       </Consumer>
@@ -28,13 +30,7 @@ const Balance = ({ balance }) => {
 }
 
 Balance.propTypes = {
-  balance: PropTypes.shape({
-    ocean: PropTypes.number.isRequired,
-    btc: PropTypes.number.isRequired,
-    eth: PropTypes.number.isRequired,
-    eur: PropTypes.number.isRequired,
-    usd: PropTypes.number.isRequired
-  })
+  balance: PropTypes.object.isRequired
 }
 
 export default Balance

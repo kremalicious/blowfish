@@ -1,6 +1,7 @@
 import React from 'react'
 import { Consumer } from '../store/createContext'
 import Balance from './Balance'
+import { prices } from '../../config'
 
 const calculateTotalBalance = (accounts, currency) => {
   const balanceTotalArray = []
@@ -22,21 +23,18 @@ const Total = () => (
   <div className="number-unit number-unit--main">
     <Consumer>
       {({ accounts }) => {
-        const totalOcean = calculateTotalBalance(accounts, 'ocean')
-        const totalBtc = calculateTotalBalance(accounts, 'btc')
-        const totalEth = calculateTotalBalance(accounts, 'eth')
-        const totalEur = calculateTotalBalance(accounts, 'eur')
-        const totalUsd = calculateTotalBalance(accounts, 'usd')
+        const conversions = Object.assign(
+          ...prices.map(key => ({
+            [key]: calculateTotalBalance(accounts, key)
+          }))
+        )
 
-        const balance = {
-          ocean: totalOcean,
-          btc: totalBtc,
-          eth: totalEth,
-          eur: totalEur,
-          usd: totalUsd
+        const balanceNew = {
+          ocean: calculateTotalBalance(accounts, 'ocean'),
+          ...conversions
         }
 
-        return <Balance balance={balance} />
+        return <Balance balance={balanceNew} />
       }}
     </Consumer>
     <span className="label">Total balance</span>

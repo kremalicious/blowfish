@@ -4,4 +4,4 @@ const openUrl = url => {
   shell.openExternal(url)
 }
 
-export { openUrl }
+module.exports = { openUrl }

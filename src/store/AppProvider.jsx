@@ -2,7 +2,12 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ms from 'ms'
 import { Provider } from './createContext'
-import { accounts, refreshInterval, oceanTokenContract } from '../../config'
+import {
+  accounts,
+  refreshInterval,
+  oceanTokenContract,
+  prices
+} from '../../config'
 
 export default class AppProvider extends PureComponent {
   static propTypes = {
@@ -12,11 +17,15 @@ export default class AppProvider extends PureComponent {
   state = {
     accounts: [],
     currency: 'ocean',
+    prices: Object.assign(...prices.map(key => ({ [key]: 0 }))),
     toggleCurrencies: currency => this.setState({ currency })
   }
 
-  componentDidMount() {
-    this.setBalances()
+  async componentDidMount() {
+    await this.fetchAndSetPrices()
+    await this.setBalances()
+
+    setInterval(this.fetchAndSetPrices, ms(refreshInterval))
     setInterval(this.setBalances, ms(refreshInterval))
   }
 
@@ -54,13 +63,19 @@ export default class AppProvider extends PureComponent {
     return balance
   }
 
-  fetchPrice = async () => {
+  fetchAndSetPrices = async () => {
+    const currencies = prices.join(',')
     const json = await this.fetch(
-      'https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=btc,eth,usd,eur'
+      `https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=${currencies}`
     )
 
-    const { btc, eth, usd, eur } = json['ocean-protocol']
-    return { btc, eth, usd, eur }
+    await this.setState({
+      prices: Object.assign(
+        ...prices.map(key => ({
+          [key]: json['ocean-protocol'][key]
+        }))
+      )
+    })
   }
 
   setBalances = async () => {
@@ -68,23 +83,24 @@ export default class AppProvider extends PureComponent {
     // when they are changed instead of resetting all to 0 here
     this.clearAccounts()
 
-    const { btc, eth, usd, eur } = await this.fetchPrice()
-
     accounts.map(async account => {
       const oceanBalance = await this.fetchBalance(account)
+
+      const conversions = Object.assign(
+        ...prices.map(key => ({
+          [key]: oceanBalance * this.state.prices[key] || 0
+        }))
+      )
 
       const newAccount = {
         address: account,
         balance: {
           ocean: oceanBalance || 0,
-          btc: oceanBalance * btc || 0,
-          eth: oceanBalance * eth || 0,
-          eur: oceanBalance * eur || 0,
-          usd: oceanBalance * usd || 0
+          ...conversions
         }
       }
 
-      this.setState(prevState => ({
+      await this.setState(prevState => ({
         accounts: [...prevState.accounts, newAccount]
       }))
     })
