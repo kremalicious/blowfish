@@ -2,6 +2,7 @@
     justify-content: center;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    transition: opacity 1s ease-out;
 }
 
 .ticker .number-unit {

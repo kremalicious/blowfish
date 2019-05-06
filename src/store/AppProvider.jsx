@@ -25,10 +25,11 @@ export default class AppProvider extends PureComponent {
   async componentDidMount() {
     await this.fetchAndSetPrices()
     await this.setBalances()
-    this.setState({ isLoading: false })
 
-    setInterval(this.fetchAndSetPrices, ms(refreshInterval))
-    setInterval(this.setBalances, ms(refreshInterval))
+    await setInterval(this.fetchAndSetPrices, ms(refreshInterval))
+    await setInterval(this.setBalances, ms(refreshInterval))
+
+    this.setState({ isLoading: false })
   }
 
   componentWillUnmount() {

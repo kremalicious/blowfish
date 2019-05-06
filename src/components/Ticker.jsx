@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react'
 import { Consumer } from '../store/createContext'
-import { userlocale } from '../util/moneyFormatter'
+import { locale } from '../util/moneyFormatter'
 import { formatCurrency } from '@coingecko/cryptoformat'
 import './Ticker.css'
 
 export default class Ticker extends PureComponent {
   render() {
     return (
-      <footer className="number-unit-wrap ticker">
+      <footer className="number-unit-wrap ticker" {...this.props}>
         <Consumer>
           {({ toggleCurrencies, currency, prices }) => (
             <>
@@ -18,7 +18,7 @@ export default class Ticker extends PureComponent {
                       'active'}`}
                     onClick={() => toggleCurrencies(key)}
                   >
-                    {formatCurrency(prices[key], key.toUpperCase(), userlocale)
+                    {formatCurrency(prices[key], key.toUpperCase(), locale)
                       .replace(/BTC/, 'Ƀ')
                       .replace(/ETH/, 'Ξ')
                       .replace(/OCEAN/, 'Ọ')}

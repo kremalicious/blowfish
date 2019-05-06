@@ -22,25 +22,27 @@ export default class App extends PureComponent {
         <Titlebar />
         <div className="app__content">
           <Consumer>
-            {({ isLoading, accounts }) =>
-              isLoading ? (
-                <Spinner />
-              ) : (
-                <>
-                  <main className="main">
-                    <Total />
+            {({ isLoading, accounts }) => (
+              <>
+                <main className="main">
+                  {isLoading ? (
+                    <Spinner />
+                  ) : (
+                    <>
+                      <Total />
 
-                    <div className="number-unit-wrap number-unit-wrap--accounts">
-                      {accounts.map((account, i) => (
-                        <Account key={i} account={account} />
-                      ))}
-                    </div>
-                  </main>
+                      <div className="number-unit-wrap number-unit-wrap--accounts">
+                        {accounts.map((account, i) => (
+                          <Account key={i} account={account} />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </main>
 
-                  <Ticker />
-                </>
-              )
-            }
+                <Ticker style={isLoading ? { opacity: 0 } : null} />
+              </>
+            )}
           </Consumer>
         </div>
       </AppProvider>

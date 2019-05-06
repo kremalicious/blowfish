@@ -1,6 +1,8 @@
 .spinner {
     position: relative;
     text-align: center;
+    margin: auto;
+    width: 100%;
 }
 
 .spinner::before {
