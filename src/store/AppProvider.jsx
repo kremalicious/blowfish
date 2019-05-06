@@ -77,8 +77,8 @@ export default class AppProvider extends PureComponent {
         address: account,
         balance: {
           ocean: oceanBalance || 0,
-          eur: oceanBalance / eur || 0,
-          usd: oceanBalance / usd || 0
+          eur: oceanBalance * eur || 0,
+          usd: oceanBalance * usd || 0
         }
       }
 
