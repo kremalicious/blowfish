@@ -7,11 +7,17 @@ export default class Actions extends PureComponent {
     return (
       <div className="actions">
         <Consumer>
-          {({ toggleCurrencies }) => (
+          {({ toggleCurrencies, accounts }) => (
             <>
-              <button onClick={() => toggleCurrencies('ocean')}>OCEAN</button>
-              <button onClick={() => toggleCurrencies('eur')}>EUR</button>
-              <button onClick={() => toggleCurrencies('usd')}>USD</button>
+              {accounts.length > 0 &&
+                Object.keys(accounts[0].balance).map(currency => (
+                  <button
+                    key={currency}
+                    onClick={() => toggleCurrencies(currency)}
+                  >
+                    {currency}
+                  </button>
+                ))}
             </>
           )}
         </Consumer>

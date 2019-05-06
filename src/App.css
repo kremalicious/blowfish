@@ -115,12 +115,25 @@ button {
     padding-right: 2%;
 }
 
+.label {
+    color: #8b98a9;
+    font-size: .85rem;
+    display: block;
+    white-space: nowrap;
+    margin-top: .3rem;
+    transition: color .2s ease-out;
+}
+
+.number-unit:hover .label {
+    color: #f6388a;
+}
+
 .number {
     margin: 0;
     transition: .15s ease-out;
     font-weight: 400;
     -webkit-app-region: no-drag;
-    -webkit-user-select: auto;
+    -webkit-user-select: text;
     font-size: 1rem;
     display: inline-block;
     padding: 0 .3rem;
@@ -132,14 +145,6 @@ button {
     animation: updated .5s ease-out forwards;
 }
 
-.label {
-    color: #8b98a9;
-    font-size: .85rem;
-    display: block;
-    white-space: nowrap;
-    margin-top: .3rem;
-}
-
 .number-unit-wrap--accounts {
     min-height: 55px;
 }
@@ -147,6 +152,10 @@ button {
 .number-unit--main {
     padding-bottom: 5%;
     border-bottom: 1px solid #e2e2e2;
+}
+
+.number-unit--main:hover .label {
+    color: #8b98a9;
 }
 
 .dark .number-unit--main {

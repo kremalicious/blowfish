@@ -18,7 +18,7 @@ const height = 380
 
 const isDarkMode = systemPreferences.isDarkMode()
 
-const createWindow = () => {
+const createWindow = async () => {
   mainWindow = new BrowserWindow({
     width: width,
     height: height,
@@ -47,13 +47,12 @@ const createWindow = () => {
       REACT_DEVELOPER_TOOLS
     } = require('electron-devtools-installer')
 
-    installExtension(REACT_DEVELOPER_TOOLS)
-      .then(name => {
-        console.log(`Added Extension: ${name}`) // eslint-disable-line no-console
-      })
-      .catch(err => {
-        console.log('An error occurred: ', err) // eslint-disable-line no-console
-      })
+    try {
+      const name = await installExtension(REACT_DEVELOPER_TOOLS)
+      console.log(`Added Extension: ${name}`) // eslint-disable-line no-console
+    } catch (error) {
+      console.log('An error occurred: ', error) // eslint-disable-line no-console
+    }
   }
 
   mainWindow.once('ready-to-show', () => {

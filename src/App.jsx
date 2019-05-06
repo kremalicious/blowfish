@@ -21,7 +21,6 @@ export default class App extends PureComponent {
         <Titlebar />
         <div className="app__content">
           <main className="main">
-            <Actions />
             <Total />
 
             <div className="number-unit-wrap number-unit-wrap--accounts">
@@ -33,6 +32,8 @@ export default class App extends PureComponent {
                 }
               </Consumer>
             </div>
+
+            <Actions />
           </main>
         </div>
       </AppProvider>

@@ -56,11 +56,11 @@ export default class AppProvider extends PureComponent {
 
   fetchPrice = async () => {
     const json = await this.fetch(
-      'https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=usd,eur'
+      'https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=btc,eth,usd,eur'
     )
 
-    const { usd, eur } = json['ocean-protocol']
-    return { usd, eur }
+    const { btc, eth, usd, eur } = json['ocean-protocol']
+    return { btc, eth, usd, eur }
   }
 
   setBalances = async () => {
@@ -68,7 +68,7 @@ export default class AppProvider extends PureComponent {
     // when they are changed instead of resetting all to 0 here
     this.clearAccounts()
 
-    const { usd, eur } = await this.fetchPrice()
+    const { btc, eth, usd, eur } = await this.fetchPrice()
 
     accounts.map(async account => {
       const oceanBalance = await this.fetchBalance(account)
@@ -77,6 +77,8 @@ export default class AppProvider extends PureComponent {
         address: account,
         balance: {
           ocean: oceanBalance || 0,
+          btc: oceanBalance * btc || 0,
+          eth: oceanBalance * eth || 0,
           eur: oceanBalance * eur || 0,
           usd: oceanBalance * usd || 0
         }

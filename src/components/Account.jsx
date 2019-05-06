@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { openUrl } from '../util/openUrl'
 import Balance from './Balance'
 
 export default class Account extends PureComponent {
@@ -19,12 +20,16 @@ export default class Account extends PureComponent {
     const { balance, address } = account
 
     return (
-      <div className="number-unit">
+      <a
+        onClick={() =>
+          openUrl(`https://etherscan.io/address/${address}#tokentxns`)
+        }
+        title="Click to view on Etherscan"
+        className="number-unit"
+      >
         <Balance balance={balance} />
-        <span className="label" title={address}>
-          {address.substring(0, 12)}...
-        </span>
-      </div>
+        <span className="label">{address.substring(0, 12)}...</span>
+      </a>
     )
   }
 }

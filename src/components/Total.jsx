@@ -23,11 +23,15 @@ const Total = () => (
     <Consumer>
       {({ accounts }) => {
         const totalOcean = calculateTotalBalance(accounts, 'ocean')
+        const totalBtc = calculateTotalBalance(accounts, 'btc')
+        const totalEth = calculateTotalBalance(accounts, 'eth')
         const totalEur = calculateTotalBalance(accounts, 'eur')
         const totalUsd = calculateTotalBalance(accounts, 'usd')
 
         const balance = {
           ocean: totalOcean,
+          btc: totalBtc,
+          eth: totalEth,
           eur: totalEur,
           usd: totalUsd
         }

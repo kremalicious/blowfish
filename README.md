@@ -5,11 +5,20 @@
 
 ---
 
+- [Features](#features)
 - [Usage](#usage)
 - [Build packages](#build-packages)
-- [Data Sources](#data-sources)
 
 ---
+
+## Features
+
+- show Ocean Token balances from a list of Ethereum account addresses
+- show a total balance of all account balances
+- convert those balances against multiple currencies
+- re-fetches everything automatically every minute
+- balances are fetched via etherscan.io API
+- spot prices are fetched from coingecko.com API
 
 ## Usage
 
@@ -42,8 +51,3 @@ On a Mac and Linux machine, packaging requires [`wine`](https://www.winehq.org) 
 ```bash
 brew install wine
 ```
-
-## Data Sources
-
-- balances are checked via etherscan.io API
-- spot prices are fetched from coingecko.com API
