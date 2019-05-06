@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@oceanprotocol/typographies": "^0.1.0",
+    "crypto-symbols": "^1.0.0",
     "ms": "^2.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"

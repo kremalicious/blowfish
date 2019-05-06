@@ -37,7 +37,7 @@ const Total = () => (
         return <Balance balance={balanceNew} />
       }}
     </Consumer>
-    <span className="label">Total balance</span>
+    <span className="label">Total Balance</span>
   </div>
 )
 
