@@ -13,8 +13,8 @@ if (
   isDev = true
 }
 
-const width = 550
-const height = 380
+const width = 620
+const height = 440
 
 const isDarkMode = systemPreferences.isDarkMode()
 
@@ -30,6 +30,8 @@ const createWindow = async () => {
     backgroundColor: isDarkMode ? '#141414' : '#fff',
     frame: false,
     show: false,
+    title: 'Ocean',
+    scrollBounce: true,
     webPreferences: {
       nodeIntegration: true
     }

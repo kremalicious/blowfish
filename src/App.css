@@ -69,7 +69,6 @@ button {
     cursor: default;
     height: calc(100vh - 35px);
     transition: .15s ease-out;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,6 +91,7 @@ button {
     align-items: center;
     flex-wrap: wrap;
     position: relative;
+    animation: fadein .5s .5s ease-out;
 }
 
 .dark .main {
@@ -137,12 +137,12 @@ button {
     font-size: 1rem;
     display: inline-block;
     padding: 0 .3rem;
-    animation: fadein .5s ease-out forwards;
+    animation: fadeIn .5s ease-out;
     border-radius: 4px;
 }
 
 .updated {
-    animation: updated .5s ease-out forwards;
+    animation: updated .5s ease-out;
 }
 
 .number-unit-wrap--accounts {
@@ -176,17 +176,12 @@ button {
     }
 }
 
-@keyframes fadein {
+@keyframes fadeIn {
     0% {
         opacity: 0;
     }
 
-    50% {
-        background: rgba(255, 255, 255, .2);
-    }
-
     100% {
         opacity: 1;
-        background: rgba(255, 255, 255, 0);
     }
 }

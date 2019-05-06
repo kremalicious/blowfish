@@ -5,7 +5,8 @@ import { Consumer } from './store/createContext'
 import Titlebar from './components/Titlebar'
 import Total from './components/Total'
 import Account from './components/Account'
-import Actions from './components/Actions'
+import Ticker from './components/Ticker'
+import Spinner from './components/Spinner'
 import './App.css'
 
 //
@@ -20,21 +21,27 @@ export default class App extends PureComponent {
       <AppProvider>
         <Titlebar />
         <div className="app__content">
-          <main className="main">
-            <Total />
+          <Consumer>
+            {({ isLoading, accounts }) =>
+              isLoading ? (
+                <Spinner />
+              ) : (
+                <>
+                  <main className="main">
+                    <Total />
 
-            <div className="number-unit-wrap number-unit-wrap--accounts">
-              <Consumer>
-                {({ accounts }) =>
-                  accounts.map((account, i) => (
-                    <Account key={i} account={account} />
-                  ))
-                }
-              </Consumer>
-            </div>
+                    <div className="number-unit-wrap number-unit-wrap--accounts">
+                      {accounts.map((account, i) => (
+                        <Account key={i} account={account} />
+                      ))}
+                    </div>
+                  </main>
 
-            <Actions />
-          </main>
+                  <Ticker />
+                </>
+              )
+            }
+          </Consumer>
         </div>
       </AppProvider>
     )

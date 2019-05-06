@@ -15,6 +15,7 @@ export default class AppProvider extends PureComponent {
   }
 
   state = {
+    isLoading: true,
     accounts: [],
     currency: 'ocean',
     prices: Object.assign(...prices.map(key => ({ [key]: 0 }))),
@@ -24,6 +25,7 @@ export default class AppProvider extends PureComponent {
   async componentDidMount() {
     await this.fetchAndSetPrices()
     await this.setBalances()
+    this.setState({ isLoading: false })
 
     setInterval(this.fetchAndSetPrices, ms(refreshInterval))
     setInterval(this.setBalances, ms(refreshInterval))
@@ -72,6 +74,7 @@ export default class AppProvider extends PureComponent {
     await this.setState({
       prices: Object.assign(
         ...prices.map(key => ({
+          ocean: 1,
           [key]: json['ocean-protocol'][key]
         }))
       )

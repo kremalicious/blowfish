@@ -1,25 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Consumer } from '../store/createContext'
-import { numberFormatter, fiatFormatter } from '../util/moneyFormatter'
-import symbols from 'crypto-symbols'
+import { locale } from '../util/moneyFormatter'
+import { formatCurrency } from '@coingecko/cryptoformat'
 
 const Balance = ({ balance }) => (
   <h1 className="number">
     <Consumer>
-      {({ currency }) => {
-        const isFiat = currency === 'usd' || currency === 'eur'
-        const symbol =
-          currency === 'ocean' ? 'Ọ' : symbols[currency.toUpperCase()]
-
-        return isFiat ? (
-          fiatFormatter(currency.toUpperCase(), balance[currency])
-        ) : (
-          <>
-            {symbol} {numberFormatter(balance[currency]) || 0}
-          </>
-        )
-      }}
+      {({ currency }) =>
+        formatCurrency(balance[currency], currency.toUpperCase(), locale)
+          .replace(/BTC/, 'Ƀ')
+          .replace(/ETH/, 'Ξ')
+          .replace(/OCEAN/, 'Ọ')
+      }
     </Consumer>
   </h1>
 )

@@ -1,18 +1,9 @@
-const locale = navigator.language
+export const locale = navigator.language.split('-')[0]
+// export const locale = 'de'
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat
-const numberFormatter = number =>
+export const numberFormatter = number =>
   new Intl.NumberFormat(locale, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 4
   }).format(number)
-
-const fiatFormatter = (currency, number) =>
-  new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  }).format(number)
-
-export { numberFormatter, fiatFormatter }

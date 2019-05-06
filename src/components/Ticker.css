@@ -1,0 +1,49 @@
+.ticker {
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.ticker .number-unit {
+    flex: initial;
+    margin-top: 1rem;
+}
+
+.ticker button {
+    background: none;
+    border: 1px solid #e2e2e2;
+    box-shadow: none;
+    margin: 0;
+    outline: 0;
+    font-size: .8rem;
+    border-radius: .3rem;
+    padding: .2rem .4rem;
+    display: block;
+    transition: border .2s ease-out;
+}
+
+.dark .ticker button {
+    border-color: #303030;
+}
+
+.ticker button:hover {
+    border-color: #f6388a;
+    color: #f6388a;
+}
+
+.ticker button.active,
+.ticker button.active:hover {
+    border-color: #e2e2e2;
+    background: #f6388a;
+    color: #fff;
+}
+
+.dark .ticker button.active,
+.dark .ticker button.active:hover {
+    border-color: #303030;
+}
+
+.label--price {
+    display: inline-block;
+    font-size: .95rem;
+}
