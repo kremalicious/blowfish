@@ -102,6 +102,8 @@ const createWindow = async () => {
     mainWindow.setSize(width, height, true)
   })
 
+  switchTheme()
+
   // Load menubar menu items
   require('./menu.js')
 }

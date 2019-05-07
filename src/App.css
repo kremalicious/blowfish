@@ -1,9 +1,16 @@
 @import '../node_modules/@oceanprotocol/typographies/css/ocean-typo.css';
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
+    width: 100%;
     height: 100%;
     background: #fcfcfc !important;
 }
@@ -11,12 +18,6 @@ body {
 html.dark,
 .dark body {
     background: #141414 !important;
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
 }
 
 html {
@@ -64,11 +65,15 @@ button {
     font-weight: 600;
 }
 
-.app__content {
+.app {
     padding: 5% 7%;
     cursor: default;
     height: calc(100vh - 35px);
     transition: .15s ease-out;
+    width: 100%;
+}
+
+.app > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,112 +81,6 @@ button {
     width: 100%;
 }
 
-.fullscreen .app__content {
+.fullscreen .app {
     transform: translate3d(0, -36px, 0);
-}
-
-.main {
-    width: 100%;
-    padding: 5%;
-    background: #fff;
-    border-radius: 5px;
-    border: .1rem solid #e2e2e2;
-    min-height: 222px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    position: relative;
-    animation: fadein .5s .5s ease-out;
-}
-
-.dark .main {
-    background: #222;
-    border-color: #303030;
-}
-
-.number-unit-wrap {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    position: relative;
-}
-
-.number-unit {
-    text-align: center;
-    flex: 1 1 20%;
-    margin-top: 5%;
-    padding-left: 2%;
-    padding-right: 2%;
-}
-
-.label {
-    color: #8b98a9;
-    font-size: .85rem;
-    display: block;
-    white-space: nowrap;
-    margin-top: .3rem;
-    transition: color .2s ease-out;
-}
-
-.number-unit:hover .label {
-    color: #f6388a;
-}
-
-.number {
-    margin: 0;
-    transition: .15s ease-out;
-    font-weight: 400;
-    -webkit-app-region: no-drag;
-    -webkit-user-select: text;
-    font-size: 1rem;
-    display: inline-block;
-    padding: 0 .3rem;
-    animation: fadeIn .5s ease-out;
-    border-radius: 4px;
-}
-
-.updated {
-    animation: updated .5s ease-out;
-}
-
-.number-unit-wrap--accounts {
-    min-height: 55px;
-}
-
-.number-unit--main {
-    padding-bottom: 5%;
-    border-bottom: 1px solid #e2e2e2;
-}
-
-.number-unit--main:hover .label {
-    color: #8b98a9;
-}
-
-.dark .number-unit--main {
-    border-bottom-color: #303030;
-}
-
-.number-unit--main .number {
-    font-size: 2.5rem;
-}
-
-@keyframes updated {
-    0% {
-        background: rgba(255, 255, 255, .2);
-    }
-
-    100% {
-        background: rgba(255, 255, 255, 0);
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
 }

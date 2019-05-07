@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react'
+import {
+  Router,
+  createMemorySource,
+  createHistory,
+  LocationProvider
+} from '@reach/router'
 import { webFrame } from 'electron'
 import AppProvider from './store/AppProvider'
-import { Consumer } from './store/createContext'
 import Titlebar from './components/Titlebar'
-import Total from './components/Total'
-import Account from './components/Account'
-import Ticker from './components/Ticker'
-import Spinner from './components/Spinner'
+import Home from './screens/Home'
+import Preferences from './screens/Preferences'
 import './App.css'
 
 //
@@ -15,35 +18,22 @@ import './App.css'
 webFrame.setVisualZoomLevelLimits(1, 1)
 webFrame.setLayoutZoomLevelLimits(0, 0)
 
+// https://github.com/reach/router/issues/25
+const source = createMemorySource('/')
+const history = createHistory(source)
+
 export default class App extends PureComponent {
   render() {
     return (
       <AppProvider>
         <Titlebar />
-        <div className="app__content">
-          <Consumer>
-            {({ isLoading, accounts }) => (
-              <>
-                <main className="main">
-                  {isLoading ? (
-                    <Spinner />
-                  ) : (
-                    <>
-                      <Total />
-
-                      <div className="number-unit-wrap number-unit-wrap--accounts">
-                        {accounts.map((account, i) => (
-                          <Account key={i} account={account} />
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </main>
-
-                <Ticker style={isLoading ? { opacity: 0 } : null} />
-              </>
-            )}
-          </Consumer>
+        <div className="app">
+          <LocationProvider history={history}>
+            <Router>
+              <Home path="/" default />
+              <Preferences path="preferences" />
+            </Router>
+          </LocationProvider>
         </div>
       </AppProvider>
     )

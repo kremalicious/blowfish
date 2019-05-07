@@ -29,9 +29,6 @@ Clone, add adresses, and run:
 git clone git@github.com:kremalicious/ocean-balance.git
 cd ocean-balance
 
-# Add one or more Ethereum addresses to config file
-vi config.js
-
 # Install dependencies
 npm install
 # Run the app in dev mode
