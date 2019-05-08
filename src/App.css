@@ -76,7 +76,6 @@ button {
     overflow-y: auto;
 }
 
-.app,
 .app > div {
     display: flex;
     align-items: center;
