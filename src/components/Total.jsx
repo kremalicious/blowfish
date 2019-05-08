@@ -1,5 +1,5 @@
 import React from 'react'
-import { Consumer } from '../store/createContext'
+import { AppContext } from '../store/createContext'
 import Balance from './Balance'
 import { prices } from '../../config'
 
@@ -21,7 +21,7 @@ const calculateTotalBalance = (accounts, currency) => {
 
 const Total = () => (
   <div className="number-unit number-unit--main">
-    <Consumer>
+    <AppContext.Consumer>
       {({ accounts }) => {
         const conversions = Object.assign(
           ...prices.map(key => ({
@@ -36,7 +36,7 @@ const Total = () => (
 
         return <Balance balance={balanceNew} />
       }}
-    </Consumer>
+    </AppContext.Consumer>
     <span className="label">Total Balance</span>
   </div>
 )

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ms from 'ms'
 import Store from 'electron-store'
-import { Provider } from './createContext'
+import { AppContext } from './createContext'
 import { refreshInterval, prices, oceanTokenContract } from '../../config'
 
 export default class AppProvider extends PureComponent {
@@ -18,7 +18,8 @@ export default class AppProvider extends PureComponent {
     currency: 'ocean',
     needsConfig: false,
     prices: Object.assign(...prices.map(key => ({ [key]: 0 }))),
-    toggleCurrencies: currency => this.setState({ currency })
+    toggleCurrencies: currency => this.setState({ currency }),
+    setBalances: account => this.setBalances(account)
   }
 
   async componentDidMount() {
@@ -30,15 +31,6 @@ export default class AppProvider extends PureComponent {
     await setInterval(this.setBalances, ms(refreshInterval))
 
     this.setState({ isLoading: false })
-
-    // document.addEventListener('DOMContentLoaded', () => {
-    //   this.store.onDidChange('accounts', async (newValue, oldValue) => {
-    //     const { accounts } = await this.getAccounts()
-    //     await this.setBalances(accounts)
-
-    //     console.log('hello from setting window', newValue, oldValue)
-    //   })
-    // })
   }
 
   componentWillUnmount() {
@@ -138,6 +130,10 @@ export default class AppProvider extends PureComponent {
   }
 
   render() {
-    return <Provider value={this.state}>{this.props.children}</Provider>
+    return (
+      <AppContext.Provider value={this.state}>
+        {this.props.children}
+      </AppContext.Provider>
+    )
   }
 }

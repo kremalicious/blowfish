@@ -2,3 +2,88 @@
     text-align: left;
     width: 100%;
 }
+
+.preferences__title {
+    font-size: 3rem;
+    margin-top: 0;
+}
+
+.preference__list {
+    padding: 0;
+    border-top: 1px solid #e2e2e2;
+}
+
+.dark .preference__list {
+    border-top-color: #303030;
+}
+
+.preference__list li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e2e2;
+    padding-top: .3rem;
+    padding-bottom: .25rem;
+    font-family: monospace;
+}
+
+.dark .preference__list li {
+    border-bottom-color: #303030;
+}
+
+.preferences button {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    margin: 0;
+    outline: 0;
+    color: #f6388a;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+button.delete {
+    font-size: 2rem;
+    color: #8b98a9;
+    transition: color .5s ease-out;
+}
+
+button.delete:hover {
+    color: #f6388a;
+}
+
+.preference {
+    -webkit-app-region: none;
+    -webkit-user-select: text;
+}
+
+.preference__title {
+    font-size: 1.2rem;
+    color: #8b98a9;
+}
+
+.preference .identicon {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-top: -.2rem;
+    margin-right: .5rem;
+}
+
+.preference__input {
+    font-size: 1rem;
+    outline: 0;
+    background: none;
+    border: 0;
+    width: 80%;
+    color: #303030;
+    margin-top: .75rem;
+    margin-bottom: .75rem;
+    font-family: monospace;
+}
+
+.dark .preference__input {
+    color: #fff;
+}

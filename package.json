@@ -23,6 +23,7 @@
     "@reach/router": "^1.2.1",
     "ms": "^2.1.1",
     "react": "^16.8.6",
+    "react-blockies": "^1.4.1",
     "react-dom": "^16.8.6"
   },
   "devDependencies": {

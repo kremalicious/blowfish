@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Consumer } from '../store/createContext'
+import { AppContext } from '../store/createContext'
 import { locale } from '../util/moneyFormatter'
 import { formatCurrency } from '@coingecko/cryptoformat'
 import './Ticker.css'
@@ -8,7 +8,7 @@ export default class Ticker extends PureComponent {
   render() {
     return (
       <footer className="number-unit-wrap ticker" {...this.props}>
-        <Consumer>
+        <AppContext.Consumer>
           {({ toggleCurrencies, currency, prices }) => (
             <>
               {Object.keys(prices).map((key, i) => (
@@ -27,7 +27,7 @@ export default class Ticker extends PureComponent {
               ))}
             </>
           )}
-        </Consumer>
+        </AppContext.Consumer>
       </footer>
     )
   }
