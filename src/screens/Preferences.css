@@ -1,0 +1,106 @@
+.preferences {
+    text-align: left;
+    width: 100%;
+    margin: 5%;
+    position: relative;
+}
+
+.preferences__title {
+    font-size: 2rem;
+    margin-top: -1rem;
+    margin-bottom: 3rem;
+}
+
+.preferences__close {
+    text-decoration: none;
+    font-family: 'Sharp Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 2.5rem;
+    position: absolute;
+    top: -1.5rem;
+    right: 0;
+    color: #8b98a9;
+}
+
+.preferences__close:hover {
+    color: #f6388a;
+}
+
+.preference__list {
+    padding: 0;
+    border-top: 1px solid #e2e2e2;
+}
+
+.dark .preference__list {
+    border-top-color: #303030;
+}
+
+.preference__list li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e2e2;
+    padding-top: .3rem;
+    padding-bottom: .25rem;
+}
+
+.dark .preference__list li {
+    border-bottom-color: #303030;
+}
+
+.preferences button {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    margin: 0;
+    outline: 0;
+    color: #f6388a;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+button.delete {
+    font-size: 2rem;
+    color: #41474e;
+    transition: color .5s ease-out;
+}
+
+button.delete:hover {
+    color: #f6388a;
+}
+
+.preference {
+    -webkit-app-region: none;
+    -webkit-user-select: text;
+}
+
+.preference__title {
+    font-size: 1rem;
+    color: #8b98a9;
+}
+
+.preference .identicon {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-top: -.2rem;
+    margin-right: .5rem;
+}
+
+.preference__input {
+    font-size: 1rem;
+    outline: 0;
+    background: none;
+    border: 0;
+    width: 80%;
+    color: #303030;
+    margin-top: .75rem;
+    margin-bottom: .75rem;
+}
+
+.dark .preference__input {
+    color: #fff;
+}

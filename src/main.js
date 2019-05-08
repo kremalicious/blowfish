@@ -31,9 +31,9 @@ const createWindow = async () => {
     frame: false,
     show: false,
     title: 'Ocean',
-    scrollBounce: true,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      scrollBounce: true
     }
   })
 
@@ -101,6 +101,8 @@ const createWindow = async () => {
   mainWindow.webContents.on('devtools-closed', () => {
     mainWindow.setSize(width, height, true)
   })
+
+  switchTheme()
 
   // Load menubar menu items
   require('./menu.js')
