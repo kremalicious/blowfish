@@ -17,6 +17,23 @@
     border-color: #303030;
 }
 
+.preferences-link {
+    position: absolute;
+    right: 5%;
+    top: 1.5rem;
+}
+
+.preferences-link svg {
+    fill: #8b98a9;
+    transition: fill .2s ease-out;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.preferences-link:hover svg {
+    fill: #f6388a;
+}
+
 .number-unit-wrap {
     display: flex;
     width: 100%;

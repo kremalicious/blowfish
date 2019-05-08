@@ -31,9 +31,9 @@ const createWindow = async () => {
     frame: false,
     show: false,
     title: 'Ocean',
-    scrollBounce: true,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      scrollBounce: true
     }
   })
 

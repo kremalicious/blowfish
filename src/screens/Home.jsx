@@ -5,6 +5,7 @@ import Total from '../components/Total'
 import Account from '../components/Account'
 import Ticker from '../components/Ticker'
 import Spinner from '../components/Spinner'
+import IconCog from '../images/cog.svg'
 import './Home.css'
 
 export default class Home extends PureComponent {
@@ -15,8 +16,11 @@ export default class Home extends PureComponent {
 
     return (
       <>
-        <Link to="preferences">Preferences</Link>
         <main className="main">
+          <Link className="preferences-link" to="preferences">
+            <IconCog />
+          </Link>
+
           {needsConfig ? (
             'Needs config'
           ) : isLoading ? (

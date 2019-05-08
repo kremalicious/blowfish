@@ -1,11 +1,30 @@
 .preferences {
     text-align: left;
     width: 100%;
+    margin: 5%;
+    position: relative;
 }
 
 .preferences__title {
-    font-size: 3rem;
-    margin-top: 0;
+    font-size: 2rem;
+    margin-top: -1rem;
+    margin-bottom: 3rem;
+}
+
+.preferences__close {
+    text-decoration: none;
+    font-family: 'Sharp Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 2.5rem;
+    position: absolute;
+    top: -1.5rem;
+    right: 0;
+    color: #8b98a9;
+}
+
+.preferences__close:hover {
+    color: #f6388a;
 }
 
 .preference__list {
@@ -25,7 +44,6 @@
     border-bottom: 1px solid #e2e2e2;
     padding-top: .3rem;
     padding-bottom: .25rem;
-    font-family: monospace;
 }
 
 .dark .preference__list li {
@@ -45,7 +63,7 @@
 
 button.delete {
     font-size: 2rem;
-    color: #8b98a9;
+    color: #41474e;
     transition: color .5s ease-out;
 }
 
@@ -59,7 +77,7 @@ button.delete:hover {
 }
 
 .preference__title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #8b98a9;
 }
 
@@ -81,7 +99,6 @@ button.delete:hover {
     color: #303030;
     margin-top: .75rem;
     margin-bottom: .75rem;
-    font-family: monospace;
 }
 
 .dark .preference__input {

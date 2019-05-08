@@ -57,7 +57,9 @@ export default class Preferences extends PureComponent {
     return (
       <div className="preferences">
         <h1 className="preferences__title">Preferences</h1>{' '}
-        <Link to="/">Close</Link>
+        <Link className="preferences__close" title="Close Preferences" to="/">
+          &times;
+        </Link>
         <div className="preference">
           <h2 className="preference__title">Accounts</h2>
           <ul className="preference__list">
