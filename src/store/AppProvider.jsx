@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ms from 'ms'
 import Store from 'electron-store'
 import { AppContext } from './createContext'
+import fetchData from '../util/fetch'
 import { refreshInterval, prices, oceanTokenContract } from '../../config'
 
 export default class AppProvider extends PureComponent {
@@ -19,22 +20,17 @@ export default class AppProvider extends PureComponent {
     needsConfig: false,
     prices: Object.assign(...prices.map(key => ({ [key]: 0 }))),
     toggleCurrencies: currency => this.setState({ currency }),
-    setBalances: account => this.setBalances(account)
+    setBalances: () => this.setBalances()
   }
 
   async componentDidMount() {
-    const { accountsPref } = await this.getAccounts()
     await this.fetchAndSetPrices()
-    await this.setBalances(accountsPref)
+    await this.setBalances()
 
-    await setInterval(this.fetchAndSetPrices, ms(refreshInterval))
-    await setInterval(this.setBalances, ms(refreshInterval))
+    setInterval(this.fetchAndSetPrices, ms(refreshInterval))
+    setInterval(this.setBalances, ms(refreshInterval))
 
     this.setState({ isLoading: false })
-  }
-
-  componentWillUnmount() {
-    this.clearAccounts()
   }
 
   getAccounts() {
@@ -50,64 +46,41 @@ export default class AppProvider extends PureComponent {
       accountsPref = []
     }
 
-    return { accountsPref }
+    return accountsPref
   }
 
-  clearAccounts() {
-    this.setState({ accounts: [] })
-  }
-
-  async fetch(url) {
-    try {
-      const response = await fetch(url)
-
-      if (response.status !== 200) {
-        return console.log('Non-200 response: ' + response.status) // eslint-disable-line
-      }
-
-      const json = await response.json()
-      if (!json) return
-
-      return json
-    } catch (error) {
-      console.log('Error parsing json:' + error) // eslint-disable-line
-    }
-  }
-
-  async fetchBalance(account) {
-    const json = await this.fetch(
+  async getBalance(account) {
+    const json = await fetchData(
       `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${oceanTokenContract}&address=${account}&tag=latest`
     )
 
-    const balance = (json.result /= 1000000000000000000) // Convert from wei 10^18
+    const balance = (json.result /= 1000000000000000000) // Convert from vodka 10^18
     return balance
   }
 
-  async fetchAndSetPrices() {
+  fetchAndSetPrices = async () => {
     const currencies = prices.join(',')
-    const json = await this.fetch(
+    const json = await fetchData(
       `https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=${currencies}`
     )
 
-    await this.setState({
-      prices: Object.assign(
-        ...prices.map(key => ({
-          ocean: 1,
-          [key]: json['ocean-protocol'][key]
-        }))
-      )
-    })
+    const newPrizes = Object.assign(
+      ...prices.map(key => ({
+        ocean: 1,
+        [key]: json['ocean-protocol'][key]
+      }))
+    )
+
+    this.setState({ prices: newPrizes })
   }
 
-  setBalances(accounts) {
-    // TODO: make this less lazy and update numbers in place
-    // when they are changed instead of resetting all to 0 here
-    this.clearAccounts()
+  setBalances = async () => {
+    const accountsPref = await this.getAccounts()
 
-    const accountsArray = accounts ? accounts : this.state.accounts
+    let newAccounts = []
 
-    accountsArray.map(async account => {
-      const oceanBalance = await this.fetchBalance(account)
+    for (const account of accountsPref) {
+      const oceanBalance = await this.getBalance(account)
 
       const conversions = Object.assign(
         ...prices.map(key => ({
@@ -118,15 +91,17 @@ export default class AppProvider extends PureComponent {
       const newAccount = {
         address: account,
         balance: {
-          ocean: oceanBalance || 0,
+          ocean: oceanBalance,
           ...conversions
         }
       }
 
-      await this.setState(prevState => ({
-        accounts: [...prevState.accounts, newAccount]
-      }))
-    })
+      newAccounts.push(newAccount)
+    }
+
+    if (newAccounts !== this.state.accounts) {
+      this.setState({ accounts: newAccounts })
+    }
   }
 
   render() {

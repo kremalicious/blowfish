@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { AppContext } from '../store/createContext'
 import Balance from './Balance'
 import { prices } from '../../config'
@@ -19,26 +19,26 @@ const calculateTotalBalance = (accounts, currency) => {
   return balanceTotal
 }
 
-const Total = () => (
-  <div className="number-unit number-unit--main">
-    <AppContext.Consumer>
-      {({ accounts }) => {
-        const conversions = Object.assign(
-          ...prices.map(key => ({
-            [key]: calculateTotalBalance(accounts, key)
-          }))
-        )
+export default class Total extends PureComponent {
+  static contextType = AppContext
 
-        const balanceNew = {
-          ocean: calculateTotalBalance(accounts, 'ocean'),
-          ...conversions
-        }
+  render() {
+    const conversions = Object.assign(
+      ...prices.map(key => ({
+        [key]: calculateTotalBalance(this.context.accounts, key)
+      }))
+    )
 
-        return <Balance balance={balanceNew} />
-      }}
-    </AppContext.Consumer>
-    <span className="label">Total Balance</span>
-  </div>
-)
+    const balanceNew = {
+      ocean: calculateTotalBalance(this.context.accounts, 'ocean'),
+      ...conversions
+    }
 
-export default Total
+    return (
+      <div className="number-unit number-unit--main">
+        <Balance balance={balanceNew} />
+        <span className="label">Total Balance</span>
+      </div>
+    )
+  }
+}

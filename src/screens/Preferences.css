@@ -7,17 +7,14 @@
 }
 
 .preferences__title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-top: -1rem;
     margin-bottom: 3rem;
 }
 
 .preferences__close {
     text-decoration: none;
-    font-family: 'Sharp Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-        Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    font-size: 2.5rem;
+    font-size: 2rem;
     position: absolute;
     top: -1.5rem;
     right: 0;
@@ -37,13 +34,17 @@
     border-top-color: #303030;
 }
 
-.preference__list li {
-    list-style: none;
+.preference__list li,
+.preference__list li > div {
     display: flex;
     align-items: center;
+}
+
+.preference__list li {
+    list-style: none;
     justify-content: space-between;
     border-bottom: 1px solid #e2e2e2;
-    padding-top: .3rem;
+    padding-top: .25rem;
     padding-bottom: .25rem;
 }
 
@@ -56,14 +57,16 @@
     border: 0;
     box-shadow: none;
     margin: 0;
+    padding: 0;
     outline: 0;
     color: #f6388a;
     font-size: 1rem;
-    text-transform: uppercase;
 }
 
 button.delete {
+    position: relative;
     font-size: 2rem;
+    top: -.2rem;
     color: #41474e;
     transition: color .5s ease-out;
 }
@@ -77,18 +80,27 @@ button.delete:hover {
     -webkit-user-select: text;
 }
 
+.preference__title,
+.preference__help {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+
 .preference__title {
-    font-size: 1rem;
+    font-size: 1.2rem;
+}
+
+.preference__help {
     color: #8b98a9;
+    margin-left: .5rem;
 }
 
 .preference .identicon {
     width: 1.5rem !important;
     height: 1.5rem !important;
     border-radius: 50%;
-    vertical-align: middle;
-    margin-top: -.2rem;
-    margin-right: .5rem;
+    margin-right: .75rem;
 }
 
 .preference__input {
@@ -104,4 +116,8 @@ button.delete:hover {
 
 .dark .preference__input {
     color: #fff;
+}
+
+.preference__error {
+    font-size: .9rem;
 }
