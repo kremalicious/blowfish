@@ -28,6 +28,7 @@ html.fullscreen {
 }
 
 #root {
+    height: 100%;
     position: relative;
     font-size: 1rem;
     line-height: 1.3;
