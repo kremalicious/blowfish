@@ -1,21 +1,11 @@
 .main {
-    width: 100%;
     margin-top: 7vh;
-    padding: 5%;
-    background: #fff;
-    border-radius: 5px;
-    border: .1rem solid #e2e2e2;
     min-height: 222px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     position: relative;
     animation: fadein .5s .5s ease-out;
-}
-
-.dark .main {
-    background: #222;
-    border-color: #303030;
 }
 
 .preferences-link {
@@ -26,13 +16,22 @@
 
 .preferences-link svg {
     fill: #8b98a9;
-    transition: fill .2s ease-out;
+    transition: .2s ease-out;
     width: 1.25rem;
     height: 1.25rem;
 }
 
 .preferences-link:hover svg {
-    fill: #f6388a;
+    fill: #41474e;
+}
+
+.dark .preferences-link svg {
+    fill: #8b98a9;
+    opacity: .5;
+}
+
+.dark .preferences-link:hover svg {
+    opacity: 1;
 }
 
 .number-unit-wrap {
@@ -60,7 +59,7 @@
     transition: color .2s ease-out;
 }
 
-.number-unit:hover .label {
+.number-unit:not(.number-unit--main) .label:not(:disabled):hover {
     color: #f6388a;
 }
 
@@ -71,10 +70,6 @@
 .number-unit--main {
     padding-bottom: 5%;
     border-bottom: 1px solid #e2e2e2;
-}
-
-.number-unit--main:hover .label {
-    color: #8b98a9;
 }
 
 .dark .number-unit--main {

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Link } from '@reach/router'
 import { AppContext } from '../store/createContext'
+import Welcome from '../components/Welcome'
 import Total from '../components/Total'
 import Account from '../components/Account'
 import Ticker from '../components/Ticker'
@@ -16,13 +17,13 @@ export default class Home extends PureComponent {
 
     return (
       <>
-        <main className="main">
+        <main className="main box">
           <Link className="preferences-link" to="preferences">
             <IconCog />
           </Link>
 
           {needsConfig ? (
-            'Needs config'
+            <Welcome />
           ) : isLoading ? (
             <Spinner />
           ) : (

@@ -44,6 +44,7 @@ export default class AppProvider extends PureComponent {
         : this.setState({ needsConfig: false })
     } else {
       accountsPref = []
+      this.setState({ needsConfig: true })
     }
 
     return accountsPref

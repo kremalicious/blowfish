@@ -58,6 +58,15 @@ h5 {
     font-weight: 700;
 }
 
+a {
+    color: #f6388a;
+    text-decoration: none;
+}
+
+a h1 {
+    color: unset;
+}
+
 .app {
     margin-top: 35px;
     padding: 5% 7%;
@@ -78,4 +87,18 @@ h5 {
 
 .fullscreen .app {
     transform: translate3d(0, -36px, 0);
+}
+
+.box {
+    width: 100%;
+    padding: 5%;
+    background: #fff;
+    border-radius: 5px;
+    border: .1rem solid #e2e2e2;
+    animation: fadein .5s .5s ease-out;
+}
+
+.dark .box {
+    background: #222;
+    border-color: #303030;
 }

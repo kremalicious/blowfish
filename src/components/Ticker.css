@@ -21,13 +21,18 @@
     padding: .2rem .4rem;
     display: block;
     transition: border .2s ease-out;
+    color: #8b98a9;
+}
+
+.ticker button:disabled {
+    pointer-events: none;
 }
 
 .dark .ticker button {
     border-color: #303030;
 }
 
-.ticker button:hover {
+.ticker button:not(:disabled):hover {
     border-color: #f6388a;
     color: #f6388a;
 }

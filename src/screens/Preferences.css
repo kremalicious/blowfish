@@ -1,15 +1,14 @@
 .preferences {
     text-align: left;
     width: 100%;
-    margin: 5%;
-    margin-top: calc(7vh + 5%);
+    margin-top: 7vh;
     position: relative;
 }
 
 .preferences__title {
     font-size: 2.2rem;
     margin-top: -1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .preferences__close {

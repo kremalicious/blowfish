@@ -75,7 +75,7 @@ export default class Preferences extends PureComponent {
         <Link className="preferences__close" title="Close Preferences" to="/">
           &times;
         </Link>
-        <div className="preference">
+        <div className="preference box">
           <h2 className="preference__title">Accounts</h2>
           <p className="preference__help">
             Add Ethereum account addresses holding Ocean Tokens.

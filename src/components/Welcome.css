@@ -1,0 +1,17 @@
+.welcome {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.welcome svg {
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto 2rem auto;
+    fill: #e2e2e2;
+}
+
+.dark .welcome svg {
+    fill: #41474e;
+}

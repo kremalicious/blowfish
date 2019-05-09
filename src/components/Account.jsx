@@ -16,16 +16,18 @@ export default class Account extends PureComponent {
     const { balance, address } = account
 
     return (
-      <a
-        onClick={() =>
-          openUrl(`https://etherscan.io/address/${address}#tokentxns`)
-        }
-        title="Click to view on Etherscan"
-        className="number-unit"
-      >
+      <div className="number-unit">
         <Balance balance={balance} />
-        <span className="label">{address.substring(0, 12)}...</span>
-      </a>
+        <a
+          className="label"
+          onClick={() =>
+            openUrl(`https://etherscan.io/address/${address}#tokentxns`)
+          }
+          title="Click to view on Etherscan"
+        >
+          {address.substring(0, 12)}&hellip;
+        </a>
+      </div>
     )
   }
 }
