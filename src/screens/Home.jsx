@@ -18,7 +18,7 @@ export default class Home extends PureComponent {
     return (
       <>
         <main className="main box">
-          <Link className="preferences-link" to="preferences">
+          <Link className="preferences-link" to="/preferences">
             <IconCog />
           </Link>
 
