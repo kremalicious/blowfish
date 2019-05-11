@@ -15,7 +15,7 @@ export const defaultAnimation = {
 export const fadeIn = {
   enter: {
     opacity: 1,
-    transition: { duration: 600 }
+    transition: { duration: 500 }
   },
   exit: {
     opacity: 0,

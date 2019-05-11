@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import { AppContext } from '../store/createContext'
 import { locale } from '../util/moneyFormatter'
 import { formatCurrency } from '@coingecko/cryptoformat'
-import SplitText from 'react-pose-text'
+import posed, { PoseGroup } from 'react-pose'
 import './Balance.css'
-import { characterAnimation } from './Animations'
+import { fadeIn } from './Animations'
+
+const Animation = posed.h1(fadeIn)
 
 export default class Balance extends PureComponent {
   static contextType = AppContext
@@ -19,18 +21,14 @@ export default class Balance extends PureComponent {
     const { balance } = this.props
 
     return (
-      <h1 className="number">
-        <SplitText
-          initialPose="exit"
-          pose="enter"
-          charPoses={characterAnimation}
-        >
+      <PoseGroup animateOnMount>
+        <Animation key={currency} className="number">
           {formatCurrency(balance[currency], currency.toUpperCase(), locale)
             .replace(/BTC/, 'Ƀ')
             .replace(/ETH/, 'Ξ')
             .replace(/OCEAN/, 'Ọ')}
-        </SplitText>
-      </h1>
+        </Animation>
+      </PoseGroup>
     )
   }
 }

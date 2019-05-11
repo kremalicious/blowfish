@@ -19,15 +19,13 @@
   "license": "MIT",
   "dependencies": {
     "@coingecko/cryptoformat": "^0.3.1",
-    "@oceanprotocol/typographies": "^0.1.0",
     "@reach/router": "^1.2.1",
     "ethereum-address": "0.0.4",
     "ms": "^2.1.1",
     "react": "^16.8.6",
     "react-blockies": "^1.4.1",
     "react-dom": "^16.8.6",
-    "react-pose": "^4.0.8",
-    "react-pose-text": "^3.1.0"
+    "react-pose": "^4.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -55,7 +53,7 @@
     "style-loader": "^0.23.1",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
-    "webpack": "^4.30.0",
+    "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1"
   }
