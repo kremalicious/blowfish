@@ -5,10 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const defaultInclude = [path.resolve(__dirname, 'src')]
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src') + '/index.js',
+  entry: path.resolve(__dirname, 'src') + '/app/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.js',
+    publicPath: './'
   },
   module: {
     rules: [

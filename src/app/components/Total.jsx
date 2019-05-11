@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { AppContext } from '../store/createContext'
 import Balance from './Balance'
-import { prices } from '../../config'
+import { prices } from '../config'
 
 const calculateTotalBalance = (accounts, currency) => {
   const balanceTotalArray = []

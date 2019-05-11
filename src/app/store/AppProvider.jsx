@@ -4,7 +4,7 @@ import ms from 'ms'
 import Store from 'electron-store'
 import { AppContext } from './createContext'
 import fetchData from '../util/fetch'
-import { refreshInterval, prices, oceanTokenContract } from '../../config'
+import { refreshInterval, prices, oceanTokenContract } from '../config'
 
 export default class AppProvider extends PureComponent {
   static propTypes = {

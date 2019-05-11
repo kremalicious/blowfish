@@ -40,7 +40,7 @@ const createWindow = async () => {
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:8080'
-      : `file://${path.join(__dirname, '../dist/index.html')}`
+      : `file://${path.join(__dirname, '../build/index.html')}`
   )
 
   if (isDev) {

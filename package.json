@@ -7,12 +7,13 @@
   "scripts": {
     "test": "eslint ./src/**/*.{js,jsx} && stylelint ./src/**/*.css",
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
-    "build": "webpack --config webpack.build.config.js && npm run package",
-    "package": "npm run package:mac && npm run package:win && npm run package:linux && open ./builds",
-    "package:mac": "electron-packager . --overwrite --asar --platform=darwin --arch=x64 --icon=src/images/icon.icns --prune --out=./builds",
-    "package:linux": "electron-packager . --overwrite --asar --platform=linux --arch=x64 --icon=src/images/iconset/icon1024.png --prune --out=./builds",
-    "package:win": "electron-packager . --overwrite --asar --platform=win32 --arch=ia32 --icon=src/images/icon.ico --prune --out=./builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Ocean\"",
-    "create-installer-mac": "electron-installer-dmg ./builds/Ocean-darwin-x64/Ocean.app Ocean --out=./builds --overwrite --icon=src/images/icon.icns"
+    "build": "webpack --mode production --config webpack.common.config.js",
+    "package": "npm-run-all --parallel package:mac package:win package:linux && open ./dist",
+    "package:mac": "electron-packager . --overwrite --asar --platform=darwin --arch=x64 --icon=src/app/images/icon.icns --prune --out=./dist",
+    "package:linux": "electron-packager . --overwrite --asar --platform=linux --arch=x64 --icon=src/app/images/iconset/icon1024.png --prune --out=./dist",
+    "package:win": "electron-packager . --overwrite --asar --platform=win32 --arch=ia32 --icon=src/app/images/icon.ico --prune --out=./dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Ocean\"",
+    "create-installer-mac": "electron-installer-dmg ./dist/Ocean-darwin-x64/Ocean.app Ocean --out=./dist --overwrite --icon=src/app/images/icon.icns",
+    "dist": "npm run build && npm run package"
   },
   "repository": "https://github.com/kremalicious/ocean-balance.git",
   "author": "Matthias Kretschmann",
@@ -48,6 +49,7 @@
     "eslint-plugin-react": "^7.13.0",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.17.0",
     "prettier-stylelint": "^0.4.2",
     "style-loader": "^0.23.1",

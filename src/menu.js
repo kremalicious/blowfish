@@ -1,5 +1,5 @@
 const { app, Menu } = require('electron')
-const { openUrl } = require('./util/openUrl')
+const { openUrl } = require('./app/util/openUrl')
 
 const template = [
   {
