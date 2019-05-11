@@ -8,6 +8,7 @@ import Titlebar from './components/Titlebar'
 import Home from './screens/Home'
 import Preferences from './screens/Preferences'
 import './App.css'
+import { defaultAnimation } from './components/Animations'
 
 //
 // Disable zooming
@@ -15,30 +16,12 @@ import './App.css'
 webFrame.setVisualZoomLevelLimits(1, 1)
 webFrame.setLayoutZoomLevelLimits(0, 0)
 
-const Animation = posed.div({
-  enter: {
-    y: 0,
-    opacity: 1,
-    delay: 100,
-    transition: {
-      type: 'spring',
-      stiffness: 500,
-      damping: 25,
-      restDelta: 0.5,
-      restSpeed: 10
-    }
-  },
-  exit: {
-    y: 50,
-    opacity: 0,
-    transition: { duration: 150 }
-  }
-})
+const Animation = posed.div(defaultAnimation)
 
 const PosedRouter = ({ children }) => (
   <Location>
     {({ location }) => (
-      <PoseGroup>
+      <PoseGroup animateOnMount>
         <Animation key={location.key}>
           <Router location={location}>{children}</Router>
         </Animation>

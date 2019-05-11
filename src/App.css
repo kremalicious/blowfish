@@ -100,8 +100,6 @@ a h1 {
     background: #fff;
     border-radius: 5px;
     border: .1rem solid #e2e2e2;
-
-    /* animation: fadein .5s .5s ease-out; */
 }
 
 .dark .box {

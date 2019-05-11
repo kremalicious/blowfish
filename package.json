@@ -26,7 +26,8 @@
     "react": "^16.8.6",
     "react-blockies": "^1.4.1",
     "react-dom": "^16.8.6",
-    "react-pose": "^4.0.8"
+    "react-pose": "^4.0.8",
+    "react-pose-text": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

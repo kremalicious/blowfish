@@ -1,12 +1,10 @@
 .number {
     margin: 0;
-    transition: .15s ease-out;
     -webkit-app-region: no-drag;
     -webkit-user-select: text;
     font-size: 1rem;
     display: inline-block;
     padding: 0 .3rem;
-    animation: fadeIn .5s ease-out;
     border-radius: 4px;
 }
 
@@ -21,15 +19,5 @@
 
     100% {
         background: rgba(255, 255, 255, 0);
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
     }
 }

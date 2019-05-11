@@ -3,8 +3,12 @@ import { Link } from '@reach/router'
 import Store from 'electron-store'
 import Blockies from 'react-blockies'
 import ethereum_address from 'ethereum-address'
+import posed, { PoseGroup } from 'react-pose'
 import { AppContext } from '../store/createContext'
 import './Preferences.css'
+import { fadeIn } from '../components/Animations'
+
+const Item = posed.li(fadeIn)
 
 export default class Preferences extends PureComponent {
   static contextType = AppContext
@@ -81,23 +85,25 @@ export default class Preferences extends PureComponent {
             Add Ethereum account addresses holding Ocean Tokens.
           </p>
           <ul className="preference__list">
-            {accounts &&
-              accounts.map(account => (
-                <li key={account}>
-                  <div>
-                    <Blockies seed={account} size={10} scale={3} />
-                    {account}
-                  </div>
+            <PoseGroup>
+              {accounts &&
+                accounts.map(account => (
+                  <Item key={account}>
+                    <div>
+                      <Blockies seed={account} size={10} scale={3} />
+                      {account}
+                    </div>
 
-                  <button
-                    className="delete"
-                    onClick={e => this.handleDelete(e, account)}
-                    title="Remove account"
-                  >
-                    &times;
-                  </button>
-                </li>
-              ))}
+                    <button
+                      className="delete"
+                      onClick={e => this.handleDelete(e, account)}
+                      title="Remove account"
+                    >
+                      &times;
+                    </button>
+                  </Item>
+                ))}
+            </PoseGroup>
             <li>
               <input
                 type="text"
