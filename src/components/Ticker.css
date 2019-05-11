@@ -47,6 +47,7 @@
 .dark .ticker button.active,
 .dark .ticker button.active:hover {
     border-color: #303030;
+    color: #fff !important;
 }
 
 .label--price {
