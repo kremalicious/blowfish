@@ -1,5 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { TouchBarProvider } from 'react-touchbar-electron'
+import AppProvider from './store/AppProvider'
 import App from './App'
 
 document.body.style.backgroundColor = '#141414'
@@ -9,4 +11,11 @@ let root = document.createElement('div')
 root.id = 'root'
 document.body.appendChild(root)
 
-render(<App />, document.getElementById('root'))
+render(
+  <AppProvider>
+    <TouchBarProvider>
+      <App />
+    </TouchBarProvider>
+  </AppProvider>,
+  document.getElementById('root')
+)

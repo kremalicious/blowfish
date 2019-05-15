@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { Router, Location } from '@reach/router'
 import { webFrame } from 'electron'
 import posed, { PoseGroup } from 'react-pose'
-import AppProvider from './store/AppProvider'
 import Titlebar from './components/Titlebar'
 import Home from './screens/Home'
 import Preferences from './screens/Preferences'
 import './App.css'
 import { defaultAnimation } from './components/Animations'
+import Touchbar from './components/Touchbar'
 
 //
 // Disable zooming
@@ -37,7 +37,7 @@ PosedRouter.propTypes = {
 export default class App extends PureComponent {
   render() {
     return (
-      <AppProvider>
+      <>
         <Titlebar />
         <div className="app">
           <PosedRouter>
@@ -45,7 +45,9 @@ export default class App extends PureComponent {
             <Preferences path="/preferences" />
           </PosedRouter>
         </div>
-      </AppProvider>
+
+        <Touchbar />
+      </>
     )
   }
 }
