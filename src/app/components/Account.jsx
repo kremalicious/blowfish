@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { openUrl } from '../util/openUrl'
+import { openUrl } from '../../utils'
 import Balance from './Balance'
 
 export default class Account extends PureComponent {

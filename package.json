@@ -8,16 +8,16 @@
     "test": "eslint ./src/**/*.{js,jsx} && stylelint ./src/**/*.css",
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "webpack --mode production --config webpack.common.config.js",
-    "package": "npm-run-all --parallel package:mac package:win package:linux && open ./dist",
-    "package:mac": "electron-packager . --overwrite --asar --platform=darwin --arch=x64 --icon=src/app/images/icon.icns --prune --out=./dist",
-    "package:linux": "electron-packager . --overwrite --asar --platform=linux --arch=x64 --icon=src/app/images/iconset/icon1024.png --prune --out=./dist",
-    "package:win": "electron-packager . --overwrite --asar --platform=win32 --arch=ia32 --icon=src/app/images/icon.ico --prune --out=./dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Ocean\"",
-    "create-installer-mac": "electron-installer-dmg ./dist/Ocean-darwin-x64/Ocean.app Ocean --out=./dist --overwrite --icon=src/app/images/icon.icns",
+    "package": "electron-builder build -mwl && open ./dist",
     "dist": "npm run build && npm run package"
   },
   "repository": "https://github.com/kremalicious/ocean-balance.git",
   "homepage": "https://github.com/kremalicious/ocean-balance",
-  "author": "Matthias Kretschmann",
+  "author": {
+    "name": "Matthias Kretschmann",
+    "email": "m@kretschmann.io",
+    "url": "https://matthiaskretschmann.com"
+  },
   "license": "MIT",
   "dependencies": {
     "@coingecko/cryptoformat": "^0.3.1",
@@ -40,11 +40,11 @@
     "@svgr/webpack": "^4.2.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
+    "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
     "electron": "^5.0.1",
+    "electron-builder": "^20.40.2",
     "electron-devtools-installer": "^2.2.4",
-    "electron-installer-dmg": "^2.0.0",
-    "electron-packager": "^13.1.1",
     "electron-store": "^3.2.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
@@ -60,5 +60,27 @@
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1"
+  },
+  "browserslist": "electron >= 5.0",
+  "build": {
+    "productName": "Ocean Balance",
+    "appId": "com.kremalicious.ocean-balance",
+    "files": [
+      "./build/**/*",
+      "./src/*.js",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.finance"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category": "Office"
+    }
   }
 }

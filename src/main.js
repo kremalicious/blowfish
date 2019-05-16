@@ -32,7 +32,7 @@ const createWindow = async () => {
     backgroundColor: isDarkMode ? '#141414' : '#fff',
     frame: false,
     show: false,
-    title: 'Ocean',
+    title: 'Ocean Balance',
     webPreferences: {
       nodeIntegration: true,
       scrollBounce: true

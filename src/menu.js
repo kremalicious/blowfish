@@ -1,5 +1,5 @@
 const { app, Menu } = require('electron')
-const { openUrl } = require('./app/util/openUrl')
+const { openUrl } = require('./utils')
 const { homepage } = require('../package.json')
 
 const buildMenu = mainWindow => {
