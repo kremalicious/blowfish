@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Router, Location } from '@reach/router'
-import { webFrame } from 'electron'
+import { Router, Location, navigate } from '@reach/router'
+import { webFrame, ipcRenderer } from 'electron'
 import posed, { PoseGroup } from 'react-pose'
 import Titlebar from './components/Titlebar'
 import Home from './screens/Home'
@@ -35,6 +35,12 @@ PosedRouter.propTypes = {
 }
 
 export default class App extends PureComponent {
+  componentDidMount() {
+    ipcRenderer.on('goTo', (evt, route) => {
+      navigate(route)
+    })
+  }
+
   render() {
     return (
       <>

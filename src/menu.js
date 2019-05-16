@@ -1,155 +1,183 @@
 const { app, Menu } = require('electron')
 const { openUrl } = require('./app/util/openUrl')
+const { homepage } = require('../package.json')
 
-const template = [
-  {
-    label: 'Edit',
-    submenu: [
-      {
-        role: 'undo'
-      },
-      {
-        role: 'redo'
-      },
+const buildMenu = mainWindow => {
+  const template = [
+    {
+      label: 'Edit',
+      submenu: [
+        {
+          role: 'undo'
+        },
+        {
+          role: 'redo'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'cut'
+        },
+        {
+          role: 'copy'
+        },
+        {
+          role: 'paste'
+        },
+        {
+          role: 'pasteandmatchstyle'
+        },
+        {
+          role: 'delete'
+        },
+        {
+          role: 'selectall'
+        }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {
+          role: 'reload'
+        },
+        {
+          role: 'forcereload'
+        },
+        {
+          role: 'toggledevtools'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'togglefullscreen'
+        }
+      ]
+    },
+    {
+      role: 'window',
+      submenu: [
+        {
+          role: 'minimize'
+        },
+        {
+          role: 'close'
+        }
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'Learn More',
+          click() {
+            openUrl(homepage)
+          }
+        }
+      ]
+    }
+  ]
+
+  if (process.platform === 'darwin') {
+    template.unshift({
+      label: app.getName(),
+      submenu: [
+        {
+          role: 'about'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Preferences...',
+          accelerator: 'CmdOrCtrl+,',
+          click() {
+            mainWindow.webContents.send('goTo', '/preferences')
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'services',
+          submenu: []
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'hide'
+        },
+        {
+          role: 'hideothers'
+        },
+        {
+          role: 'unhide'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'quit'
+        }
+      ]
+    })
+
+    // Edit menu
+    template[1].submenu.push(
       {
         type: 'separator'
       },
       {
-        role: 'cut'
-      },
-      {
-        role: 'copy'
-      },
-      {
-        role: 'paste'
-      },
-      {
-        role: 'pasteandmatchstyle'
-      },
-      {
-        role: 'delete'
-      },
-      {
-        role: 'selectall'
+        label: 'Speech',
+        submenu: [
+          {
+            role: 'startspeaking'
+          },
+          {
+            role: 'stopspeaking'
+          }
+        ]
       }
-    ]
-  },
-  {
-    label: 'View',
-    submenu: [
-      {
-        role: 'reload'
-      },
-      {
-        role: 'forcereload'
-      },
-      {
-        role: 'toggledevtools'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'togglefullscreen'
-      }
-    ]
-  },
-  {
-    role: 'window',
-    submenu: [
+    )
+
+    // Window menu
+    template[3].submenu = [
       {
         role: 'minimize'
       },
       {
-        role: 'close'
-      }
-    ]
-  },
-  {
-    role: 'help',
-    submenu: [
+        role: 'zoom'
+      },
       {
-        label: 'Learn More',
-        click() {
-          openUrl('https://electron.atom.io')
-        }
+        role: 'close'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'front'
       }
     ]
   }
-]
 
-if (process.platform === 'darwin') {
-  template.unshift({
-    label: app.getName(),
-    submenu: [
+  if (process.platform !== 'darwin') {
+    template[0].submenu.push(
+      { type: 'separator' },
       {
-        role: 'about'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'services',
-        submenu: []
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'hide'
-      },
-      {
-        role: 'hideothers'
-      },
-      {
-        role: 'unhide'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'quit'
-      }
-    ]
-  })
-
-  // Edit menu
-  template[1].submenu.push(
-    {
-      type: 'separator'
-    },
-    {
-      label: 'Speech',
-      submenu: [
-        {
-          role: 'startspeaking'
-        },
-        {
-          role: 'stopspeaking'
+        label: 'Preferences...',
+        accelerator: 'CmdOrCtrl+,',
+        click() {
+          mainWindow.webContents.send('goTo', '/preferences')
         }
-      ]
-    }
-  )
+      }
+    )
+  }
 
-  // Window menu
-  template[3].submenu = [
-    {
-      role: 'close'
-    },
-    {
-      role: 'minimize'
-    },
-    {
-      role: 'zoom'
-    },
-    {
-      type: 'separator'
-    },
-    {
-      role: 'front'
-    }
-  ]
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
 }
 
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
+module.exports = buildMenu

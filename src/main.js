@@ -1,6 +1,7 @@
 const path = require('path')
 const { app, BrowserWindow, systemPreferences } = require('electron')
 const { touchBarWrapper } = require('react-touchbar-electron')
+const buildMenu = require('./menu')
 
 let mainWindow
 
@@ -106,10 +107,12 @@ const createWindow = async () => {
   switchTheme()
 
   // Load menubar menu items
-  require('./menu.js')
+  buildMenu(mainWindow)
 
   touchBarWrapper(mainWindow)
 }
+
+module.exports = { mainWindow }
 
 app.on('ready', () => {
   createWindow()

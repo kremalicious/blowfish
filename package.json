@@ -16,6 +16,7 @@
     "dist": "npm run build && npm run package"
   },
   "repository": "https://github.com/kremalicious/ocean-balance.git",
+  "homepage": "https://github.com/kremalicious/ocean-balance",
   "author": "Matthias Kretschmann",
   "license": "MIT",
   "dependencies": {
