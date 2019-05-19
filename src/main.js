@@ -19,9 +19,9 @@ if (
 const width = 620
 const height = 440
 
-const isDarkMode = systemPreferences.isDarkMode()
-
 const createWindow = async () => {
+  const isDarkMode = systemPreferences.isDarkMode()
+
   mainWindow = new BrowserWindow({
     width,
     height,
@@ -134,6 +134,8 @@ app.on('activate', () => {
 })
 
 const switchTheme = () => {
+  const isDarkMode = systemPreferences.isDarkMode()
+
   isDarkMode
     ? mainWindow.webContents.executeJavaScript(
         'document.getElementsByTagName(\'html\')[0].classList.add(\'dark\')'
