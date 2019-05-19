@@ -1,6 +1,6 @@
 {
-  "name": "ocean-balance",
-  "productName": "Ocean",
+  "name": "blowfish",
+  "productName": "Blowfish",
   "version": "1.0.0",
   "description": "🐡 Simple Electron-based desktop app to retrieve and display your total Ocean Token balances.",
   "main": "./src/main.js",
@@ -11,8 +11,8 @@
     "package": "electron-builder build -mwl && open ./dist",
     "dist": "npm run build && npm run package"
   },
-  "repository": "https://github.com/kremalicious/ocean-balance.git",
-  "homepage": "https://github.com/kremalicious/ocean-balance",
+  "repository": "https://github.com/kremalicious/blowfish.git",
+  "homepage": "https://github.com/kremalicious/blowfish",
   "author": {
     "name": "Matthias Kretschmann",
     "email": "m@kretschmann.io",
@@ -62,8 +62,7 @@
   },
   "browserslist": "electron >= 5.0",
   "build": {
-    "productName": "Ocean Balance",
-    "appId": "com.kremalicious.ocean-balance",
+    "appId": "com.kremalicious.blowfish",
     "files": [
       "./build/**/*",
       "./src/*.js",
