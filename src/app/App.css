@@ -58,9 +58,10 @@ h5 {
     font-weight: 700;
 }
 
-a {
-    color: #f6388a;
+a,
+button {
     text-decoration: none;
+    cursor: default;
 }
 
 a h1 {

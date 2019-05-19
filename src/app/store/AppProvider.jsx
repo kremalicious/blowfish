@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ms from 'ms'
+import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
 import { AppContext } from './createContext'
 import fetchData from '../util/fetch'
@@ -20,10 +21,15 @@ export default class AppProvider extends PureComponent {
     needsConfig: false,
     prices: Object.assign(...prices.map(key => ({ [key]: 0 }))),
     toggleCurrencies: currency => this.setState({ currency }),
-    setBalances: () => this.setBalances()
+    setBalances: () => this.setBalances(),
+    accentColor: ''
   }
 
   async componentDidMount() {
+    ipcRenderer.on('accent-color', (event, accentColor) => {
+      this.setState({ accentColor })
+    })
+
     await this.fetchAndSetPrices()
     await this.setBalances()
 
