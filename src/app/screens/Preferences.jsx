@@ -112,9 +112,11 @@ export default class Preferences extends PureComponent {
                 onChange={this.handleInputChange}
                 className="preference__input"
               />
+
               <button
                 className="preference__input__add"
                 onClick={e => this.handleSave(e)}
+                style={{ color: this.context.accentColor }}
               >
                 Add
               </button>

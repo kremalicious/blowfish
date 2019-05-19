@@ -31,24 +31,6 @@
     border-color: #303030;
 }
 
-.ticker button:not(:disabled):hover {
-    border-color: #f6388a;
-    color: #f6388a;
-}
-
-.ticker button.active,
-.ticker button.active:hover {
-    border-color: #e2e2e2;
-    background: #f6388a;
-    color: #fff;
-}
-
-.dark .ticker button.active,
-.dark .ticker button.active:hover {
-    border-color: #303030;
-    color: #fff !important;
-}
-
 .label--price {
     display: inline-block;
     font-size: .95rem;

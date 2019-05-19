@@ -5,12 +5,12 @@ import { locale } from '../util/moneyFormatter'
 import { formatCurrency } from '@coingecko/cryptoformat'
 import { AppContext } from '../store/createContext'
 
-const TouchbarItems = ({ prices, currency, toggleCurrencies }) => (
+const TouchbarItems = ({ prices, currency, toggleCurrencies, accentColor }) => (
   <>
     <Button
       label={formatCurrency(1, 'OCEAN', locale).replace(/OCEAN/, 'Ọ')}
       onClick={() => toggleCurrencies('ocean')}
-      backgroundColor={currency === 'ocean' ? '#f6388a' : '#141414'}
+      backgroundColor={currency === 'ocean' ? accentColor : '#141414'}
     />
     {Object.keys(prices).map(key => (
       <Button
@@ -20,7 +20,7 @@ const TouchbarItems = ({ prices, currency, toggleCurrencies }) => (
           .replace(/ETH/, 'Ξ')}
         onClick={() => toggleCurrencies(key)}
         backgroundColor={
-          currency !== 'ocean' && currency === key ? '#f6388a' : '#141414'
+          currency !== 'ocean' && currency === key ? accentColor : '#141414'
         }
       />
     ))}
@@ -30,7 +30,8 @@ const TouchbarItems = ({ prices, currency, toggleCurrencies }) => (
 TouchbarItems.propTypes = {
   prices: PropTypes.object.isRequired,
   currency: PropTypes.string.isRequired,
-  toggleCurrencies: PropTypes.func.isRequired
+  toggleCurrencies: PropTypes.func.isRequired,
+  accentColor: PropTypes.string
 }
 
 export default class Touchbar extends PureComponent {
@@ -41,6 +42,7 @@ export default class Touchbar extends PureComponent {
           prices={this.context.prices}
           currency={this.context.currency}
           toggleCurrencies={this.context.toggleCurrencies}
+          accentColor={this.context.accentColor}
         />
       </TouchBar>
     )

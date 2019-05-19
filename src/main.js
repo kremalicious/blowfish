@@ -3,6 +3,7 @@ const { app, BrowserWindow, systemPreferences } = require('electron')
 const { touchBarWrapper } = require('react-touchbar-electron')
 const pkg = require('../package.json')
 const buildMenu = require('./menu')
+const { rgbaToHex } = require('./utils')
 
 let mainWindow
 
@@ -105,19 +106,22 @@ const createWindow = async () => {
     mainWindow.setSize(width, height, true)
   })
 
-  switchTheme()
-
-  // Load menubar menu items
+  // Load menubar
   buildMenu(mainWindow)
 
-  touchBarWrapper(mainWindow)
+  // Load touchbar
+  if (process.platform === 'darwin') {
+    touchBarWrapper(mainWindow)
+  }
 }
 
 app.on('ready', () => {
   createWindow()
 
-  // Switch to user theme on start, and on reload
-  mainWindow.webContents.on('dom-ready', () => switchTheme())
+  mainWindow.webContents.on('dom-ready', () => {
+    switchTheme()
+    switchAccentColor()
+  })
 })
 
 // Quit when all windows are closed.
@@ -133,6 +137,28 @@ app.on('activate', () => {
   }
 })
 
+//
+// Accent color setting
+// macOS & Windows
+//
+const switchAccentColor = () => {
+  const systemAccentColor = systemPreferences.getAccentColor()
+  const accentColor = rgbaToHex(systemAccentColor)
+  mainWindow.webContents.send('accent-color', accentColor)
+}
+
+// Listen for accent color changes in System Preferences
+// macOS
+systemPreferences.subscribeNotification('AppleAquaColorVariantChanged', () =>
+  switchAccentColor()
+)
+// Windows
+systemPreferences.on('accent-color-changed', () => switchAccentColor())
+
+//
+// Appearance setting
+// macOS
+//
 const switchTheme = () => {
   const isDarkMode = systemPreferences.isDarkMode()
 
@@ -145,7 +171,7 @@ const switchTheme = () => {
       )
 }
 
-// Listen for theme changes in System Preferences
+// Listen for appearance changes in System Preferences
 systemPreferences.subscribeNotification(
   'AppleInterfaceThemeChangedNotification',
   () => switchTheme()

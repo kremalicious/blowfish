@@ -20,17 +20,9 @@
     height: 1.25rem;
 }
 
-.preferences-link:hover svg {
-    fill: #41474e;
-}
-
 .dark .preferences-link svg {
     fill: #8b98a9;
     opacity: .5;
-}
-
-.dark .preferences-link:hover svg {
-    opacity: 1;
 }
 
 .number-unit-wrap {
@@ -56,10 +48,6 @@
     white-space: nowrap;
     margin-top: .3rem;
     transition: color .2s ease-out;
-}
-
-.number-unit:not(.number-unit--main) .label:not(:disabled):hover {
-    color: #f6388a;
 }
 
 .number-unit-wrap--accounts {

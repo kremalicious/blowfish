@@ -12,7 +12,19 @@ export default class Ticker extends PureComponent {
   static contextType = AppContext
 
   render() {
-    const { toggleCurrencies, needsConfig, currency, prices } = this.context
+    const {
+      toggleCurrencies,
+      needsConfig,
+      currency,
+      prices,
+      accentColor
+    } = this.context
+
+    const activeStyle = {
+      backgroundColor: accentColor,
+      color: '#fff',
+      borderColor: accentColor
+    }
 
     return (
       <footer className="number-unit-wrap ticker" {...this.props}>
@@ -20,11 +32,10 @@ export default class Ticker extends PureComponent {
           {Object.keys(prices).map((key, i) => (
             <Item key={i} className="number-unit">
               <button
-                className={`label label--price ${key === currency &&
-                  !needsConfig &&
-                  'active'}`}
+                className="label label--price"
                 onClick={() => toggleCurrencies(key)}
                 disabled={needsConfig}
+                style={key === currency && !needsConfig ? activeStyle : {}}
               >
                 {formatCurrency(prices[key], key.toUpperCase(), locale)
                   .replace(/BTC/, 'Ƀ')
