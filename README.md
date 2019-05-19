@@ -38,6 +38,9 @@
 - re-fetches everything automatically every minute
 - balances are fetched via etherscan.io API
 - spot prices are fetched from coingecko.com API
+- detects system locale for number formatting
+- detects dark appearance setting and switches to dark theme automatically (macOS only)
+- detects system accent color and uses it as primary color (macOS & Windows only)
 - currently highly optimized for macOS, your mileage on Windows or Linux may vary
 
 ## Download
