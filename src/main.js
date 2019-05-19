@@ -22,8 +22,8 @@ const isDarkMode = systemPreferences.isDarkMode()
 
 const createWindow = async () => {
   mainWindow = new BrowserWindow({
-    width: width,
-    height: height,
+    width,
+    height,
     minWidth: width,
     minHeight: height,
     acceptFirstMouse: true,
@@ -111,8 +111,6 @@ const createWindow = async () => {
 
   touchBarWrapper(mainWindow)
 }
-
-module.exports = { mainWindow }
 
 app.on('ready', () => {
   createWindow()
