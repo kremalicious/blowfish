@@ -1,6 +1,7 @@
 const path = require('path')
 const { app, BrowserWindow, systemPreferences } = require('electron')
 const { touchBarWrapper } = require('react-touchbar-electron')
+const pkg = require('../package.json')
 const buildMenu = require('./menu')
 
 let mainWindow
@@ -32,7 +33,7 @@ const createWindow = async () => {
     backgroundColor: isDarkMode ? '#141414' : '#fff',
     frame: false,
     show: false,
-    title: 'Ocean Balance',
+    title: pkg.productName,
     webPreferences: {
       nodeIntegration: true,
       scrollBounce: true
