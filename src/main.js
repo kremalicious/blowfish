@@ -1,8 +1,8 @@
 const path = require('path')
 const { app, BrowserWindow, systemPreferences } = require('electron')
-const { touchBarWrapper } = require('react-touchbar-electron')
 const pkg = require('../package.json')
 const buildMenu = require('./menu')
+const buildTouchbar = require('./touchbar')
 const { rgbaToHex } = require('./utils')
 
 let mainWindow
@@ -108,7 +108,8 @@ const createWindow = async () => {
   // Load menubar
   buildMenu(mainWindow)
   // Load touchbar
-  process.platform === 'darwin' && touchBarWrapper(mainWindow)
+  process.platform === 'darwin' &&
+    buildTouchbar(mainWindow, app.getLocale())
 }
 
 app.on('ready', () => {

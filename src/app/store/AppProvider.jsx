@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ms from 'ms'
 import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
+import { ipcRenderer } from 'electron'
 import { AppContext } from './createContext'
 import fetchData from '../util/fetch'
 import { refreshInterval, prices, oceanTokenContract } from '../config'
@@ -37,6 +38,12 @@ export default class AppProvider extends PureComponent {
     setInterval(this.setBalances, ms(refreshInterval))
 
     this.setState({ isLoading: false })
+
+    // listener for touchbar
+    ipcRenderer.on('setCurrency', (evt, currency) => {
+      console.log('pong')
+      this.context.toggleCurrencies(currency)
+    })
   }
 
   getAccounts() {

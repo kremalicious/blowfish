@@ -8,7 +8,6 @@ import Home from './screens/Home'
 import Preferences from './screens/Preferences'
 import './App.css'
 import { defaultAnimation } from './components/Animations'
-import Touchbar from './components/Touchbar'
 
 //
 // Disable zooming
@@ -51,8 +50,6 @@ export default class App extends PureComponent {
             <Preferences path="/preferences" />
           </PosedRouter>
         </div>
-
-        <Touchbar />
       </>
     )
   }

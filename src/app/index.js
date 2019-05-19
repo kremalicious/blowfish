@@ -1,6 +1,5 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { TouchBarProvider } from 'react-touchbar-electron'
 import AppProvider from './store/AppProvider'
 import App from './App'
 
@@ -13,9 +12,7 @@ document.body.appendChild(root)
 
 render(
   <AppProvider>
-    <TouchBarProvider>
-      <App />
-    </TouchBarProvider>
+    <App />
   </AppProvider>,
   document.getElementById('root')
 )
