@@ -4,7 +4,6 @@ import { AppContext } from '../store/createContext'
 import { cryptoFormatter } from '../../utils'
 import './Ticker.css'
 import { fadeIn } from './Animations'
-import { cryptoFormatter } from '../../utils'
 
 const Item = posed.div(fadeIn)
 
