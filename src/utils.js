@@ -1,4 +1,5 @@
-const { shell } = require('electron')
+const { app, shell } = require('electron')
+const { formatCurrency } = require('@coingecko/cryptoformat')
 
 const openUrl = url => {
   shell.openExternal(url)
@@ -13,4 +14,41 @@ const rgbaToHex = color => {
   return '#' + r + g + b
 }
 
-module.exports = { openUrl, rgbaToHex }
+const locale =
+  typeof navigator !== 'undefined' ? navigator.language : app.getLocale()
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat
+const numberFormatter = value =>
+  new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 4
+  }).format(value)
+
+const formatOcean = value => {
+  const numberformatted = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 4,
+    style: 'currency',
+    currency: 'EUR' // fake currency symbol to replace later
+  }).format(value)
+
+  return numberformatted.replace(/EUR/, 'Ọ').replace(/€/, 'Ọ')
+}
+
+const cryptoFormatter = (value, currency) => {
+  if (currency === 'ocean') {
+    return formatOcean(value)
+  } else {
+    return formatCurrency(value, currency.toUpperCase(), locale.split('-')[0])
+      .replace(/BTC/, 'Ƀ')
+      .replace(/ETH/, 'Ξ')
+  }
+}
+
+module.exports = {
+  openUrl,
+  rgbaToHex,
+  locale,
+  numberFormatter,
+  cryptoFormatter
+}
