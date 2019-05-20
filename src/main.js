@@ -20,6 +20,52 @@ if (
 const width = 620
 const height = 440
 
+const installDevTools = async mainWindow => {
+  if (isDev) {
+    const {
+      default: installExtension,
+      REACT_DEVELOPER_TOOLS
+    } = require('electron-devtools-installer')
+
+    try {
+      const name = await installExtension(REACT_DEVELOPER_TOOLS)
+      console.log(`Added Extension: ${name}`) // eslint-disable-line no-console
+
+      mainWindow.webContents.on('devtools-opened', () =>
+        mainWindow.setSize(1024, 420, true)
+      )
+      mainWindow.webContents.on('devtools-closed', () =>
+        mainWindow.setSize(width, height, true)
+      )
+    } catch (error) {
+      console.log('An error occurred: ', error) // eslint-disable-line no-console
+    }
+  }
+}
+
+const createWindowEvents = mainWindow => {
+  mainWindow.on('enter-full-screen', () =>
+    mainWindow.webContents.executeJavaScript(
+      'document.getElementsByTagName(\'html\')[0].classList.add(\'fullscreen\')'
+    )
+  )
+  mainWindow.on('leave-full-screen', () =>
+    mainWindow.webContents.executeJavaScript(
+      'document.getElementsByTagName(\'html\')[0].classList.remove(\'fullscreen\')'
+    )
+  )
+  mainWindow.on('blur', () =>
+    mainWindow.webContents.executeJavaScript(
+      'document.getElementsByTagName(\'html\')[0].classList.add(\'blur\')'
+    )
+  )
+  mainWindow.on('focus', () =>
+    mainWindow.webContents.executeJavaScript(
+      'document.getElementsByTagName(\'html\')[0].classList.remove(\'blur\')'
+    )
+  )
+}
+
 const createWindow = async () => {
   const isDarkMode = systemPreferences.isDarkMode()
 
@@ -47,19 +93,8 @@ const createWindow = async () => {
       : `file://${path.join(__dirname, '../build/index.html')}`
   )
 
-  if (isDev) {
-    const {
-      default: installExtension,
-      REACT_DEVELOPER_TOOLS
-    } = require('electron-devtools-installer')
-
-    try {
-      const name = await installExtension(REACT_DEVELOPER_TOOLS)
-      console.log(`Added Extension: ${name}`) // eslint-disable-line no-console
-    } catch (error) {
-      console.log('An error occurred: ', error) // eslint-disable-line no-console
-    }
-  }
+  createWindowEvents(mainWindow)
+  installDevTools(mainWindow)
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
@@ -70,49 +105,10 @@ const createWindow = async () => {
     mainWindow = null
   })
 
-  //
-  // Events
-  //
-  mainWindow.on('enter-full-screen', () => {
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'fullscreen\')'
-    )
-  })
-
-  mainWindow.on('leave-full-screen', () => {
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'fullscreen\')'
-    )
-  })
-
-  mainWindow.on('blur', () => {
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'blur\')'
-    )
-  })
-
-  mainWindow.on('focus', () => {
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'blur\')'
-    )
-  })
-
-  // Make window bigger automatically when devtools are opened
-  mainWindow.webContents.on('devtools-opened', () => {
-    mainWindow.setSize(1024, 420, true)
-  })
-
-  mainWindow.webContents.on('devtools-closed', () => {
-    mainWindow.setSize(width, height, true)
-  })
-
   // Load menubar
   buildMenu(mainWindow)
-
   // Load touchbar
-  if (process.platform === 'darwin') {
-    touchBarWrapper(mainWindow)
-  }
+  process.platform === 'darwin' && touchBarWrapper(mainWindow)
 }
 
 app.on('ready', () => {
