@@ -109,12 +109,12 @@ const createWindow = async () => {
   // Load menubar
   buildMenu(mainWindow)
   // Load touchbar
-  process.platform === 'darwin' &&
-    const systemAccentColor = systemPreferences.getAccentColor()
-    buildTouchbar(prices, mainWindow, systemAccentColor)
+  if (process.platform === 'darwin') {
+    const accentColor = getAccentColor()
+    buildTouchbar(prices, mainWindow, accentColor)
 
     ipcMain.on('prices-updated', (event, pricesNew) => {
-      updateTouchbar(pricesNew, mainWindow, systemAccentColor)
+      updateTouchbar(pricesNew, mainWindow, accentColor)
     })
   }
 }
@@ -145,9 +145,13 @@ app.on('activate', () => {
 // Accent color setting
 // macOS & Windows
 //
-const switchAccentColor = () => {
+const getAccentColor = () => {
   const systemAccentColor = systemPreferences.getAccentColor()
-  const accentColor = rgbaToHex(systemAccentColor)
+  return rgbaToHex(systemAccentColor)
+}
+
+const switchAccentColor = () => {
+  const accentColor = getAccentColor()
   mainWindow.webContents.send('accent-color', accentColor)
 }
 
