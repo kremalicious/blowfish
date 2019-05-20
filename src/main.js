@@ -1,9 +1,10 @@
 const path = require('path')
-const { app, BrowserWindow, systemPreferences } = require('electron')
+const { app, BrowserWindow, systemPreferences, ipcMain } = require('electron')
 const pkg = require('../package.json')
 const buildMenu = require('./menu')
-const buildTouchbar = require('./touchbar')
+const { buildTouchbar, updateTouchbar } = require('./touchbar')
 const { rgbaToHex } = require('./utils')
+const { prices } = require('./app/config')
 
 let mainWindow
 
@@ -109,7 +110,13 @@ const createWindow = async () => {
   buildMenu(mainWindow)
   // Load touchbar
   process.platform === 'darwin' &&
-    buildTouchbar(mainWindow, app.getLocale())
+    const systemAccentColor = systemPreferences.getAccentColor()
+    buildTouchbar(prices, mainWindow, systemAccentColor)
+
+    ipcMain.on('prices-updated', (event, pricesNew) => {
+      updateTouchbar(pricesNew, mainWindow, systemAccentColor)
+    })
+  }
 }
 
 app.on('ready', () => {

@@ -5,6 +5,7 @@ import { AppContext } from '../store/createContext'
 import { cryptoFormatter } from '../../utils'
 import './Balance.css'
 import { fadeIn } from './Animations'
+import { cryptoFormatter } from '../../utils'
 
 const Animation = posed.h1(fadeIn)
 

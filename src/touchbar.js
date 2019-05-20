@@ -1,37 +1,42 @@
 const { TouchBar } = require('electron')
-const { formatCurrency } = require('@coingecko/cryptoformat')
-const { prices } = require('./app/config')
+const { cryptoFormatter } = require('./utils')
 
 const { TouchBarButton } = TouchBar
 
 // const currency = ipc...
 // const prices = ipc...
 
-const createButton = (price, key, locale, mainWindow) => {
-  const formattedPrice = formatCurrency(price, key.toUpperCase(), locale)
-    .replace(/OCEAN/, 'Ọ')
-    .replace(/BTC/, 'Ƀ')
-    .replace(/ETH/, 'Ξ')
-
-  return new TouchBarButton({
-    label: formattedPrice,
-    click: () => {
-      console.log('ping')
-      mainWindow.webContents.send('setCurrency', key)
-    }
-    // backgroundColor: currency === 'ocean' ? '#f6388a' : '#141414'
+const createButton = (value, key, mainWindow, systemAccentColor) =>
+  new TouchBarButton({
+    label: cryptoFormatter(value, key.toUpperCase()),
+    click: () => mainWindow.webContents.send('setCurrency', key),
+    backgroundColor: key === 'ocean' ? systemAccentColor : '#141414'
   })
-}
 
-const buildTouchbar = (mainWindow, locale) => {
+const buildTouchbar = (prices, mainWindow, systemAccentColor) => {
   const touchBar = new TouchBar({
     items: [
-      createButton(1, 'ocean', locale, mainWindow),
-      ...prices.map(key => createButton(0, key, locale, mainWindow))
+      createButton(1, 'ocean', mainWindow, systemAccentColor),
+      ...prices.map(key => createButton(0, key, mainWindow, systemAccentColor))
     ]
   })
 
   mainWindow.setTouchBar(touchBar)
 }
 
-module.exports = buildTouchbar
+const updateTouchbar = (prices, mainWindow, systemAccentColor) => {
+  const touchBar = new TouchBar({
+    items: [
+      createButton(1, 'ocean', mainWindow, systemAccentColor),
+      ...Object.entries(prices)
+        .filter(([key]) => key !== 'ocean')
+        .map(([key, value]) =>
+          createButton(value, key, mainWindow, systemAccentColor)
+        )
+    ]
+  })
+
+  mainWindow.setTouchBar(touchBar)
+}
+
+module.exports = { buildTouchbar, updateTouchbar }

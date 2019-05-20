@@ -3,9 +3,8 @@ import PropTypes from 'prop-types'
 import ms from 'ms'
 import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
-import { ipcRenderer } from 'electron'
 import { AppContext } from './createContext'
-import fetchData from '../util/fetch'
+import fetchData from '../utils/fetch'
 import { refreshInterval, prices, oceanTokenContract } from '../config'
 
 export default class AppProvider extends PureComponent {
@@ -21,29 +20,32 @@ export default class AppProvider extends PureComponent {
     currency: 'ocean',
     needsConfig: false,
     prices: Object.assign(...prices.map(key => ({ [key]: 0 }))),
-    toggleCurrencies: currency => this.setState({ currency }),
+    toggleCurrencies: currency => this.toggleCurrencies(currency),
     setBalances: () => this.setBalances(),
     accentColor: ''
   }
 
   async componentDidMount() {
+    // listener for accent color
     ipcRenderer.on('accent-color', (event, accentColor) => {
       this.setState({ accentColor })
     })
 
-    await this.fetchAndSetPrices()
+    // listener for touchbar
+    ipcRenderer.on('setCurrency', (evt, currency) =>
+      this.state.toggleCurrencies(currency)
+    )
+
+    const newPrizes = await this.fetchAndSetPrices()
+    this.setState({ prices: newPrizes })
+    ipcRenderer.send('prices-updated', newPrizes)
+
     await this.setBalances()
 
     setInterval(this.fetchAndSetPrices, ms(refreshInterval))
     setInterval(this.setBalances, ms(refreshInterval))
 
     this.setState({ isLoading: false })
-
-    // listener for touchbar
-    ipcRenderer.on('setCurrency', (evt, currency) => {
-      console.log('pong')
-      this.context.toggleCurrencies(currency)
-    })
   }
 
   getAccounts() {
@@ -85,7 +87,7 @@ export default class AppProvider extends PureComponent {
       }))
     )
 
-    this.setState({ prices: newPrizes })
+    return newPrizes
   }
 
   setBalances = async () => {
@@ -116,6 +118,10 @@ export default class AppProvider extends PureComponent {
     if (newAccounts !== this.state.accounts) {
       this.setState({ accounts: newAccounts })
     }
+  }
+
+  toggleCurrencies(currency) {
+    this.setState({ currency })
   }
 
   render() {
