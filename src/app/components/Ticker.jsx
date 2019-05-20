@@ -10,14 +10,26 @@ const Item = posed.div(fadeIn)
 export default class Ticker extends PureComponent {
   static contextType = AppContext
 
+  items = activeStyle =>
+    Object.keys(this.context.prices).map((key, i) => (
+      <Item key={i} className="number-unit">
+        <button
+          className="label label--price"
+          onClick={() => this.context.toggleCurrencies(key)}
+          disabled={this.context.needsConfig}
+          style={
+            key === this.context.currency && !this.context.needsConfig
+              ? activeStyle
+              : {}
+          }
+        >
+          {cryptoFormatter(this.context.prices[key], key)}
+        </button>
+      </Item>
+    ))
+
   render() {
-    const {
-      toggleCurrencies,
-      needsConfig,
-      currency,
-      prices,
-      accentColor
-    } = this.context
+    const { accentColor } = this.context
 
     const activeStyle = {
       backgroundColor: accentColor,
@@ -27,20 +39,7 @@ export default class Ticker extends PureComponent {
 
     return (
       <footer className="number-unit-wrap ticker" {...this.props}>
-        <PoseGroup animateOnMount>
-          {Object.keys(prices).map((key, i) => (
-            <Item key={i} className="number-unit">
-              <button
-                className="label label--price"
-                onClick={() => toggleCurrencies(key)}
-                disabled={needsConfig}
-                style={key === currency && !needsConfig ? activeStyle : {}}
-              >
-                {cryptoFormatter(prices[key], key)}
-              </button>
-            </Item>
-          ))}
-        </PoseGroup>
+        <PoseGroup animateOnMount>{this.items(activeStyle)}</PoseGroup>
       </footer>
     )
   }
