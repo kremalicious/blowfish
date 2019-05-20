@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { AppContext } from '../store/createContext'
-import { locale } from '../util/moneyFormatter'
-import { formatCurrency } from '@coingecko/cryptoformat'
 import posed, { PoseGroup } from 'react-pose'
+import { AppContext } from '../store/createContext'
+import { cryptoFormatter } from '../../utils'
 import './Balance.css'
 import { fadeIn } from './Animations'
 
@@ -23,10 +22,7 @@ export default class Balance extends PureComponent {
     return (
       <PoseGroup animateOnMount>
         <Animation key={currency} className="number">
-          {formatCurrency(balance[currency], currency.toUpperCase(), locale)
-            .replace(/BTC/, 'Ƀ')
-            .replace(/ETH/, 'Ξ')
-            .replace(/OCEAN/, 'Ọ')}
+          {cryptoFormatter(balance[currency], currency)}
         </Animation>
       </PoseGroup>
     )

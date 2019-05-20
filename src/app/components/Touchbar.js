@@ -1,23 +1,20 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { TouchBar, Button } from 'react-touchbar-electron'
-import { locale } from '../util/moneyFormatter'
-import { formatCurrency } from '@coingecko/cryptoformat'
+import { cryptoFormatter } from '../../utils'
 import { AppContext } from '../store/createContext'
 
 const TouchbarItems = ({ prices, currency, toggleCurrencies, accentColor }) => (
   <>
     <Button
-      label={formatCurrency(1, 'OCEAN', locale).replace(/OCEAN/, 'Ọ')}
+      label={cryptoFormatter(1, 'ocean')}
       onClick={() => toggleCurrencies('ocean')}
       backgroundColor={currency === 'ocean' ? accentColor : '#141414'}
     />
     {Object.keys(prices).map(key => (
       <Button
         key={key}
-        label={formatCurrency(prices[key], key.toUpperCase(), locale)
-          .replace(/BTC/, 'Ƀ')
-          .replace(/ETH/, 'Ξ')}
+        label={cryptoFormatter(prices[key], key)}
         onClick={() => toggleCurrencies(key)}
         backgroundColor={
           currency !== 'ocean' && currency === key ? accentColor : '#141414'

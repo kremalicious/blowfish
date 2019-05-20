@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
-import { AppContext } from '../store/createContext'
-import { locale } from '../util/moneyFormatter'
-import { formatCurrency } from '@coingecko/cryptoformat'
 import posed, { PoseGroup } from 'react-pose'
+import { AppContext } from '../store/createContext'
+import { cryptoFormatter } from '../../utils'
 import './Ticker.css'
 import { fadeIn } from './Animations'
 
@@ -37,10 +36,7 @@ export default class Ticker extends PureComponent {
                 disabled={needsConfig}
                 style={key === currency && !needsConfig ? activeStyle : {}}
               >
-                {formatCurrency(prices[key], key.toUpperCase(), locale)
-                  .replace(/BTC/, 'Ƀ')
-                  .replace(/ETH/, 'Ξ')
-                  .replace(/OCEAN/, 'Ọ')}
+                {cryptoFormatter(prices[key], key)}
               </button>
             </Item>
           ))}
