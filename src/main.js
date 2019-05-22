@@ -21,52 +21,6 @@ if (
 const width = 620
 const height = 440
 
-const installDevTools = async mainWindow => {
-  if (isDev) {
-    const {
-      default: installExtension,
-      REACT_DEVELOPER_TOOLS
-    } = require('electron-devtools-installer')
-
-    try {
-      const name = await installExtension(REACT_DEVELOPER_TOOLS)
-      console.log(`Added Extension: ${name}`) // eslint-disable-line no-console
-
-      mainWindow.webContents.on('devtools-opened', () =>
-        mainWindow.setSize(1024, 420, true)
-      )
-      mainWindow.webContents.on('devtools-closed', () =>
-        mainWindow.setSize(width, height, true)
-      )
-    } catch (error) {
-      console.log('An error occurred: ', error) // eslint-disable-line no-console
-    }
-  }
-}
-
-const createWindowEvents = mainWindow => {
-  mainWindow.on('enter-full-screen', () =>
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'fullscreen\')'
-    )
-  )
-  mainWindow.on('leave-full-screen', () =>
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'fullscreen\')'
-    )
-  )
-  mainWindow.on('blur', () =>
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'blur\')'
-    )
-  )
-  mainWindow.on('focus', () =>
-    mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'blur\')'
-    )
-  )
-}
-
 const createWindow = async () => {
   const isDarkMode = systemPreferences.isDarkMode()
 
@@ -116,6 +70,10 @@ const createWindow = async () => {
     ipcMain.on('prices-updated', (event, pricesNew) => {
       updateTouchbar(pricesNew, mainWindow, accentColor)
     })
+
+    ipcMain.on('currency-updated', (event, pricesNew, currentCurrency) => {
+      updateTouchbar(pricesNew, mainWindow, accentColor, currentCurrency)
+    })
   }
 }
 
@@ -140,6 +98,52 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+const installDevTools = async mainWindow => {
+  if (isDev) {
+    const {
+      default: installExtension,
+      REACT_DEVELOPER_TOOLS
+    } = require('electron-devtools-installer')
+
+    try {
+      const name = await installExtension(REACT_DEVELOPER_TOOLS)
+      console.log(`Added Extension: ${name}`) // eslint-disable-line no-console
+
+      mainWindow.webContents.on('devtools-opened', () =>
+        mainWindow.setSize(1024, 420, true)
+      )
+      mainWindow.webContents.on('devtools-closed', () =>
+        mainWindow.setSize(width, height, true)
+      )
+    } catch (error) {
+      console.log('An error occurred: ', error) // eslint-disable-line no-console
+    }
+  }
+}
+
+const createWindowEvents = mainWindow => {
+  mainWindow.on('enter-full-screen', () =>
+    mainWindow.webContents.executeJavaScript(
+      'document.getElementsByTagName(\'html\')[0].classList.add(\'fullscreen\')'
+    )
+  )
+  mainWindow.on('leave-full-screen', () =>
+    mainWindow.webContents.executeJavaScript(
+      'document.getElementsByTagName(\'html\')[0].classList.remove(\'fullscreen\')'
+    )
+  )
+  mainWindow.on('blur', () =>
+    mainWindow.webContents.executeJavaScript(
+      'document.getElementsByTagName(\'html\')[0].classList.add(\'blur\')'
+    )
+  )
+  mainWindow.on('focus', () =>
+    mainWindow.webContents.executeJavaScript(
+      'document.getElementsByTagName(\'html\')[0].classList.remove(\'blur\')'
+    )
+  )
+}
 
 //
 // Accent color setting

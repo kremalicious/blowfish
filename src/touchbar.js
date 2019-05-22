@@ -3,16 +3,18 @@ const { cryptoFormatter } = require('./utils')
 
 const { TouchBarButton } = TouchBar
 
-// const currency = ipc...
-// const prices = ipc...
-
-const createButton = (value, key, mainWindow, accentColor) => {
-  return new TouchBarButton({
-    label: cryptoFormatter(value, key.toUpperCase()),
+const createButton = (
+  value,
+  key,
+  mainWindow,
+  accentColor,
+  currentCurrency = 'ocean'
+) =>
+  new TouchBarButton({
+    label: cryptoFormatter(value, key),
     click: () => mainWindow.webContents.send('setCurrency', key),
-    backgroundColor: key === 'ocean' ? accentColor : '#141414'
+    backgroundColor: key === currentCurrency ? accentColor : '#141414'
   })
-}
 
 const buildTouchbar = (prices, mainWindow, accentColor) => {
   const touchBar = new TouchBar({
@@ -25,15 +27,22 @@ const buildTouchbar = (prices, mainWindow, accentColor) => {
   mainWindow.setTouchBar(touchBar)
 }
 
-const updateTouchbar = (prices, mainWindow, accentColor) => {
+const updateTouchbar = (
+  prices,
+  mainWindow,
+  accentColor,
+  currentCurrency = 'ocean'
+) => {
+  const items = Object.keys(prices)
+    .filter(key => key !== 'ocean')
+    .map(key =>
+      createButton(prices[key], key, mainWindow, accentColor, currentCurrency)
+    )
+
   const touchBar = new TouchBar({
     items: [
-      createButton(1, 'ocean', mainWindow, accentColor),
-      ...Object.entries(prices)
-        .filter(([key]) => key !== 'ocean')
-        .map(([key, value]) =>
-          createButton(value, key, mainWindow, accentColor)
-        )
+      createButton(1, 'ocean', mainWindow, accentColor, currentCurrency),
+      ...items
     ]
   })
 

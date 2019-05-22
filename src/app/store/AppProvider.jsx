@@ -87,6 +87,7 @@ export default class AppProvider extends PureComponent {
       }))
     )
 
+    ipcRenderer.send('prices-updated', newPrizes)
     return newPrizes
   }
 
@@ -121,6 +122,7 @@ export default class AppProvider extends PureComponent {
   }
 
   toggleCurrencies(currency) {
+    ipcRenderer.send('currency-updated', this.state.prices, currency)
     this.setState({ currency })
   }
 
