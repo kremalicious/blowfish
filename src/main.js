@@ -4,7 +4,7 @@ const pkg = require('../package.json')
 const buildMenu = require('./menu')
 const { buildTouchbar, updateTouchbar } = require('./touchbar')
 const { rgbaToHex } = require('./utils')
-const { prices } = require('./app/config')
+const { prices } = require('./config')
 
 let mainWindow
 

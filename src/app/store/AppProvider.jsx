@@ -5,7 +5,7 @@ import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
 import { AppContext } from './createContext'
 import fetchData from '../utils/fetch'
-import { refreshInterval, prices, oceanTokenContract } from '../config'
+import { refreshInterval, prices, oceanTokenContract } from '../../config'
 
 export default class AppProvider extends PureComponent {
   static propTypes = {
@@ -38,7 +38,6 @@ export default class AppProvider extends PureComponent {
 
     const newPrizes = await this.fetchAndSetPrices()
     this.setState({ prices: newPrizes })
-    ipcRenderer.send('prices-updated', newPrizes)
 
     await this.setBalances()
 
