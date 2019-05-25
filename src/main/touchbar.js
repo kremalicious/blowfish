@@ -1,6 +1,6 @@
 const { TouchBar } = require('electron')
-const { cryptoFormatter } = require('./utils')
-const { conversions } = require('./config')
+const { cryptoFormatter } = require('../utils')
+const { conversions } = require('../config')
 
 const { TouchBarButton } = TouchBar
 

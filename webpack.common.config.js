@@ -2,10 +2,10 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
-const defaultInclude = [path.resolve(__dirname, 'src')]
+const defaultInclude = [path.resolve(__dirname, 'src', 'renderer')]
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'app', 'index.js'),
+  entry: path.resolve(__dirname, 'src', 'renderer', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
@@ -42,7 +42,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin(),
     new CopyPlugin([
-      { from: './src/app/images/icon.*', to: './', flatten: true }
+      { from: './src/renderer/images/icon.*', to: './', flatten: true }
     ])
   ]
 }

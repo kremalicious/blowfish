@@ -1,9 +1,9 @@
 const path = require('path')
 const { app, BrowserWindow, systemPreferences, ipcMain } = require('electron')
-const pkg = require('../package.json')
+const pkg = require('../../package.json')
 const buildMenu = require('./menu')
 const { buildTouchbar, updateTouchbar } = require('./touchbar')
-const { rgbaToHex } = require('./utils')
+const { rgbaToHex } = require('../utils')
 
 let mainWindow
 
@@ -44,7 +44,7 @@ const createWindow = async () => {
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:8080'
-      : `file://${path.join(__dirname, '../build/index.html')}`
+      : `file://${path.join(__dirname, '../../build/index.html')}`
   )
 
   createWindowEvents(mainWindow)

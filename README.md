@@ -26,6 +26,7 @@
 - [Features](#features)
 - [Download](#download)
 - [Development](#development)
+- [Configuration](#configuration)
 - [Build packages](#build-packages)
 - [License](#license)
 
@@ -39,9 +40,10 @@
 - re-fetches everything automatically every minute
 - balances are fetched via etherscan.io API
 - spot prices are fetched from coingecko.com API
-- detects system locale for number formatting
 - detects dark appearance setting and switches to dark theme automatically (macOS only)
 - detects system accent color and uses it as primary color (macOS & Windows only)
+- Touch Bar support (macOS only)
+- detects system locale for number formatting
 - currently highly optimized for macOS, your mileage on Windows or Linux may vary
 
 ## Download
@@ -57,6 +59,8 @@ Alternatively, you can [build the app on your system](#build-packages).
 
 ## Development
 
+The main app is a React app in `src/renderer/` wrapped within an Electron app defined in `src/main/`.
+
 Clone, and run:
 
 ```bash
@@ -69,6 +73,18 @@ npm install
 # Run the app in dev mode
 npm start
 ```
+
+## Configuration
+
+The app has a settings screen where you can add your account addresses.
+
+When building the app yourself, you can configure more in the `src/config.js` file:
+
+| Key                  | Description                                                                                                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `conversions`        | Array defining the currencies the Ocean balance is converted to. Every currency listed here will appear in the ticker buttons. |
+| `refreshInterval`    | Defines the interval prices and balances are refetched.                                                                        |
+| `oceanTokenContract` | Contract address of the Ocean Token. You should not change this.                                                               |
 
 ## Build packages
 
