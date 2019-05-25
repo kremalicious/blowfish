@@ -11,8 +11,10 @@ export default class Ticker extends PureComponent {
   static contextType = AppContext
 
   items = activeStyle =>
-    Object.keys(this.context.prices).map((key, i) => (
-      <Item key={i} className="number-unit">
+    // convert Map to array first, cause for...of or forEach returns undefined,
+    // so it cannot be mapped to a collection of elements
+    [...this.context.prices.entries()].map(([key, value]) => (
+      <Item key={key} className="number-unit">
         <button
           className="label label--price"
           onClick={() => this.context.toggleCurrencies(key)}
@@ -23,7 +25,7 @@ export default class Ticker extends PureComponent {
               : {}
           }
         >
-          {cryptoFormatter(this.context.prices[key], key)}
+          {cryptoFormatter(value, key)}
         </button>
       </Item>
     ))

@@ -1,5 +1,6 @@
 const { TouchBar } = require('electron')
 const { cryptoFormatter } = require('./utils')
+const { conversions } = require('./config')
 
 const { TouchBarButton } = TouchBar
 
@@ -16,11 +17,11 @@ const createButton = (
     backgroundColor: key === currentCurrency ? accentColor : '#141414'
   })
 
-const buildTouchbar = (prices, mainWindow, accentColor) => {
+const buildTouchbar = (mainWindow, accentColor) => {
   const touchBar = new TouchBar({
     items: [
       createButton(1, 'ocean', mainWindow, accentColor),
-      ...prices.map(key => createButton(0, key, mainWindow, accentColor))
+      ...conversions.map(key => createButton(0, key, mainWindow, accentColor))
     ]
   })
 
@@ -28,22 +29,23 @@ const buildTouchbar = (prices, mainWindow, accentColor) => {
 }
 
 const updateTouchbar = (
-  prices,
+  pricesNew,
   mainWindow,
   accentColor,
   currentCurrency = 'ocean'
 ) => {
-  const items = Object.keys(prices)
-    .filter(key => key !== 'ocean')
-    .map(key =>
-      createButton(prices[key], key, mainWindow, accentColor, currentCurrency)
+  const items = pricesNew.map(item => {
+    return createButton(
+      item[1],
+      item[0],
+      mainWindow,
+      accentColor,
+      currentCurrency
     )
+  })
 
   const touchBar = new TouchBar({
-    items: [
-      createButton(1, 'ocean', mainWindow, accentColor, currentCurrency),
-      ...items
-    ]
+    items: [...items]
   })
 
   mainWindow.setTouchBar(touchBar)

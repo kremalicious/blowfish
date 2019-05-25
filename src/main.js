@@ -4,7 +4,6 @@ const pkg = require('../package.json')
 const buildMenu = require('./menu')
 const { buildTouchbar, updateTouchbar } = require('./touchbar')
 const { rgbaToHex } = require('./utils')
-const { prices } = require('./config')
 
 let mainWindow
 
@@ -65,7 +64,7 @@ const createWindow = async () => {
   // Load touchbar
   if (process.platform === 'darwin') {
     const accentColor = getAccentColor()
-    buildTouchbar(prices, mainWindow, accentColor)
+    buildTouchbar(mainWindow, accentColor)
 
     ipcMain.on('prices-updated', (event, pricesNew) => {
       updateTouchbar(pricesNew, mainWindow, accentColor)
