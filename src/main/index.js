@@ -1,9 +1,9 @@
 const path = require('path')
-const { app, BrowserWindow, systemPreferences } = require('electron')
-const { touchBarWrapper } = require('react-touchbar-electron')
-const pkg = require('../package.json')
+const { app, BrowserWindow, systemPreferences, ipcMain } = require('electron')
+const pkg = require('../../package.json')
 const buildMenu = require('./menu')
-const { rgbaToHex } = require('./utils')
+const { buildTouchbar, updateTouchbar } = require('./touchbar')
+const { rgbaToHex } = require('../utils')
 
 let mainWindow
 
@@ -19,6 +19,84 @@ if (
 
 const width = 620
 const height = 440
+
+const createWindow = async () => {
+  const isDarkMode = systemPreferences.isDarkMode()
+
+  mainWindow = new BrowserWindow({
+    width,
+    height,
+    minWidth: width,
+    minHeight: height,
+    acceptFirstMouse: true,
+    titleBarStyle: 'hiddenInset',
+    fullscreenWindowTitle: true,
+    backgroundColor: isDarkMode ? '#141414' : '#fff',
+    frame: false,
+    show: false,
+    title: pkg.productName,
+    webPreferences: {
+      nodeIntegration: true,
+      scrollBounce: true
+    }
+  })
+
+  mainWindow.loadURL(
+    isDev
+      ? 'http://localhost:8080'
+      : `file://${path.join(__dirname, '../../build/index.html')}`
+  )
+
+  createWindowEvents(mainWindow)
+  installDevTools(mainWindow)
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+    mainWindow.focus()
+  })
+
+  mainWindow.on('closed', () => {
+    mainWindow = null
+  })
+
+  // Load menubar
+  buildMenu(mainWindow)
+  // Load touchbar
+  if (process.platform === 'darwin') {
+    const accentColor = getAccentColor()
+    buildTouchbar(mainWindow, accentColor)
+
+    ipcMain.on('prices-updated', (event, pricesNew) => {
+      updateTouchbar(pricesNew, mainWindow, accentColor)
+    })
+
+    ipcMain.on('currency-updated', (event, pricesNew, currentCurrency) => {
+      updateTouchbar(pricesNew, mainWindow, accentColor, currentCurrency)
+    })
+  }
+}
+
+app.on('ready', () => {
+  createWindow()
+
+  mainWindow.webContents.on('dom-ready', () => {
+    switchTheme()
+    switchAccentColor()
+  })
+})
+
+// Quit when all windows are closed.
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow()
+  }
+})
 
 const installDevTools = async mainWindow => {
   if (isDev) {
@@ -66,80 +144,17 @@ const createWindowEvents = mainWindow => {
   )
 }
 
-const createWindow = async () => {
-  const isDarkMode = systemPreferences.isDarkMode()
-
-  mainWindow = new BrowserWindow({
-    width,
-    height,
-    minWidth: width,
-    minHeight: height,
-    acceptFirstMouse: true,
-    titleBarStyle: 'hiddenInset',
-    fullscreenWindowTitle: true,
-    backgroundColor: isDarkMode ? '#141414' : '#fff',
-    frame: false,
-    show: false,
-    title: pkg.productName,
-    webPreferences: {
-      nodeIntegration: true,
-      scrollBounce: true
-    }
-  })
-
-  mainWindow.loadURL(
-    isDev
-      ? 'http://localhost:8080'
-      : `file://${path.join(__dirname, '../build/index.html')}`
-  )
-
-  createWindowEvents(mainWindow)
-  installDevTools(mainWindow)
-
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show()
-    mainWindow.focus()
-  })
-
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
-
-  // Load menubar
-  buildMenu(mainWindow)
-  // Load touchbar
-  process.platform === 'darwin' && touchBarWrapper(mainWindow)
-}
-
-app.on('ready', () => {
-  createWindow()
-
-  mainWindow.webContents.on('dom-ready', () => {
-    switchTheme()
-    switchAccentColor()
-  })
-})
-
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
-
 //
 // Accent color setting
 // macOS & Windows
 //
-const switchAccentColor = () => {
+const getAccentColor = () => {
   const systemAccentColor = systemPreferences.getAccentColor()
-  const accentColor = rgbaToHex(systemAccentColor)
+  return rgbaToHex(systemAccentColor)
+}
+
+const switchAccentColor = () => {
+  const accentColor = getAccentColor()
   mainWindow.webContents.send('accent-color', accentColor)
 }
 

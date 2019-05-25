@@ -2,11 +2,10 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
-// Any directories you will be adding code/files into, need to be added to this array so webpack will pick them up
-const defaultInclude = [path.resolve(__dirname, 'src')]
+const defaultInclude = [path.resolve(__dirname, 'src', 'renderer')]
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src') + '/app/index.js',
+  entry: path.resolve(__dirname, 'src', 'renderer', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
@@ -33,11 +32,6 @@ module.exports = {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
         include: defaultInclude
-      },
-      {
-        test: /\.(eot|ttf|woff|woff2)$/,
-        use: ['file-loader?name=font/[name]__[hash:base64:5].[ext]'],
-        include: defaultInclude
       }
     ]
   },
@@ -48,7 +42,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin(),
     new CopyPlugin([
-      { from: './src/app/images/icon.*', to: './', flatten: true }
+      { from: './src/renderer/images/icon.*', to: './', flatten: true }
     ])
   ]
 }

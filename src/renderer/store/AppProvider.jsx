@@ -4,8 +4,14 @@ import ms from 'ms'
 import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
 import { AppContext } from './createContext'
-import fetchData from '../util/fetch'
-import { refreshInterval, prices, oceanTokenContract } from '../config'
+import fetchData from '../utils/fetch'
+import { refreshInterval, conversions, oceanTokenContract } from '../../config'
+
+// construct initial prices Map to get consistent
+// order for Ticker and Touchbar
+let pricesMap = new Map()
+pricesMap.set('ocean', 1)
+conversions.map(key => pricesMap.set(key, 0))
 
 export default class AppProvider extends PureComponent {
   static propTypes = {
@@ -19,18 +25,26 @@ export default class AppProvider extends PureComponent {
     accounts: [],
     currency: 'ocean',
     needsConfig: false,
-    prices: Object.assign(...prices.map(key => ({ [key]: 0 }))),
-    toggleCurrencies: currency => this.setState({ currency }),
+    prices: pricesMap,
+    toggleCurrencies: currency => this.toggleCurrencies(currency),
     setBalances: () => this.setBalances(),
     accentColor: ''
   }
 
   async componentDidMount() {
+    // listener for accent color
     ipcRenderer.on('accent-color', (event, accentColor) => {
       this.setState({ accentColor })
     })
 
-    await this.fetchAndSetPrices()
+    // listener for touchbar
+    ipcRenderer.on('setCurrency', (evt, currency) =>
+      this.state.toggleCurrencies(currency)
+    )
+
+    const newPrizes = await this.fetchAndSetPrices()
+    this.setState({ prices: newPrizes })
+
     await this.setBalances()
 
     setInterval(this.fetchAndSetPrices, ms(refreshInterval))
@@ -66,19 +80,17 @@ export default class AppProvider extends PureComponent {
   }
 
   fetchAndSetPrices = async () => {
-    const currencies = prices.join(',')
+    const currencies = conversions.join(',')
     const json = await fetchData(
       `https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=${currencies}`
     )
 
-    const newPrizes = Object.assign(
-      ...prices.map(key => ({
-        ocean: 1,
-        [key]: json['ocean-protocol'][key]
-      }))
-    )
+    let newPrices = new Map(this.state.prices) // make a shallow copy of the Map
+    conversions.map(key => newPrices.set(key, json['ocean-protocol'][key])) // modify the copy
 
-    this.setState({ prices: newPrizes })
+    ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
+    this.setState({ prices: newPrices })
+    return newPrices
   }
 
   setBalances = async () => {
@@ -89,9 +101,9 @@ export default class AppProvider extends PureComponent {
     for (const account of accountsPref) {
       const oceanBalance = await this.getBalance(account)
 
-      const conversions = Object.assign(
-        ...prices.map(key => ({
-          [key]: oceanBalance * this.state.prices[key] || 0
+      const conversionsBalance = Object.assign(
+        ...conversions.map(key => ({
+          [key]: oceanBalance * this.state.prices.get(key) || 0
         }))
       )
 
@@ -99,7 +111,7 @@ export default class AppProvider extends PureComponent {
         address: account,
         balance: {
           ocean: oceanBalance,
-          ...conversions
+          ...conversionsBalance
         }
       }
 
@@ -109,6 +121,12 @@ export default class AppProvider extends PureComponent {
     if (newAccounts !== this.state.accounts) {
       this.setState({ accounts: newAccounts })
     }
+  }
+
+  toggleCurrencies(currency) {
+    const pricesNew = Array.from(this.state.prices)
+    ipcRenderer.send('currency-updated', pricesNew, currency)
+    this.setState({ currency })
   }
 
   render() {

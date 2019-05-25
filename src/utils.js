@@ -15,7 +15,7 @@ const rgbaToHex = color => {
 }
 
 const locale =
-  typeof navigator !== 'undefined' ? navigator.language : app.getLocale()
+  typeof navigator !== 'undefined' ? navigator.language : () => app.getLocale()
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat
 const numberFormatter = value =>
@@ -39,7 +39,7 @@ const cryptoFormatter = (value, currency) => {
   if (currency === 'ocean') {
     return formatOcean(value)
   } else {
-    return formatCurrency(value, currency.toUpperCase(), locale.split('-')[0])
+    return formatCurrency(value, currency.toUpperCase(), locale)
       .replace(/BTC/, 'Ƀ')
       .replace(/ETH/, 'Ξ')
   }
