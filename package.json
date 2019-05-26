@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "webpack --mode production --config webpack.common.config.js",
     "package": "electron-builder build -mwl && open ./dist",
-    "dist": "npm run build && npm run package"
+    "dist": "npm run build && npm run package",
+    "release": "release-it --non-interactive"
   },
   "repository": "https://github.com/kremalicious/blowfish.git",
   "homepage": "https://github.com/kremalicious/blowfish",
@@ -52,6 +53,7 @@
     "react-blockies": "^1.4.1",
     "react-dom": "^16.8.6",
     "react-pose": "^4.0.8",
+    "release-it": "^12.2.1",
     "style-loader": "^0.23.1",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
@@ -79,6 +81,31 @@
         "AppImage"
       ],
       "category": "Office"
+    }
+  },
+  "release-it": {
+    "scripts": {
+      "beforeStart": "npm test",
+      "afterBump": "npm run dist",
+      "afterRelease": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true,
+      "assets": [
+        "dist/*${version}*.exe",
+        "dist/*${version}-mac.zip",
+        "dist/*${version}.dmg",
+        "dist/*${version}.AppImage",
+        "dist/*${version}*.deb",
+        "dist/*${version}*.snap",
+        "dist/*${version}*.rpm"
+      ]
+    },
+    "npm": {
+      "publish": false
     }
   }
 }
