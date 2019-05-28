@@ -32,7 +32,7 @@ const createWindow = async () => {
     titleBarStyle: 'hiddenInset',
     fullscreenWindowTitle: true,
     backgroundColor: isDarkMode ? '#141414' : '#fff',
-    frame: false,
+    frame: process.platform === 'darwin' ? false : true,
     show: false,
     title: pkg.productName,
     webPreferences: {
@@ -59,8 +59,9 @@ const createWindow = async () => {
     mainWindow = null
   })
 
-  // Load menubar
+  // Load menu
   buildMenu(mainWindow)
+
   // Load touchbar
   if (process.platform === 'darwin') {
     const accentColor = getAccentColor()
@@ -82,6 +83,13 @@ app.on('ready', () => {
   mainWindow.webContents.on('dom-ready', () => {
     switchTheme()
     switchAccentColor()
+
+    // add platform as class
+    mainWindow.webContents.executeJavaScript(
+      `document.getElementsByTagName('html')[0].classList.add('${
+        process.platform
+      }')`
+    )
   })
 })
 
@@ -154,36 +162,47 @@ const getAccentColor = () => {
 }
 
 const switchAccentColor = () => {
-  const accentColor = getAccentColor()
-  mainWindow.webContents.send('accent-color', accentColor)
+  if (process.platform !== 'linux') {
+    const accentColor = getAccentColor()
+    mainWindow.webContents.send('accent-color', accentColor)
+  }
 }
 
 // Listen for accent color changes in System Preferences
 // macOS
-systemPreferences.subscribeNotification('AppleAquaColorVariantChanged', () =>
-  switchAccentColor()
-)
+if (process.platform === 'darwin') {
+  systemPreferences.subscribeNotification('AppleAquaColorVariantChanged', () =>
+    switchAccentColor()
+  )
+}
+
 // Windows
-systemPreferences.on('accent-color-changed', () => switchAccentColor())
+if (process.platform === 'windows') {
+  systemPreferences.on('accent-color-changed', () => switchAccentColor())
+}
 
 //
 // Appearance setting
 // macOS
 //
 const switchTheme = () => {
-  const isDarkMode = systemPreferences.isDarkMode()
+  if (process.platform === 'darwin') {
+    const isDarkMode = systemPreferences.isDarkMode()
 
-  isDarkMode
-    ? mainWindow.webContents.executeJavaScript(
-        'document.getElementsByTagName(\'html\')[0].classList.add(\'dark\')'
-      )
-    : mainWindow.webContents.executeJavaScript(
-        'document.getElementsByTagName(\'html\')[0].classList.remove(\'dark\')'
-      )
+    isDarkMode
+      ? mainWindow.webContents.executeJavaScript(
+          'document.getElementsByTagName(\'html\')[0].classList.add(\'dark\')'
+        )
+      : mainWindow.webContents.executeJavaScript(
+          'document.getElementsByTagName(\'html\')[0].classList.remove(\'dark\')'
+        )
+  }
 }
 
 // Listen for appearance changes in System Preferences
-systemPreferences.subscribeNotification(
-  'AppleInterfaceThemeChangedNotification',
-  () => switchTheme()
-)
+if (process.platform === 'darwin') {
+  systemPreferences.subscribeNotification(
+    'AppleInterfaceThemeChangedNotification',
+    () => switchTheme()
+  )
+}

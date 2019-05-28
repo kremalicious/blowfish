@@ -20,7 +20,7 @@
     padding: .2rem .4rem;
     display: block;
     transition: border .2s ease-out;
-    color: #8b98a9;
+    color: #41474e;
 }
 
 .ticker button:disabled {
@@ -29,6 +29,7 @@
 
 .dark .ticker button {
     border-color: #303030;
+    color: #8b98a9;
 }
 
 .label--price {

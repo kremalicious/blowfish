@@ -28,7 +28,7 @@ export default class AppProvider extends PureComponent {
     prices: pricesMap,
     toggleCurrencies: currency => this.toggleCurrencies(currency),
     setBalances: () => this.setBalances(),
-    accentColor: ''
+    accentColor: '#f6388a'
   }
 
   async componentDidMount() {
