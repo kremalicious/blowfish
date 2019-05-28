@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "webpack --mode production --config webpack.common.config.js",
     "package": "electron-builder build -mwl && open ./dist",
-    "dist": "npm run build && npm run package",
+    "dist": "rm -rf {dist,build}/ && npm run build && npm run package",
     "release": "release-it --non-interactive"
   },
   "repository": "https://github.com/kremalicious/blowfish.git",
@@ -97,13 +97,13 @@
     "github": {
       "release": true,
       "assets": [
-        "dist/*${version}*.exe",
-        "dist/*${version}-mac.zip",
-        "dist/*${version}.dmg",
-        "dist/*${version}.AppImage",
-        "dist/*${version}*.deb",
-        "dist/*${version}*.snap",
-        "dist/*${version}*.rpm"
+        "dist/*.exe",
+        "dist/*.zip",
+        "dist/*.dmg",
+        "dist/*.AppImage",
+        "dist/*.deb",
+        "dist/*.snap",
+        "dist/*.rpm"
       ]
     },
     "npm": {
