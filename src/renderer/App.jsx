@@ -43,7 +43,7 @@ export default class App extends PureComponent {
   render() {
     return (
       <>
-        <Titlebar />
+        {process.platform === 'darwin' && <Titlebar />}
         <div className="app">
           <PosedRouter>
             <Home path="/" default />
