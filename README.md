@@ -95,10 +95,10 @@ npm run dist
 
 Will build and package the app into platform specific packages for macOS, Windows & Linux.
 
-On a Mac and Linux machine, packaging requires [`wine`](https://www.winehq.org) and `rpm` in your `PATH`. To install on macOS with [Homebrew](https://brew.sh):
+On a Mac and Linux machine, packaging requires [`wine`](https://www.winehq.org) in your `PATH`. To install on macOS with [Homebrew](https://brew.sh):
 
 ```bash
-brew install wine rpm
+brew install wine
 ```
 
 ## Creating Releases
