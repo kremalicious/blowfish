@@ -76,12 +76,11 @@
     "linux": {
       "target": [
         "deb",
-        "rpm",
         "snap",
         "AppImage"
       ],
       "category": "Office",
-      "executableName": "desiredName",
+      "executableName": "Blowfish",
       "artifactName": "${productName}-${version}.${ext}"
     }
   },
@@ -102,8 +101,7 @@
         "dist/*.dmg",
         "dist/*.AppImage",
         "dist/*.deb",
-        "dist/*.snap",
-        "dist/*.rpm"
+        "dist/*.snap"
       ]
     },
     "npm": {
