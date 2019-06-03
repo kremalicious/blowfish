@@ -36,3 +36,17 @@
     display: inline-block;
     font-size: .95rem;
 }
+
+.change {
+    font-size: .7rem;
+    display: inline-block;
+    margin-left: .25rem;
+}
+
+.change--positive {
+    color: forestgreen;
+}
+
+.change--negative {
+    color: crimson;
+}
