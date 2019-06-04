@@ -1,27 +1,67 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const defaultInclude = [path.resolve(__dirname, 'src', 'renderer')]
 
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
 module.exports = {
+  mode: isDevelopment ? 'development' : 'production',
   entry: path.resolve(__dirname, 'src', 'renderer', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: './'
+    publicPath: isDevelopment ? '/' : './'
   },
   module: {
     rules: [
+      {
+        test: /\.(js|jsx)?$/,
+        use: ['babel-loader'],
+        include: defaultInclude
+      },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
         include: defaultInclude
       },
       {
-        test: /\.(js|jsx)?$/,
-        use: ['babel-loader'],
-        include: defaultInclude
+        test: /\.module\.(scss|sass)$/,
+        include: defaultInclude,
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+              camelCase: true,
+              sourceMap: isDevelopment
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(scss|sass)$/,
+        exclude: /\.module.(scss|sass)$/,
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
+        ]
       },
       {
         test: /\.(jpe?g|png|gif)$/,
@@ -36,11 +76,15 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx', '.scss']
   },
   target: 'electron-renderer',
   plugins: [
     new HtmlWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+      chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
+    }),
     new CopyPlugin([
       { from: './src/renderer/images/icon.*', to: './', flatten: true }
     ])

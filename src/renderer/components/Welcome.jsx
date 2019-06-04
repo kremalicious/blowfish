@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from '@reach/router'
 import IconRocket from '../images/rocket.svg'
-import './Welcome.css'
+import styles from './Welcome.module.scss'
 import { AppContext } from '../store/createContext'
 
 const Welcome = () => (
-  <div className="welcome">
+  <div className={styles.welcome}>
     <IconRocket />
     <AppContext.Consumer>
       {context => (
