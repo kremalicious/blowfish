@@ -21,7 +21,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@coingecko/cryptoformat": "^0.3.1",
+    "@coingecko/cryptoformat": "^0.3.2",
     "ethereum-address": "0.0.4",
     "ms": "^2.1.1"
   },
@@ -33,7 +33,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.4.5",
     "@reach/router": "^1.2.1",
-    "@svgr/webpack": "^4.2.0",
+    "@svgr/webpack": "^4.3.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.0.3",
@@ -53,13 +53,13 @@
     "react-blockies": "^1.4.1",
     "react-dom": "^16.8.6",
     "react-pose": "^4.0.8",
-    "release-it": "^12.2.1",
+    "release-it": "^12.2.2",
     "style-loader": "^0.23.1",
     "stylelint": "^10.0.1",
     "stylelint-config-standard": "^18.3.0",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.3.1"
+    "webpack-dev-server": "^3.5.1"
   },
   "browserslist": "electron >= 5.0",
   "build": {

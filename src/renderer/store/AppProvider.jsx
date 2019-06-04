@@ -26,6 +26,11 @@ export default class AppProvider extends PureComponent {
     currency: 'ocean',
     needsConfig: false,
     prices: pricesMap,
+    priceChanges: Object.assign(
+      ...conversions.map(key => ({
+        [key]: 0
+      }))
+    ),
     toggleCurrencies: currency => this.toggleCurrencies(currency),
     setBalances: () => this.setBalances(),
     accentColor: '#f6388a'
@@ -75,21 +80,27 @@ export default class AppProvider extends PureComponent {
       `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${oceanTokenContract}&address=${account}&tag=latest`
     )
 
-    const balance = (json.result /= 1000000000000000000) // Convert from vodka 10^18
+    const balance = json.result / 1e18 // Convert from vodka 10^18
     return balance
   }
 
   fetchAndSetPrices = async () => {
     const currencies = conversions.join(',')
     const json = await fetchData(
-      `https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=${currencies}`
+      `https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=${currencies}&include_24hr_change=true`
     )
 
     let newPrices = new Map(this.state.prices) // make a shallow copy of the Map
     conversions.map(key => newPrices.set(key, json['ocean-protocol'][key])) // modify the copy
 
+    const newPriceChanges = await Object.assign(
+      ...conversions.map(key => ({
+        [key]: json['ocean-protocol'][key + '_24h_change']
+      }))
+    )
+
     ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
-    this.setState({ prices: newPrices })
+    this.setState({ prices: newPrices, priceChanges: newPriceChanges })
     return newPrices
   }
 

@@ -17,8 +17,8 @@ if (
   isDev = true
 }
 
-const width = 620
-const height = 440
+const width = 640
+const height = 450
 
 const createWindow = async () => {
   const isDarkMode = systemPreferences.isDarkMode()

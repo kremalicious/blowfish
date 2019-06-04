@@ -26,19 +26,16 @@
 }
 
 .number-unit-wrap {
-    display: flex;
+    display: grid;
+    grid-gap: .5rem;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    justify-items: start;
     width: 100%;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    position: relative;
 }
 
 .number-unit {
     text-align: center;
-    flex: 1 1 20%;
-    margin-top: 5%;
-    padding-left: 2%;
-    padding-right: 2%;
+    width: 100%;
 }
 
 .label {
@@ -52,6 +49,7 @@
 
 .number-unit-wrap--accounts {
     min-height: 55px;
+    padding-top: 2rem;
 }
 
 .number-unit--main {
