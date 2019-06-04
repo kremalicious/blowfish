@@ -23,6 +23,7 @@
   "dependencies": {
     "@coingecko/cryptoformat": "^0.3.2",
     "ethereum-address": "0.0.4",
+    "ethereum-blockies": "MyEtherWallet/blockies",
     "ms": "^2.1.1"
   },
   "devDependencies": {
@@ -50,7 +51,6 @@
     "prettier": "^1.17.1",
     "prettier-stylelint": "^0.4.2",
     "react": "^16.8.6",
-    "react-blockies": "^1.4.1",
     "react-dom": "^16.8.6",
     "react-pose": "^4.0.8",
     "release-it": "^12.2.2",
