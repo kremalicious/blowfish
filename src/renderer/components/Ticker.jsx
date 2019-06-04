@@ -11,12 +11,12 @@ const Item = posed.div(fadeIn)
 const Change = ({ currency }) => (
   <AppContext.Consumer>
     {({ priceChanges }) => {
-      let classes = JSON.stringify(priceChanges[currency]).startsWith('+')
-        ? 'change--positive'
-        : 'change--negative'
+      const isNegative = JSON.stringify(priceChanges[currency]).startsWith('-')
+      let classes = isNegative ? 'change--negative' : 'change--positive'
 
       return (
-        <span className={`change ${classes}`}>
+        <span className={`change ${classes}`} title="24hr change">
+          {!isNegative && '+'}
           {Number(priceChanges[currency]).toFixed(1)}%
         </span>
       )
@@ -31,29 +31,14 @@ Change.propTypes = {
 export default class Ticker extends PureComponent {
   static contextType = AppContext
 
-  items = activeStyle =>
-    // convert Map to array first, cause for...of or forEach returns undefined,
-    // so it cannot be mapped to a collection of elements
-    [...this.context.prices.entries()].map(([key, value]) => (
-      <Item key={key} className="number-unit">
-        <button
-          className="label label--price"
-          onClick={() => this.context.toggleCurrencies(key)}
-          disabled={this.context.needsConfig}
-          style={
-            key === this.context.currency && !this.context.needsConfig
-              ? activeStyle
-              : {}
-          }
-        >
-          {cryptoFormatter(value, key)}
-          {key !== 'ocean' && <Change currency={key} />}
-        </button>
-      </Item>
-    ))
-
-  render() {
-    const { accentColor } = this.context
+  items = () => {
+    const {
+      prices,
+      needsConfig,
+      currency,
+      toggleCurrencies,
+      accentColor
+    } = this.context
 
     const activeStyle = {
       backgroundColor: accentColor,
@@ -61,9 +46,29 @@ export default class Ticker extends PureComponent {
       borderColor: accentColor
     }
 
+    // convert Map to array first, cause for...of or forEach returns undefined,
+    // so it cannot be mapped to a collection of elements
+    return [...prices.entries()].map(([key, value]) => (
+      <Item key={key} className="number-unit">
+        <button
+          className="label label--price"
+          onClick={() => toggleCurrencies(key)}
+          disabled={needsConfig}
+          style={key === currency && !needsConfig ? activeStyle : {}}
+        >
+          {cryptoFormatter(value, key)}
+          {key !== 'ocean' && <Change currency={key} />}
+        </button>
+      </Item>
+    ))
+  }
+
+  render() {
     return (
-      <footer className="number-unit-wrap ticker" {...this.props}>
-        <PoseGroup animateOnMount>{this.items(activeStyle)}</PoseGroup>
+      <footer className="ticker" {...this.props}>
+        <div className="number-unit-wrap">
+          <PoseGroup animateOnMount>{this.items()}</PoseGroup>
+        </div>
       </footer>
     )
   }

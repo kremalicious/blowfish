@@ -1,6 +1,8 @@
 const { app, shell } = require('electron')
 const { formatCurrency } = require('@coingecko/cryptoformat')
 
+const isFiat = currency => currency === 'eur' || currency === 'usd'
+
 const openUrl = url => {
   shell.openExternal(url)
 }
@@ -35,9 +37,22 @@ const formatOcean = value => {
   return numberformatted.replace(/EUR/, 'Ọ').replace(/€/, 'Ọ')
 }
 
+const formatFiat = (value, currency) => {
+  const numberformatted = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 4,
+    style: 'currency',
+    currency: currency.toUpperCase()
+  }).format(value)
+
+  return numberformatted
+}
+
 const cryptoFormatter = (value, currency) => {
   if (currency === 'ocean') {
     return formatOcean(value)
+  } else if (isFiat(currency)) {
+    return formatFiat(value, currency)
   } else {
     return formatCurrency(value, currency.toUpperCase(), locale)
       .replace(/BTC/, 'Ƀ')
