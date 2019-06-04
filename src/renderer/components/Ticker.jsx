@@ -46,12 +46,12 @@ export default class Ticker extends PureComponent {
       borderColor: accentColor
     }
 
-    // convert Map to array first, cause for...of or forEach returns undefined,
-    // so it cannot be mapped to a collection of elements
+    // convert Map to array first, cause for...of or forEach returns
+    // undefined, so it cannot be mapped to a collection of elements
     return [...prices.entries()].map(([key, value]) => (
       <Item key={key} className="number-unit">
         <button
-          className="label label--price"
+          className={`label label--price ${key === currency && 'active'}`}
           onClick={() => toggleCurrencies(key)}
           disabled={needsConfig}
           style={key === currency && !needsConfig ? activeStyle : {}}

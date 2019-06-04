@@ -50,3 +50,8 @@
 .change--negative {
     color: crimson;
 }
+
+.active .change--positive,
+.active .change--negative {
+    color: #fff !important;
+}
