@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Blockies from 'react-blockies'
+import { toDataUrl } from 'ethereum-blockies'
 import posed, { PoseGroup } from 'react-pose'
 import Store from 'electron-store'
 import ethereum_address from 'ethereum-address'
@@ -11,22 +11,26 @@ const Item = posed.li(fadeIn)
 
 const AccountsList = ({ accounts, handleDelete }) => (
   <PoseGroup>
-    {accounts.map(account => (
-      <Item key={account}>
-        <div>
-          <Blockies seed={account} size={10} scale={3} />
-          {account}
-        </div>
+    {accounts.map(account => {
+      const identicon = account && toDataUrl(account)
 
-        <button
-          className="delete"
-          onClick={e => handleDelete(e, account)}
-          title="Remove account"
-        >
-          &times;
-        </button>
-      </Item>
-    ))}
+      return (
+        <Item key={account}>
+          <div>
+            <img className="identicon" src={identicon} alt="Blockies" />
+            {account}
+          </div>
+
+          <button
+            className="delete"
+            onClick={e => handleDelete(e, account)}
+            title="Remove account"
+          >
+            &times;
+          </button>
+        </Item>
+      )
+    })}
   </PoseGroup>
 )
 

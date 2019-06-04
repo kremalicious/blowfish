@@ -43,8 +43,7 @@
     font-size: .85rem;
     display: block;
     white-space: nowrap;
-    margin-top: .3rem;
-    transition: color .2s ease-out;
+    margin-top: .5rem;
 }
 
 .number-unit-wrap--accounts {
