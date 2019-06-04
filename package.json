@@ -106,7 +106,9 @@
         "dist/*.dmg",
         "dist/*.AppImage",
         "dist/*.deb",
-        "dist/*.snap"
+        "dist/*.snap",
+        "dist/latest*.yml",
+        "dist/*.blockmap"
       ]
     },
     "npm": {
