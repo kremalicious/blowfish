@@ -3,12 +3,6 @@ const common = require('./webpack.common.config')
 const { spawn } = require('child_process')
 
 module.exports = Object.assign({}, common, {
-  mode: 'development',
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-    publicPath: '/'
-  },
   devtool: 'cheap-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'build'),

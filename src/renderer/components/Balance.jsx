@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import posed, { PoseGroup } from 'react-pose'
 import { AppContext } from '../store/createContext'
 import { cryptoFormatter } from '../../utils'
-import './Balance.css'
+import styles from './Balance.module.scss'
 import { fadeIn } from './Animations'
 
 const Animation = posed.h1(fadeIn)
@@ -21,7 +21,7 @@ export default class Balance extends PureComponent {
 
     return (
       <PoseGroup animateOnMount>
-        <Animation key={currency} className="number">
+        <Animation key={currency} className={styles.number}>
           {cryptoFormatter(balance[currency], currency)}
         </Animation>
       </PoseGroup>
