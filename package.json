@@ -5,7 +5,7 @@
   "description": "🐡 Simple Electron-based desktop app to retrieve and display your total Ocean Token balances.",
   "main": "./src/main/index.js",
   "scripts": {
-    "test": "eslint ./src/**/*.{js,jsx} && stylelint ./src/**/*.css",
+    "test": "eslint --ignore-path .gitignore ./src/**/*.{js,jsx} && stylelint --ignore-path .gitignore ./src/**/*.{css,scss}",
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.common.config.js",
     "package": "electron-builder build -mwl && open ./dist",
@@ -23,13 +23,12 @@
   "dependencies": {
     "@coingecko/cryptoformat": "^0.3.2",
     "ethereum-address": "0.0.4",
-    "ethereum-blockies": "MyEtherWallet/blockies",
+    "ethereum-blockies": "github:MyEtherWallet/blockies",
     "ms": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.4.5",
@@ -76,7 +75,8 @@
       "package.json"
     ],
     "mac": {
-      "category": "public.app-category.finance"
+      "category": "public.app-category.finance",
+      "identity": null
     },
     "linux": {
       "target": [
