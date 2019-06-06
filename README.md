@@ -10,7 +10,7 @@
   <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/kremalicious/blowfish.svg" /></a>
 </p>
 
-![interface](https://user-images.githubusercontent.com/90316/57982435-f0098a80-7a45-11e9-96c0-903830c8d42a.png)
+![interface](https://user-images.githubusercontent.com/90316/59041344-afe53d00-8878-11e9-83e4-a82dd0c4646b.png)
 
 <p align="center">
   Made with ♥ by <a href="https://matthiaskretschmann.com">Matthias Kretschmann</a>
