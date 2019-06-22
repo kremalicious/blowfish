@@ -45,7 +45,7 @@
     "electron-builder": "^20.43.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-store": "^3.3.0",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.0",
     "eslint-config-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.13.0",
     "file-loader": "^4.0.0",
