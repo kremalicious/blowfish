@@ -8,7 +8,7 @@
     "test": "eslint --ignore-path .gitignore ./src/**/*.{js,jsx} && stylelint --ignore-path .gitignore ./src/**/*.{css,scss}",
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.common.config.js",
-    "package": "electron-builder build -mwl && open ./dist",
+    "package": "electron-builder build -mwl -p never && open ./dist",
     "dist": "rm -rf {dist,build}/ && npm run build && npm run package",
     "release": "release-it --non-interactive",
     "changelog": "auto-changelog -p"
