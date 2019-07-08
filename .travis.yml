@@ -1,16 +1,27 @@
-dist: xenial
+osx_image: xcode10.2
+os: osx
 language: node_js
 node_js: node
 
-cache:
-  directories:
-    - node_modules
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-# will run `npm install` automatically here
+cache:
+  npm: true
+  directories:
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+    - $HOME/.npm/_prebuilds
 
 script:
   - npm test
-  - npm run build
+  - npm run dist
+
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
 
 notifications:
   email: false
