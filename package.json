@@ -59,7 +59,7 @@
     "react-pose": "^4.0.8",
     "release-it": "^12.3.4",
     "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
+    "style-loader": "^1.0.0",
     "stylelint": "^10.1.0",
     "stylelint-config-css-modules": "^1.4.0",
     "stylelint-config-standard": "^18.3.0",
