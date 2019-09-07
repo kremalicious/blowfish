@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import AppProvider from './store/AppProvider'
 import App from './App'
+import pkg from '../../package.json'
 
 document.body.style.backgroundColor = '#141414'
 
@@ -9,6 +10,7 @@ document.body.style.backgroundColor = '#141414'
 let root = document.createElement('div')
 root.id = 'root'
 document.body.appendChild(root)
+document.title = pkg.productName
 
 render(
   <AppProvider>
