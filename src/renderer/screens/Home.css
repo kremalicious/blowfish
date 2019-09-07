@@ -28,7 +28,7 @@
 .number-unit-wrap {
     display: grid;
     grid-gap: .5rem;
-    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
     justify-items: start;
     width: 100%;
 }

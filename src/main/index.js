@@ -37,7 +37,8 @@ const createWindow = async () => {
     title: pkg.productName,
     webPreferences: {
       nodeIntegration: true,
-      scrollBounce: true
+      scrollBounce: true,
+      enableBlinkFeatures: 'OverlayScrollbars'
     }
   })
 
@@ -86,9 +87,7 @@ app.on('ready', () => {
 
     // add platform as class
     mainWindow.webContents.executeJavaScript(
-      `document.getElementsByTagName('html')[0].classList.add('${
-        process.platform
-      }')`
+      `document.getElementsByTagName('html')[0].classList.add('${process.platform}')`
     )
   })
 })
