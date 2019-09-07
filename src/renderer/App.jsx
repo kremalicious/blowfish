@@ -1,6 +1,12 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Router, Location, navigate } from '@reach/router'
+import {
+  Router,
+  createMemorySource,
+  createHistory,
+  LocationProvider,
+  navigate
+} from '@reach/router'
 import { webFrame, ipcRenderer } from 'electron'
 import posed, { PoseGroup } from 'react-pose'
 import Titlebar from './components/Titlebar'
@@ -17,8 +23,13 @@ webFrame.setLayoutZoomLevelLimits(0, 0)
 
 const Animation = posed.div(defaultAnimation)
 
+// Fix reach-router in packaged Electron
+// https://github.com/reach/router/issues/25#issuecomment-394003652
+let source = createMemorySource('/')
+let history = createHistory(source)
+
 const PosedRouter = ({ children }) => (
-  <Location>
+  <LocationProvider history={history}>
     {({ location }) => (
       <PoseGroup animateOnMount>
         <Animation key={location.key}>
@@ -26,7 +37,7 @@ const PosedRouter = ({ children }) => (
         </Animation>
       </PoseGroup>
     )}
-  </Location>
+  </LocationProvider>
 )
 
 PosedRouter.propTypes = {
