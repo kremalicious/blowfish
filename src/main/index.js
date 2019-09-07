@@ -35,6 +35,7 @@ const createWindow = async () => {
     frame: process.platform === 'darwin' ? false : true,
     show: false,
     title: pkg.productName,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       scrollBounce: true,
