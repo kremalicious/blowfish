@@ -2,11 +2,11 @@
     text-align: left;
     width: 100%;
     position: relative;
-    margin-top: 7vh;
     padding-bottom: 4rem;
 }
 
 .preferences__title {
+    width: 100%;
     font-size: 2.2rem;
     margin-top: -1rem;
     margin-bottom: 2rem;
@@ -16,7 +16,7 @@
     text-decoration: none;
     font-size: 2rem;
     position: absolute;
-    top: -1.5rem;
+    top: 0;
     right: 0;
     color: #8b98a9;
 }

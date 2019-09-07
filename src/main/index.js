@@ -35,9 +35,11 @@ const createWindow = async () => {
     frame: process.platform === 'darwin' ? false : true,
     show: false,
     title: pkg.productName,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
-      scrollBounce: true
+      scrollBounce: true,
+      enableBlinkFeatures: 'OverlayScrollbars'
     }
   })
 
@@ -86,9 +88,7 @@ app.on('ready', () => {
 
     // add platform as class
     mainWindow.webContents.executeJavaScript(
-      `document.getElementsByTagName('html')[0].classList.add('${
-        process.platform
-      }')`
+      `document.getElementsByTagName('html')[0].classList.add('${process.platform}')`
     )
   })
 })
