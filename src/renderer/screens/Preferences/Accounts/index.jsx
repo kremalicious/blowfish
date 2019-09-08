@@ -1,70 +1,10 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { toDataUrl } from 'ethereum-blockies'
-import posed, { PoseGroup } from 'react-pose'
 import Store from 'electron-store'
 import ethereum_address from 'ethereum-address'
-import { AppContext } from '../../store/createContext'
-import { fadeIn } from '../../components/Animations'
-
-const Item = posed.li(fadeIn)
-
-const AccountsList = ({ accounts, handleDelete }) => (
-  <PoseGroup>
-    {accounts.map(account => {
-      const identicon = account && toDataUrl(account)
-
-      return (
-        <Item key={account}>
-          <div>
-            <img className="identicon" src={identicon} alt="Blockies" />
-            {account}
-          </div>
-
-          <button
-            className="delete"
-            onClick={e => handleDelete(e, account)}
-            title="Remove account"
-          >
-            &times;
-          </button>
-        </Item>
-      )
-    })}
-  </PoseGroup>
-)
-
-AccountsList.propTypes = {
-  accounts: PropTypes.array.isRequired,
-  handleDelete: PropTypes.func.isRequired
-}
-
-const AccountNew = ({ input, handleInputChange, handleSave, accentColor }) => (
-  <li>
-    <input
-      type="text"
-      placeholder="0xxxxxxxx"
-      value={input}
-      onChange={e => handleInputChange(e)}
-      className="preference__input"
-    />
-
-    <button
-      className="preference__input__add"
-      onClick={e => handleSave(e)}
-      style={{ color: accentColor }}
-    >
-      Add
-    </button>
-  </li>
-)
-
-AccountNew.propTypes = {
-  input: PropTypes.string.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
-  handleSave: PropTypes.func.isRequired,
-  accentColor: PropTypes.string.isRequired
-}
+import { AppContext } from '../../../store/createContext'
+import Saved from './Saved'
+import New from './New'
+import styles from './index.module.css'
 
 export default class Accounts extends PureComponent {
   static contextType = AppContext
@@ -133,22 +73,22 @@ export default class Accounts extends PureComponent {
     const { accounts, input, error } = this.state
 
     return (
-      <div className="preference box">
-        <h2 className="preference__title">Accounts</h2>
-        <p className="preference__help">
+      <div className={styles.preference}>
+        <h2 className={styles.title}>Accounts</h2>
+        <p className={styles.help}>
           Add Ethereum account addresses holding Ocean Tokens.
         </p>
-        <ul className="preference__list">
-          <AccountsList accounts={accounts} handleDelete={this.handleDelete} />
+        <ul className={styles.list}>
+          <Saved accounts={accounts} handleDelete={this.handleDelete} />
 
-          <AccountNew
+          <New
             input={input}
             handleInputChange={this.handleInputChange}
             accentColor={accentColor}
             handleSave={this.handleSave}
           />
         </ul>
-        {error !== '' && <div className="preference__error">{error}</div>}
+        {error !== '' && <div className={styles.error}>{error}</div>}
       </div>
     )
   }

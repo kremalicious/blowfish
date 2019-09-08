@@ -1,0 +1,62 @@
+.preference {
+  composes: box from '../../../components/Box.module.css';
+  -webkit-app-region: none;
+  -webkit-user-select: text;
+}
+
+.title,
+.help {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 1.2rem;
+}
+
+.help {
+  color: #8b98a9;
+  margin-left: 0.5rem;
+}
+
+.error {
+  font-size: 0.9rem;
+}
+
+.list {
+  padding: 0;
+  border-top: 1px solid #e2e2e2;
+}
+
+:global(.dark) .list {
+  border-top-color: #303030;
+}
+
+.list li,
+.list li > div {
+  display: flex;
+  align-items: center;
+}
+
+.list li {
+  list-style: none;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e2e2;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+:global(.dark) .list li {
+  border-bottom-color: #303030;
+}
+
+.button {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  font-size: 1rem;
+}

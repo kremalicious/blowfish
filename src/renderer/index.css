@@ -64,16 +64,3 @@ button {
 a h1 {
   color: unset;
 }
-
-.box {
-  width: 100%;
-  padding: 5%;
-  background: #fff;
-  border-radius: 5px;
-  border: 0.1rem solid #e2e2e2;
-}
-
-.dark .box {
-  background: #222;
-  border-color: #303030;
-}

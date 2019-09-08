@@ -9,6 +9,7 @@ import Total from './Total'
 import Account from './Account'
 import Ticker from './Ticker'
 import IconCog from '../../images/cog.svg'
+import stylesBox from '../../components/Box.module.css'
 import styles from './index.module.css'
 
 const Accounts = () => {
@@ -28,7 +29,7 @@ const Home = () => {
 
   return (
     <>
-      <main className={classnames(styles.main, 'box')}>
+      <main className={classnames(styles.main, stylesBox.box)}>
         <Link className={styles.preferences} to="/preferences">
           <IconCog />
         </Link>
