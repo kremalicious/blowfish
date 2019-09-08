@@ -34,7 +34,6 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.6.0",
     "@reach/router": "^1.2.1",
     "@svgr/webpack": "^4.3.2",
     "auto-changelog": "^1.16.1",
@@ -67,7 +66,7 @@
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"
   },
-  "browserslist": "electron >= 5.0",
+  "browserslist": "electron >= 6.0",
   "build": {
     "appId": "com.kremalicious.blowfish",
     "files": [
