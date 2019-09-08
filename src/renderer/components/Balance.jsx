@@ -9,7 +9,7 @@ import styles from './Balance.module.css'
 
 const Animation = posed.h1(fadeIn)
 
-const Balance = ({ balance, label, large }) => {
+const Balance = ({ balance, label, labelOnClick, large }) => {
   const { currency } = useContext(AppContext)
 
   return (
@@ -22,7 +22,7 @@ const Balance = ({ balance, label, large }) => {
           {cryptoFormatter(balance[currency], currency)}
         </Animation>
       </PoseGroup>
-      {label && <Label>{label}</Label>}
+      {label && <Label labelOnClick={labelOnClick}>{label}</Label>}
     </div>
   )
 }
@@ -30,6 +30,7 @@ const Balance = ({ balance, label, large }) => {
 Balance.propTypes = {
   balance: PropTypes.object.isRequired,
   label: PropTypes.string,
+  labelOnClick: PropTypes.func,
   large: PropTypes.bool
 }
 

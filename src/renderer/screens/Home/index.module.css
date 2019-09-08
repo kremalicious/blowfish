@@ -1,4 +1,5 @@
 .main {
+  composes: box from '../../components/Box.module.css';
   min-height: 222px;
   display: flex;
   align-items: center;
@@ -30,10 +31,4 @@
   grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
   justify-items: start;
   width: 100%;
-}
-
-.balanceWrapAccounts {
-  composes: balanceWrap;
-  min-height: 55px;
-  padding-top: 2rem;
 }
