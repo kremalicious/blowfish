@@ -99,7 +99,9 @@ export default class Accounts extends PureComponent {
       this.setState({ error: 'Address already added. Try another one.' })
       return
     } else if (!isAddress) {
-      this.setState({ error: 'Not an Ethereum address. Try another one.' })
+      this.setState({
+        error: 'Not an Ethereum address. Try another one.'
+      })
       return
     } else {
       const joined = [...accounts, input]

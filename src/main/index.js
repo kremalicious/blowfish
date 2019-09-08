@@ -132,22 +132,22 @@ const installDevTools = async mainWindow => {
 const createWindowEvents = mainWindow => {
   mainWindow.on('enter-full-screen', () =>
     mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'fullscreen\')'
+      "document.getElementsByTagName('html')[0].classList.add('fullscreen')"
     )
   )
   mainWindow.on('leave-full-screen', () =>
     mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'fullscreen\')'
+      "document.getElementsByTagName('html')[0].classList.remove('fullscreen')"
     )
   )
   mainWindow.on('blur', () =>
     mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'blur\')'
+      "document.getElementsByTagName('html')[0].classList.add('blur')"
     )
   )
   mainWindow.on('focus', () =>
     mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'blur\')'
+      "document.getElementsByTagName('html')[0].classList.remove('blur')"
     )
   )
 }
@@ -191,10 +191,10 @@ const switchTheme = () => {
 
     isDarkMode
       ? mainWindow.webContents.executeJavaScript(
-          'document.getElementsByTagName(\'html\')[0].classList.add(\'dark\')'
+          "document.getElementsByTagName('html')[0].classList.add('dark')"
         )
       : mainWindow.webContents.executeJavaScript(
-          'document.getElementsByTagName(\'html\')[0].classList.remove(\'dark\')'
+          "document.getElementsByTagName('html')[0].classList.remove('dark')"
         )
   }
 }

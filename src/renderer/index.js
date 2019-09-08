@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import AppProvider from './store/AppProvider'
 import App from './App'
 import pkg from '../../package.json'
+import './index.css'
 
 document.body.style.backgroundColor = '#141414'
 

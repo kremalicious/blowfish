@@ -1,0 +1,11 @@
+.divider {
+  width: 100%;
+  height: 1px;
+  background: #e2e2e2;
+  margin-top: 5%;
+  border: 0;
+}
+
+:global(.dark) .divider {
+  background: #303030;
+}

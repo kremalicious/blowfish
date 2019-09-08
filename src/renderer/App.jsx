@@ -10,10 +10,10 @@ import {
 import { webFrame, ipcRenderer } from 'electron'
 import posed, { PoseGroup } from 'react-pose'
 import Titlebar from './components/Titlebar'
+import { defaultAnimation } from './components/Animations'
 import Home from './screens/Home'
 import Preferences from './screens/Preferences'
-import './App.css'
-import { defaultAnimation } from './components/Animations'
+import styles from './App.module.css'
 
 //
 // Disable zooming
@@ -55,7 +55,7 @@ export default class App extends PureComponent {
     return (
       <>
         {process.platform === 'darwin' && <Titlebar />}
-        <div className="app">
+        <div className={styles.app}>
           <PosedRouter>
             <Home path="/" default />
             <Preferences path="/preferences" />

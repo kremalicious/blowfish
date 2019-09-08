@@ -1,0 +1,76 @@
+.ticker {
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.ticker button {
+  background: none;
+  border: 1px solid #e2e2e2;
+  box-shadow: none;
+  margin: 0 auto;
+  outline: 0;
+  font-size: 0.75rem;
+  border-radius: 0.3rem;
+  padding: 0.3rem 0.4rem;
+  display: block;
+  width: 100%;
+  max-width: 12rem;
+  transition: border 0.2s ease-out;
+  color: #41474e;
+}
+
+.ticker button:disabled {
+  pointer-events: none;
+}
+
+:global(.dark) .ticker button {
+  border-color: #303030;
+  color: #8b98a9;
+}
+
+.label--price {
+  font-size: 0.95rem;
+}
+
+.change {
+  font-size: 0.65rem;
+  display: inline-block;
+  margin-left: 0.25rem;
+}
+
+.positive {
+  composes: change;
+  color: forestgreen;
+}
+
+.negative {
+  composes: change;
+  color: crimson;
+}
+
+:global(.active) .positive,
+:global(.active) .negative {
+  color: #fff !important;
+}
+
+.number {
+  text-align: center;
+  width: 100%;
+}
+
+.label {
+  color: #8b98a9;
+  font-size: 0.85rem;
+  display: block;
+  white-space: nowrap;
+  margin-top: 0.5rem;
+}
+
+.labelActive {
+  composes: label;
+}
+
+.labelActive .positive,
+.labelActive .negative {
+  color: #fff !important;
+}
