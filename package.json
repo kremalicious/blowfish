@@ -11,7 +11,9 @@
     "package": "electron-builder build -mwl -p never && open ./dist",
     "dist": "rm -rf {dist,build}/ && npm run build && npm run package",
     "release": "release-it --non-interactive",
-    "changelog": "auto-changelog -p"
+    "changelog": "auto-changelog -p",
+    "format": "prettier --write 'src/**/*.{js,jsx}' && npm run format:css",
+    "format:css": "prettier-stylelint --write --quiet 'src/**/*.{css,scss}'"
   },
   "repository": "https://github.com/kremalicious/blowfish.git",
   "homepage": "https://github.com/kremalicious/blowfish",
@@ -32,7 +34,6 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.6.0",
     "@reach/router": "^1.2.1",
     "@svgr/webpack": "^4.3.2",
     "auto-changelog": "^1.16.1",
@@ -51,14 +52,12 @@
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
     "prettier": "^1.18.2",
     "prettier-stylelint": "^0.4.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-pose": "^4.0.8",
     "release-it": "^12.3.6",
-    "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "stylelint": "^10.1.0",
     "stylelint-config-css-modules": "^1.4.0",
@@ -67,7 +66,7 @@
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"
   },
-  "browserslist": "electron >= 5.0",
+  "browserslist": "electron >= 6.0",
   "build": {
     "appId": "com.kremalicious.blowfish",
     "files": [

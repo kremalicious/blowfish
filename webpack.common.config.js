@@ -24,11 +24,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /\.module\.css$/,
         use: ['style-loader', 'css-loader'],
         include: defaultInclude
       },
       {
-        test: /\.module\.(scss|sass)$/,
+        test: /\.module\.css$/,
         include: defaultInclude,
         loader: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -39,26 +40,6 @@ module.exports = {
                 localIdentName: '[name]__[local]___[hash:base64:5]'
               },
               localsConvention: 'camelCase',
-              sourceMap: isDevelopment
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: isDevelopment
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(scss|sass)$/,
-        exclude: /\.module.(scss|sass)$/,
-        loader: [
-          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'sass-loader',
-            options: {
               sourceMap: isDevelopment
             }
           }
@@ -77,7 +58,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.scss']
+    extensions: ['*', '.js', '.jsx', '.css']
   },
   target: 'electron-renderer',
   plugins: [

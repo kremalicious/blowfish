@@ -1,20 +1,16 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { Link } from '@reach/router'
-
-import './index.css'
-
 import Accounts from './Accounts'
+import styles from './index.module.css'
 
-export default class Preferences extends PureComponent {
-  render() {
-    return (
-      <div className="preferences">
-        <h1 className="preferences__title">Preferences</h1>{' '}
-        <Link className="preferences__close" title="Close Preferences" to="/">
-          &times;
-        </Link>
-        <Accounts />
-      </div>
-    )
-  }
-}
+const Preferences = () => (
+  <div className={styles.preferences}>
+    <h1 className={styles.title}>Preferences</h1>{' '}
+    <Link className={styles.close} title="Close Preferences" to="/">
+      &times;
+    </Link>
+    <Accounts />
+  </div>
+)
+
+export default Preferences

@@ -3,10 +3,5 @@
     "stylelint-config-standard",
     "stylelint-config-css-modules",
     "./node_modules/prettier-stylelint/config.js"
-  ],
-  "rules": {
-    "indentation": 4,
-    "declaration-empty-line-before": null,
-    "number-leading-zero": "never"
-  }
+  ]
 }

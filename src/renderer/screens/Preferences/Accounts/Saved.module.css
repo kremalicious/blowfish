@@ -1,0 +1,15 @@
+.identicon {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+.delete {
+  composes: button from './index.module.css';
+  position: relative;
+  font-size: 2rem;
+  top: -0.2rem;
+  color: #41474e;
+  transition: color 0.5s ease-out;
+}
