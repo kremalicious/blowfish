@@ -7,6 +7,7 @@
 <p align="center">
   <a href="https://travis-ci.com/kremalicious/blowfish"><img src="https://travis-ci.com/kremalicious/blowfish.svg?branch=master" /></a>
   <a href="https://codeclimate.com/github/kremalicious/blowfish/maintainability"><img src="https://api.codeclimate.com/v1/badges/beeab7902ee5307fc0a1/maintainability" /></a>
+  <a href="https://codeclimate.com/github/kremalicious/blowfish/test_coverage"><img src="https://api.codeclimate.com/v1/badges/beeab7902ee5307fc0a1/test_coverage" /></a>
   <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/kremalicious/blowfish.svg" /></a>
 </p>
 

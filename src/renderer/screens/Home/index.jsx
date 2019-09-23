@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from '@reach/router'
 import { AppContext } from '../../store/createContext'
-import Welcome from '../../components/Welcome'
+import Welcome from './Welcome'
 import Spinner from '../../components/Spinner'
 import Divider from '../../components/Divider'
 import Total from './Total'
@@ -10,7 +10,7 @@ import Accounts from './Accounts'
 import IconCog from '../../images/cog.svg'
 import styles from './index.module.css'
 
-const Home = () => {
+export default function Home() {
   const { isLoading, needsConfig } = useContext(AppContext)
 
   return (
@@ -37,5 +37,3 @@ const Home = () => {
     </>
   )
 }
-
-export default Home

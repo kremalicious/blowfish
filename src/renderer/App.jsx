@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Router,
@@ -44,24 +44,22 @@ PosedRouter.propTypes = {
   children: PropTypes.any.isRequired
 }
 
-export default class App extends PureComponent {
-  componentDidMount() {
+export default function App() {
+  useEffect(() => {
     ipcRenderer.on('goTo', (evt, route) => {
       navigate(route)
     })
-  }
+  }, [])
 
-  render() {
-    return (
-      <>
-        {process.platform === 'darwin' && <Titlebar />}
-        <div className={styles.app}>
-          <PosedRouter>
-            <Home path="/" default />
-            <Preferences path="/preferences" />
-          </PosedRouter>
-        </div>
-      </>
-    )
-  }
+  return (
+    <>
+      {process.platform === 'darwin' && <Titlebar />}
+      <div className={styles.app}>
+        <PosedRouter>
+          <Home path="/" default />
+          <Preferences path="/preferences" />
+        </PosedRouter>
+      </div>
+    </>
+  )
 }

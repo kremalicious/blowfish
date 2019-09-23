@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from '@reach/router'
-import { AppContext } from '../store/createContext'
-import IconRocket from '../images/rocket.svg'
+import { AppContext } from '../../store/createContext'
+import IconRocket from '../../images/rocket.svg'
 import styles from './Welcome.module.css'
 
 const Welcome = () => {

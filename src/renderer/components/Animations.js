@@ -22,15 +22,3 @@ export const fadeIn = {
     transition: { duration: 100 }
   }
 }
-
-export const characterAnimation = {
-  exit: { opacity: 0, y: 10 },
-  enter: {
-    opacity: 1,
-    y: 0,
-    transition: ({ charInWordIndex }) => ({
-      type: 'spring',
-      delay: charInWordIndex * 20
-    })
-  }
-}
