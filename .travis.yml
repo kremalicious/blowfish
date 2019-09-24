@@ -1,4 +1,4 @@
-osx_image: xcode10.2
+osx_image: xcode11
 os: osx
 language: node_js
 node_js: node
@@ -15,8 +15,14 @@ cache:
     - $HOME/.cache/electron-builder
     - $HOME/.npm/_prebuilds
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 script:
-  - npm test
+  - npm test || travis_terminate 1
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - npm run dist
 
 branches:
@@ -27,9 +33,9 @@ notifications:
   email: false
   slack:
     template:
-      - "`%{repository_slug}#%{branch}`"
-      - "*%{result}* build (<%{build_url}|#%{build_number}>) for <%{compare_url}|%{commit}>"
-      - "Execution time: *%{duration}*"
-      - "Message: %{message}"
+      - '`%{repository_slug}#%{branch}`'
+      - '*%{result}* build (<%{build_url}|#%{build_number}>) for <%{compare_url}|%{commit}>'
+      - 'Execution time: *%{duration}*'
+      - 'Message: %{message}'
     rooms:
       - secure: r6kVJw3zS4raTXgeBEYZYO/5YawnLoi1vO4zG3obhcNFRLm9FxlzuXfulFhjQA4viPQUW07m5UGud4bPTrDIAE35GUcLRlyisH/odahgsrmqLrBvz9CB+/V5WrEsCGpE9G3I/y5JGSRavjs+5qfVqJZaAI9Ox7bCcw+Msa5r/p7/yJw5di4EzgNLFWQswyio0zeOdjtCYgqpngWtLGpn0ksSwqNyqp/kntoHSz4nDdO/6GWS1q5K9mOfGMXr/wwiYuQrgDPpygRWETy9F8qh9yH2cseJmCZaXvSTSU1L9yV01qrBP5zDTTM2jPUGMQKY4JBoxFtU29G1BLWGAgMW9ymKe9V+f8FgbirZ+O1Vp87QAZPJXx5kO+pgqBtGewoYfp0k9HJ5xQAhr83l82w8BAEHVS3G/Y7cKKK9QNH9Z6gpdx6Y3s9YkpGqkv79MRvZo0tJV+XTOldCCfUFVxXXuZofuswWGUgt2h9qNoFY+AZc0G1TV/XVDHbDm32JNiGkuk+uO83HT9VI7G5PRWNcD8kP7ZS6XThiU2qOGr4OPGggmpFpJ7Yqc3LNFOjhFunKSzGOrZrc0GLZAbAR7qHkWNpiqQQ/RSpfnXfbPlAIJY6w5Vuzh9KhIIPkbWdP89Bc2Kw+W+ACFjStO7s298/8dty44EvJ2TS9CCjOhYtgaxk=
