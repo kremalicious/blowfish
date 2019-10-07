@@ -1,5 +1,11 @@
 const path = require('path')
-const { app, BrowserWindow, systemPreferences, ipcMain } = require('electron')
+const {
+  app,
+  BrowserWindow,
+  systemPreferences,
+  nativeTheme,
+  ipcMain
+} = require('electron')
 const pkg = require('../../package.json')
 const buildMenu = require('./menu')
 const { buildTouchbar, updateTouchbar } = require('./touchbar')
@@ -21,7 +27,7 @@ const width = 640
 const height = 450
 
 const createWindow = async () => {
-  const isDarkMode = systemPreferences.isDarkMode()
+  const isDarkMode = nativeTheme.shouldUseDarkColors
 
   mainWindow = new BrowserWindow({
     width,
@@ -187,7 +193,7 @@ if (process.platform === 'windows') {
 //
 const switchTheme = () => {
   if (process.platform === 'darwin') {
-    const isDarkMode = systemPreferences.isDarkMode()
+    const isDarkMode = nativeTheme.shouldUseDarkColors
 
     isDarkMode
       ? mainWindow.webContents.executeJavaScript(
