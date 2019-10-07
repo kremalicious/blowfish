@@ -5,8 +5,8 @@
   "description": "🐡 Simple Electron-based desktop app to retrieve and display your total Ocean Token balances.",
   "main": "./src/main/index.js",
   "scripts": {
-    "test": "npm run lint && jest --config=src/renderer/jest.config.js --coverage",
-    "test:watch": "jest --config=src/renderer/jest.config.js --coverage --watch",
+    "test": "npm run lint && jest --coverage",
+    "test:watch": "jest --coverage --watch",
     "lint": "eslint --ignore-path .gitignore ./src/**/*.{js,jsx} && stylelint --ignore-path .gitignore ./src/**/*.{css,scss}",
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.common.config.js",
@@ -124,5 +124,22 @@
     "npm": {
       "publish": false
     }
+  },
+  "jest": {
+    "rootDir": "src/renderer",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss)$": "identity-obj-proxy",
+      ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/jest/__mocks__/file-mock.js",
+      "\\.svg": "<rootDir>/jest/__mocks__/svgr-mock.js"
+    },
+    "testURL": "http://localhost",
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest/setup-test-env.js"
+    ],
+    "runner": "@jest-runner/electron",
+    "testEnvironment": "@jest-runner/electron/environment"
   }
 }
