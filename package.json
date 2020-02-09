@@ -10,8 +10,8 @@
     "test:watch": "npm run jest -- --watch",
     "jest": "NODE_ENV=test jest -c tests/jest.config.js",
     "lint": "eslint --ignore-path .gitignore ./src/**/*.{js,jsx} && stylelint --ignore-path .gitignore ./src/**/*.{css,scss}",
-    "copy": "rsync src/renderer/images/icon* build/",
-    "build:react": "next build src/renderer && next export src/renderer && npm run copy",
+    "copy:icons": "copy 'src/renderer/images/icon*' build/",
+    "build:react": "cross-env NODE_ENV=production next build src/renderer && next export src/renderer && npm run copy:icons",
     "build:electron": "electron-builder build -ml -p never",
     "build:electron:win": "electron-builder build -w -p never",
     "dist": "./scripts/release-prepare.sh",
@@ -49,6 +49,8 @@
     "auto-changelog": "^1.16.2",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",
+    "copy": "^0.3.2",
+    "cross-env": "^7.0.0",
     "electron": "^8.0.0",
     "electron-builder": "^22.3.2",
     "electron-devtools-installer": "^2.2.4",
@@ -70,7 +72,6 @@
   },
   "browserslist": "electron >= 8.0",
   "build": {
-    "asar": true,
     "appId": "com.kremalicious.blowfish",
     "files": [
       "./src/main/**/*",
