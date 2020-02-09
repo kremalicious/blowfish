@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { AppContext } from '../../../store/createContext'
 import { StateMock } from '@react-mock/state'
-import Accounts from '.'
+import { AppContext } from '../../src/renderer/store/createContext'
+import Accounts from '../../src/renderer/components/AccountsList'
 
 describe('Accounts', () => {
   const ui = (

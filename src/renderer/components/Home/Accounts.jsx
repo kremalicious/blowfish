@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { openUrl } from '../../../../utils'
+import { openUrl } from '../../../utils'
 import Balance from '../Balance'
 import { AppContext } from '../../store/createContext'
 import styles from './Accounts.module.css'

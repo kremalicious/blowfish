@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Accounts from '../components/Preferences/Accounts'
+import AccountsList from '../components/AccountsList'
 import styles from './preferences.module.css'
 
 const Preferences = () => (
@@ -11,7 +11,7 @@ const Preferences = () => (
         &times;
       </a>
     </Link>
-    <Accounts />
+    <AccountsList />
   </div>
 )
 

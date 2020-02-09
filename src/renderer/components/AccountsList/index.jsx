@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react'
 import ethereum_address from 'ethereum-address'
 import Store from 'electron-store'
-import { AppContext } from '../../../store/createContext'
+import { AppContext } from '../../store/createContext'
 import Saved from './Saved'
 import New from './New'
 import styles from './index.module.css'
 
-export default class Accounts extends PureComponent {
+export default class AccountsList extends PureComponent {
   static contextType = AppContext
 
-  store = new Store()
+  store = process.env.NODE_ENV === 'test' ? new Store() : global.store
 
   state = { accounts: [], input: '', error: '' }
 

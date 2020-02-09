@@ -1,5 +1,5 @@
 .preference {
-  composes: box from '../../../components/Box.module.css';
+  composes: box from '../Box.module.css';
   -webkit-app-region: none;
   -webkit-user-select: text;
 }

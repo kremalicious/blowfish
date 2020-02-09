@@ -1,15 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import ms from 'ms'
-import { ipcRenderer } from 'electron'
+// import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
 import { AppContext } from './createContext'
-import { fetchData } from '../../../utils'
-import {
-  refreshInterval,
-  conversions,
-  oceanTokenContract
-} from '../../../config'
+import { fetchData } from '../../utils'
+import { refreshInterval, conversions, oceanTokenContract } from '../../config'
 
 // construct initial prices Map to get consistent
 // order for Ticker and Touchbar
@@ -22,7 +18,7 @@ export default class AppProvider extends PureComponent {
     children: PropTypes.any.isRequired
   }
 
-  store = new Store()
+  store = process.env.NODE_ENV === 'test' ? new Store() : global.store
 
   state = {
     isLoading: true,
@@ -42,12 +38,12 @@ export default class AppProvider extends PureComponent {
 
   async componentDidMount() {
     // listener for accent color
-    ipcRenderer.on('accent-color', (event, accentColor) => {
+    global.ipcRenderer.on('accent-color', (event, accentColor) => {
       this.setState({ accentColor })
     })
 
     // listener for touchbar
-    ipcRenderer.on('setCurrency', (evt, currency) =>
+    global.ipcRenderer.on('setCurrency', (evt, currency) =>
       this.state.toggleCurrencies(currency)
     )
 
@@ -103,7 +99,7 @@ export default class AppProvider extends PureComponent {
       }))
     )
 
-    ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
+    global.ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
     this.setState({ prices: newPrices, priceChanges: newPriceChanges })
     return newPrices
   }
@@ -140,7 +136,7 @@ export default class AppProvider extends PureComponent {
 
   toggleCurrencies(currency) {
     const pricesNew = Array.from(this.state.prices)
-    ipcRenderer.send('currency-updated', pricesNew, currency)
+    global.ipcRenderer.send('currency-updated', pricesNew, currency)
     this.setState({ currency })
   }
 

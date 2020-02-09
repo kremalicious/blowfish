@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
-import { ipcRenderer } from 'electron'
+// import { ipcRenderer } from 'electron'
 
 import '../global.css'
 import Layout from '../Layout'
@@ -14,7 +14,7 @@ import Layout from '../Layout'
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
-    ipcRenderer.on('goTo', (evt, route) => {
+    global.ipcRenderer.on('goTo', (evt, route) => {
       Router.push(route)
     })
   }, [])

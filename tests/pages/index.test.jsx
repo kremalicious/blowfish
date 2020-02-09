@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { AppContext } from '../store/createContext'
-import context from './__fixtures__/context'
-import Home from '.'
+import { AppContext } from '../../src/renderer/store/createContext'
+import context from '../__fixtures__/context'
+import Home from '../../src/renderer/pages/index'
 
 describe('Home', () => {
   it('renders correctly', () => {

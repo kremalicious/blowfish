@@ -36,9 +36,9 @@ const createWindow = async () => {
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js'),
       scrollBounce: true,
       enableBlinkFeatures: 'OverlayScrollbars'
-      // preload: path.join(__dirname, 'preload.js')
     }
   })
 

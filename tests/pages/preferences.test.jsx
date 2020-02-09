@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { AppContext } from '../store/createContext'
-import Preferences from '.'
+import { AppContext } from '../../src/renderer/store/createContext'
+import Preferences from '../../src/renderer/pages/preferences'
 
 describe('Preferences', () => {
   it('renders correctly', () => {
