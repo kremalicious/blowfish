@@ -80,17 +80,19 @@ const createWindow = async () => {
 
 app.on('ready', async () => {
   await prepareNext('./src/renderer')
-
-  createWindow()
+  await createWindow()
 
   mainWindow.webContents.on('dom-ready', () => {
     switchTheme()
-    switchAccentColor()
 
     // add platform as class
     mainWindow.webContents.executeJavaScript(
       `document.getElementsByTagName('html')[0].classList.add('${process.platform}')`
     )
+  })
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    switchAccentColor()
   })
 })
 

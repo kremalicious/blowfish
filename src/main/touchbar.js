@@ -8,7 +8,7 @@ const createButton = (
   value,
   key,
   mainWindow,
-  accentColor,
+  accentColor = '#f6388a',
   currentCurrency = 'ocean'
 ) =>
   new TouchBarButton({

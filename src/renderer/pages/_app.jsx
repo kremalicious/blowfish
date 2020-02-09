@@ -6,12 +6,6 @@ import Router from 'next/router'
 import '../global.css'
 import Layout from '../Layout'
 
-//
-// Disable zooming
-//
-// webFrame.setVisualZoomLevelLimits(1, 1)
-// webFrame.setLayoutZoomLevelLimits(0, 0)
-
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     global.ipcRenderer.on('goTo', (evt, route) => {

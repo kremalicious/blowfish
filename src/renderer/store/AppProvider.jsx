@@ -38,7 +38,7 @@ export default class AppProvider extends PureComponent {
 
   async componentDidMount() {
     // listener for accent color
-    global.ipcRenderer.on('accent-color', (event, accentColor) => {
+    global.ipcRenderer.on('accent-color', (evt, accentColor) => {
       this.setState({ accentColor })
     })
 
