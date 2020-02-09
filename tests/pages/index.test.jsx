@@ -13,6 +13,7 @@ describe('Home', () => {
     )
     expect(container.firstChild).toBeInTheDocument()
     fireEvent.click(getByText(/Ξ/))
+    // fireEvent.click(getByText(/0x/))
   })
 
   it('renders Welcome without config', () => {
