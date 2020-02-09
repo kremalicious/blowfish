@@ -60,7 +60,7 @@ const Items = () => {
 
 const Ticker = props => (
   <footer className={styles.ticker} {...props}>
-    <div className={stylesIndex.balanceWrap}>
+    <div className={stylesIndex.balancewrap}>
       <PoseGroup animateOnMount>
         <Items key="items" />
       </PoseGroup>

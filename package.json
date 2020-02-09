@@ -17,7 +17,7 @@
     "dist": "./scripts/release-prepare.sh",
     "release": "release-it --non-interactive",
     "changelog": "auto-changelog -p",
-    "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx}' && npm run format:css",
+    "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx,json}' && npm run format:css",
     "format:css": "prettier-stylelint --write --ignore-path .gitignore --quiet 'src/**/*.{css,scss}'"
   },
   "repository": "https://github.com/kremalicious/blowfish.git",
@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@coingecko/cryptoformat": "^0.3.3",
+    "@coingecko/cryptoformat": "^0.3.4",
     "electron-is-dev": "^1.1.0",
     "electron-next": "^3.1.5",
     "electron-store": "^5.1.0",
@@ -43,8 +43,8 @@
     "@babel/preset-env": "^7.8.4",
     "@jest-runner/electron": "^2.0.3",
     "@react-mock/state": "^0.1.8",
-    "@svgr/webpack": "^5.0.0",
-    "@testing-library/jest-dom": "^5.0.0",
+    "@svgr/webpack": "^5.1.0",
+    "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.0",
     "auto-changelog": "^1.16.2",
     "babel-eslint": "^10.0.3",
@@ -65,8 +65,8 @@
     "react-pose": "^4.0.10",
     "release-it": "^12.4.3",
     "stylelint": "^13.1.0",
-    "stylelint-config-css-modules": "^2.1.0",
-    "stylelint-config-standard": "^19.0.0"
+    "stylelint-config-css-modules": "^2.2.0",
+    "stylelint-config-standard": "^20.0.0"
   },
   "browserslist": "electron >= 8.0",
   "build": {
