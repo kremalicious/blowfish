@@ -6,22 +6,14 @@ const {
   nativeTheme,
   ipcMain
 } = require('electron')
+const prepareNext = require('electron-next')
+const isDev = require('electron-is-dev')
 const pkg = require('../../package.json')
 const buildMenu = require('./menu')
 const { buildTouchbar, updateTouchbar } = require('./touchbar')
 const { rgbaToHex } = require('../utils')
 
 let mainWindow
-
-// Keep a reference for dev mode
-let isDev = false
-if (
-  process.defaultApp ||
-  /[\\/]electron-prebuilt[\\/]/.test(process.execPath) ||
-  /[\\/]electron[\\/]/.test(process.execPath)
-) {
-  isDev = true
-}
 
 const width = 640
 const height = 450
@@ -46,13 +38,14 @@ const createWindow = async () => {
       nodeIntegration: true,
       scrollBounce: true,
       enableBlinkFeatures: 'OverlayScrollbars'
+      // preload: path.join(__dirname, 'preload.js')
     }
   })
 
   mainWindow.loadURL(
     isDev
-      ? 'http://localhost:8080'
-      : `file://${path.join(__dirname, '../../build/index.html')}`
+      ? 'http://localhost:8000'
+      : `file://${path.join(__dirname, '../renderer/out/index.html')}`
   )
 
   createWindowEvents(mainWindow)
@@ -85,7 +78,9 @@ const createWindow = async () => {
   }
 }
 
-app.on('ready', () => {
+app.on('ready', async () => {
+  await prepareNext('./src/renderer')
+
   createWindow()
 
   mainWindow.webContents.on('dom-ready', () => {
@@ -138,22 +133,22 @@ const installDevTools = async mainWindow => {
 const createWindowEvents = mainWindow => {
   mainWindow.on('enter-full-screen', () =>
     mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'fullscreen\')'
+      'document.getElementsByTagName("html")[0].classList.add("fullscreen")'
     )
   )
   mainWindow.on('leave-full-screen', () =>
     mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'fullscreen\')'
+      'document.getElementsByTagName("html")[0].classList.remove("fullscreen")'
     )
   )
   mainWindow.on('blur', () =>
     mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.add(\'blur\')'
+      'document.getElementsByTagName("html")[0].classList.add("blur")'
     )
   )
   mainWindow.on('focus', () =>
     mainWindow.webContents.executeJavaScript(
-      'document.getElementsByTagName(\'html\')[0].classList.remove(\'blur\')'
+      'document.getElementsByTagName("html")[0].classList.remove("blur")'
     )
   )
 }
@@ -197,10 +192,10 @@ const switchTheme = () => {
 
     isDarkMode
       ? mainWindow.webContents.executeJavaScript(
-          'document.getElementsByTagName(\'html\')[0].classList.add(\'dark\')'
+          'document.getElementsByTagName("html")[0].classList.add("dark")'
         )
       : mainWindow.webContents.executeJavaScript(
-          'document.getElementsByTagName(\'html\')[0].classList.remove(\'dark\')'
+          'document.getElementsByTagName("html")[0].classList.remove("dark")'
         )
   }
 }

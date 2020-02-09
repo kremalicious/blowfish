@@ -1,0 +1,5 @@
+.accounts {
+  composes: balanceWrap from '../../pages/index.module.css';
+  min-height: 55px;
+  padding-top: 2rem;
+}

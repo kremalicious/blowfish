@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../../store/createContext'
-import Balance from '../../components/Balance'
-import { conversions } from '../../../config'
+import Balance from '../Balance'
+import { conversions } from '../../../../config'
 
 const calculateTotalBalance = (accounts, currency) => {
   const balanceTotalArray = []

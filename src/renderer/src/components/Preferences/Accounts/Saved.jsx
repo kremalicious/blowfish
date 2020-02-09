@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { toDataUrl } from 'ethereum-blockies'
 import posed, { PoseGroup } from 'react-pose'
-import { fadeIn } from '../../../components/Animations'
+import { fadeIn } from '../../Animations'
 import styles from './Saved.module.css'
 
 export default function Saved({ accounts, handleDelete }) {

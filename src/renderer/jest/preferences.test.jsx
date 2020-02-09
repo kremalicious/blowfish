@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { AppContext } from '../../store/createContext'
+import { AppContext } from '../store/createContext'
 import Preferences from '.'
 
 describe('Preferences', () => {

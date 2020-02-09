@@ -1,5 +1,5 @@
 .main {
-  composes: box from '../../components/Box.module.css';
+  composes: box from '../components/Box.module.css';
   min-height: 222px;
   display: flex;
   align-items: center;

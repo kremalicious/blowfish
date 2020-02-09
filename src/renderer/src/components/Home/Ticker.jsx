@@ -2,10 +2,10 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import posed, { PoseGroup } from 'react-pose'
 import { AppContext } from '../../store/createContext'
-import { cryptoFormatter } from '../../../utils'
-import stylesIndex from './index.module.css'
+import { cryptoFormatter } from '../../../../utils'
+import stylesIndex from '../../pages/index.module.css'
 import styles from './Ticker.module.css'
-import { fadeIn } from '../../components/Animations'
+import { fadeIn } from '../Animations'
 
 const Item = posed.div(fadeIn)
 

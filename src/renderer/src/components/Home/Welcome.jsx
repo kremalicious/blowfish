@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link } from '@reach/router'
+import Link from 'next/link'
 import { AppContext } from '../../store/createContext'
 import IconRocket from '../../images/rocket.svg'
 import styles from './Welcome.module.css'
@@ -10,7 +10,7 @@ const Welcome = () => {
   return (
     <div className={styles.welcome}>
       <IconRocket />
-      <Link style={{ color: accentColor }} to="preferences">
+      <Link style={{ color: accentColor }} href="/preferences">
         Add your first address to get started.
       </Link>
     </div>

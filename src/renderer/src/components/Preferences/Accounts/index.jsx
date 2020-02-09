@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import Store from 'electron-store'
 import ethereum_address from 'ethereum-address'
+import Store from 'electron-store'
 import { AppContext } from '../../../store/createContext'
 import Saved from './Saved'
 import New from './New'

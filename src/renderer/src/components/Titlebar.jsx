@@ -1,5 +1,5 @@
 import React from 'react'
-import pkg from '../../../package.json'
+import pkg from '../../../../package.json'
 import styles from './Titlebar.module.css'
 
 const Titlebar = () => (

@@ -27,7 +27,7 @@ html.fullscreen {
   font-size: 24px;
 }
 
-#root {
+#__next {
   height: 100%;
   position: relative;
   font-size: 1rem;
@@ -43,7 +43,7 @@ html.fullscreen {
   -webkit-user-select: none;
 }
 
-.dark #root {
+.dark #__next {
   color: #e2e2e2;
 }
 

@@ -4,8 +4,12 @@ import ms from 'ms'
 import { ipcRenderer } from 'electron'
 import Store from 'electron-store'
 import { AppContext } from './createContext'
-import fetchData from '../utils/fetch'
-import { refreshInterval, conversions, oceanTokenContract } from '../../config'
+import { fetchData } from '../../../utils'
+import {
+  refreshInterval,
+  conversions,
+  oceanTokenContract
+} from '../../../config'
 
 // construct initial prices Map to get consistent
 // order for Ticker and Touchbar

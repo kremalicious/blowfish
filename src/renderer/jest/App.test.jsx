@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import AppProvider from './store/AppProvider'
+import AppProvider from '../store/AppProvider'
 import App from './App'
 
 describe('App', () => {

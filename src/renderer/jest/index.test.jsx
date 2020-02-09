@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { AppContext } from '../../store/createContext'
-import context from '../../jest/__fixtures__/context'
+import { AppContext } from '../store/createContext'
+import context from './__fixtures__/context'
 import Home from '.'
 
 describe('Home', () => {
