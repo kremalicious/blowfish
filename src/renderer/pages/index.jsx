@@ -10,9 +10,25 @@ import Accounts from '../components/Home/Accounts'
 import IconCog from '../images/cog.svg'
 import styles from './index.module.css'
 
-export default function Home() {
+function MainContent() {
   const { isLoading, error, needsConfig } = useContext(AppContext)
 
+  return needsConfig ? (
+    <Welcome />
+  ) : error ? (
+    <div className={styles.error}>{error}</div>
+  ) : isLoading ? (
+    <Spinner />
+  ) : (
+    <>
+      <Total />
+      <Divider />
+      <Accounts />
+    </>
+  )
+}
+
+export default function Home() {
   return (
     <>
       <main className={styles.main}>
@@ -22,22 +38,10 @@ export default function Home() {
           </a>
         </Link>
 
-        {needsConfig ? (
-          <Welcome />
-        ) : error ? (
-          <div className={styles.error}>{error}</div>
-        ) : isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            <Total />
-            <Divider />
-            <Accounts />
-          </>
-        )}
+        <MainContent />
       </main>
 
-      <Ticker style={isLoading ? { opacity: 0 } : null} />
+      <Ticker />
     </>
   )
 }

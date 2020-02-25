@@ -22,11 +22,13 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/tests/setupTests.js'],
   runner: '@jest-runner/electron',
   testEnvironment: '@jest-runner/electron/environment',
-  coverageDirectory: '../../coverage/',
+  coverageDirectory: '<rootDir>/coverage/',
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/src/renderer/**/*.jsx',
-    '!<rootDir>/dist',
+    '<rootDir>/src/renderer/**/*.{js,jsx}',
+    '!<rootDir>/src/renderer/next.config.js',
+    '!<rootDir>/src/renderer/out/**/*',
+    '!<rootDir>/src/renderer/.next/**/*',
     '!**/node_modules/**'
   ]
 }
