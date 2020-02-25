@@ -10,8 +10,10 @@ const Welcome = () => {
   return (
     <div className={styles.welcome}>
       <IconRocket />
-      <Link style={{ color: accentColor }} href="/preferences">
-        Add your first address to get started.
+      <Link href="/preferences">
+        <a style={{ color: accentColor }}>
+          Add your first address to get started.
+        </a>
       </Link>
     </div>
   )
