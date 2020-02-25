@@ -61,7 +61,7 @@ Alternatively, you can [build the app on your system](#build-packages).
 
 ## Development
 
-The main app is a React app in `src/renderer/` wrapped within an Electron app defined in `src/main/`.
+The main app is a React app authored with [Next.js](https://nextjs.org) in `src/renderer/` wrapped within an [Electron](https://www.electronjs.org) app defined in `src/main/`.
 
 Clone, and run:
 
@@ -125,7 +125,7 @@ For the GitHub releases steps a GitHub personal access token, exported as `GITHU
 ```text
 The MIT License (MIT)
 
-Copyright (c) 2019 Matthias Kretschmann
+Copyright (c) 2020 Matthias Kretschmann
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
