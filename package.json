@@ -5,18 +5,20 @@
   "description": "🐡 Simple Electron-based desktop app to retrieve and display your total Ocean Token balances.",
   "main": "./src/main/index.js",
   "scripts": {
-    "test": "npm run lint && jest",
-    "test:watch": "jest --watch",
+    "start": "electron .",
+    "test": "npm run lint && npm run jest",
+    "test:watch": "npm run jest -- --watch",
+    "jest": "NODE_ENV=test jest -c tests/jest.config.js",
     "lint": "eslint --ignore-path .gitignore ./src/**/*.{js,jsx} && stylelint --ignore-path .gitignore ./src/**/*.{css,scss}",
-    "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.common.config.js",
-    "package": "electron-builder build -ml -p never",
-    "package:win": "electron-builder build -w -p never",
+    "copy:icons": "copy 'src/renderer/images/icon*' build/",
+    "build:react": "cross-env NODE_ENV=production next build src/renderer && next export src/renderer && npm run copy:icons",
+    "build:electron": "electron-builder build -ml -p never",
+    "build:electron:win": "electron-builder build -w -p never",
     "dist": "./scripts/release-prepare.sh",
     "release": "release-it --non-interactive",
     "changelog": "auto-changelog -p",
-    "format": "prettier --write 'src/**/*.{js,jsx}' && npm run format:css",
-    "format:css": "prettier-stylelint --write --quiet 'src/**/*.{css,scss}'"
+    "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx,json}' && npm run format:css",
+    "format:css": "prettier-stylelint --write --ignore-path .gitignore --quiet 'src/**/*.{css,scss}'"
   },
   "repository": "https://github.com/kremalicious/blowfish.git",
   "homepage": "https://github.com/kremalicious/blowfish",
@@ -27,61 +29,56 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@coingecko/cryptoformat": "^0.3.3",
+    "@coingecko/cryptoformat": "^0.3.4",
+    "axios": "^0.19.2",
+    "electron-is-dev": "^1.1.0",
+    "electron-next": "^3.1.5",
+    "electron-store": "^5.1.1",
     "ethereum-address": "^0.0.4",
     "ethereum-blockies": "github:MyEtherWallet/blockies",
-    "ms": "^2.1.2"
+    "ethjs-unit": "^0.1.6",
+    "ms": "^2.1.2",
+    "shortid": "^2.2.15"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
-    "@babel/preset-react": "^7.8.3",
     "@jest-runner/electron": "^2.0.3",
-    "@reach/router": "^1.3.1",
     "@react-mock/state": "^0.1.8",
-    "@svgr/webpack": "^5.0.0",
-    "@testing-library/jest-dom": "^5.0.0",
-    "@testing-library/react": "^9.4.0",
+    "@svgr/webpack": "^5.2.0",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.1",
     "auto-changelog": "^1.16.2",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",
-    "babel-loader": "^8.0.6",
-    "copy-webpack-plugin": "^5.1.1",
+    "copy": "^0.3.2",
     "cross-env": "^7.0.0",
-    "css-loader": "^3.4.2",
-    "electron": "^8.0.0",
+    "dotenv": "^8.2.0",
+    "electron": "^8.0.1",
     "electron-builder": "^22.3.2",
     "electron-devtools-installer": "^2.2.4",
-    "electron-store": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-react": "^7.18.3",
-    "file-loader": "^5.0.2",
-    "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.1.0",
-    "mini-css-extract-plugin": "^0.9.0",
+    "next": "^9.2.2",
     "prettier": "^1.19.1",
     "prettier-stylelint": "^0.4.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-pose": "^4.0.10",
-    "release-it": "^12.4.3",
-    "style-loader": "^1.1.3",
-    "stylelint": "^13.1.0",
-    "stylelint-config-css-modules": "^2.1.0",
-    "stylelint-config-standard": "^19.0.0",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.3"
+    "release-it": "^12.6.1",
+    "stylelint": "^13.2.0",
+    "stylelint-config-css-modules": "^2.2.0",
+    "stylelint-config-standard": "^20.0.0"
   },
-  "browserslist": "electron >= 6.0",
+  "browserslist": "electron >= 8.0",
   "build": {
     "appId": "com.kremalicious.blowfish",
     "files": [
-      "./build/**/*",
       "./src/main/**/*",
+      "./src/renderer/out/**/*",
       "./src/*.js",
       "package.json"
     ],
@@ -126,29 +123,5 @@
     "npm": {
       "publish": false
     }
-  },
-  "jest": {
-    "rootDir": "src/renderer",
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      ".+\\.(css|styl|less|sass|scss)$": "identity-obj-proxy",
-      ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/jest/__mocks__/file-mock.js",
-      "\\.svg": "<rootDir>/jest/__mocks__/svgr-mock.js"
-    },
-    "testURL": "http://localhost",
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest/setup-test-env.js"
-    ],
-    "coverageDirectory": "../../coverage/",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "<rootDir>/**/*.{js,jsx}",
-      "!<rootDir>/jest/**/*.{js,jsx}",
-      "!**/node_modules/**"
-    ],
-    "runner": "@jest-runner/electron",
-    "testEnvironment": "@jest-runner/electron/environment"
   }
 }

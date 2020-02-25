@@ -1,8 +1,8 @@
 #!/bin/bash
 
-rm -rf {dist,build}/ && \
-npm run build && \
-npm run package && \
+rm -rf {dist,build,src/renderer/.next,src/renderer/out}/ && \
+npm run build:react && \
+npm run build:electron && \
 
 if [ -x "$(command -v docker)" ]; then
   docker run --rm \
@@ -14,6 +14,5 @@ if [ -x "$(command -v docker)" ]; then
   -v ~/.cache/electron:/root/.cache/electron \
   -v ~/.cache/electron-builder:/root/.cache/electron-builder \
   electronuserland/builder:wine \
-  /bin/bash -c "npm i && npm run build && npm run package:win"
+  /bin/bash -c "npm i && npm run build:react && npm run build:electron:win"
 fi
-

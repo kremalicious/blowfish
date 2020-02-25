@@ -1,5 +1,20 @@
 const { app, shell } = require('electron')
 const { formatCurrency } = require('@coingecko/cryptoformat')
+const axios = require('axios')
+
+const fetchData = async url => {
+  try {
+    const response = await axios(url)
+
+    if (response.status !== 200) {
+      return console.error('Non-200 response: ' + response.status)
+    }
+
+    return response.data
+  } catch (error) {
+    console.error('Error parsing json: ' + error.message)
+  }
+}
 
 const isFiat = currency => currency === 'eur' || currency === 'usd'
 
@@ -65,5 +80,6 @@ module.exports = {
   rgbaToHex,
   locale,
   numberFormatter,
-  cryptoFormatter
+  cryptoFormatter,
+  fetchData
 }

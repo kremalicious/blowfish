@@ -1,0 +1,66 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #fcfcfc !important;
+  overflow: hidden;
+}
+
+html.dark,
+.dark body {
+  background: #141414 !important;
+}
+
+html {
+  font-size: 13px;
+}
+
+html.fullscreen {
+  font-size: 24px;
+}
+
+#__next {
+  height: 100%;
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.3;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'pnum' 1, 'tnum' 0,
+    'onum' 0, 'lnum' 0, 'dlig' 1;
+  color: #303030;
+  transform: translate3d(0, 0, 0);
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+}
+
+.dark #__next {
+  color: #e2e2e2;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
+}
+
+a,
+button {
+  text-decoration: none;
+  cursor: default;
+}
+
+a h1 {
+  color: unset;
+}
