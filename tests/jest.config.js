@@ -1,7 +1,7 @@
 module.exports = {
   rootDir: '../',
   transform: {
-    '^.+\\.[t|j]sx?$': 'babel-jest'
+    '^.+\\.[t|j]sx?$': ['babel-jest', { configFile: './tests/babel.config.js' }]
   },
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss)$': 'identity-obj-proxy',
