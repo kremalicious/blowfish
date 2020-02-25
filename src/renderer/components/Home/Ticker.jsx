@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import posed, { PoseGroup } from 'react-pose'
-import { AppContext } from '../../store/createContext'
+import { AppContext, PriceContext } from '../../store/createContext'
 import { cryptoFormatter } from '../../../utils'
 import stylesIndex from '../../pages/index.module.css'
 import styles from './Ticker.module.css'
@@ -10,7 +10,7 @@ import { fadeIn } from '../Animations'
 const Item = posed.div(fadeIn)
 
 const Change = ({ currency }) => {
-  const { priceChanges } = useContext(AppContext)
+  const { priceChanges } = useContext(PriceContext)
   const isNegative = JSON.stringify(priceChanges[currency]).startsWith('-')
   let classes = isNegative ? styles.negative : styles.positive
 
@@ -27,13 +27,10 @@ Change.propTypes = {
 }
 
 const Items = () => {
-  const {
-    prices,
-    needsConfig,
-    currency,
-    toggleCurrencies,
-    accentColor
-  } = useContext(AppContext)
+  const { prices } = useContext(PriceContext)
+  const { needsConfig, currency, toggleCurrencies, accentColor } = useContext(
+    AppContext
+  )
 
   const activeStyle = {
     backgroundColor: accentColor,

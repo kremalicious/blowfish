@@ -1,15 +1,20 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { AppContext } from '../../src/renderer/store/createContext'
-import context from '../__fixtures__/context'
+import {
+  AppContext,
+  PriceContext
+} from '../../src/renderer/store/createContext'
+import { appContext, priceContext } from '../__fixtures__/context'
 import Home from '../../src/renderer/pages/index'
 
 describe('Home', () => {
   it('renders correctly', () => {
     const { container, getByText } = render(
-      <AppContext.Provider value={context}>
-        <Home />
-      </AppContext.Provider>
+      <PriceContext.Provider value={priceContext}>
+        <AppContext.Provider value={appContext}>
+          <Home />
+        </AppContext.Provider>
+      </PriceContext.Provider>
     )
     expect(container.firstChild).toBeInTheDocument()
     fireEvent.click(getByText(/Ξ/))
@@ -18,9 +23,11 @@ describe('Home', () => {
 
   it('renders Welcome without config', () => {
     const { container } = render(
-      <AppContext.Provider value={{ ...context, needsConfig: true }}>
-        <Home />
-      </AppContext.Provider>
+      <PriceContext.Provider value={priceContext}>
+        <AppContext.Provider value={{ ...appContext, needsConfig: true }}>
+          <Home />
+        </AppContext.Provider>
+      </PriceContext.Provider>
     )
     expect(container.firstChild).toHaveTextContent(
       'Add your first address to get started.'

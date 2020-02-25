@@ -12,7 +12,12 @@ const priceChanges = {
   eth: -17.538786176215627
 }
 
-export default {
+export const priceContext = {
+  prices,
+  priceChanges
+}
+
+export const appContext = {
   accentColor: '#0a5fff',
   accounts: [
     {
@@ -28,7 +33,5 @@ export default {
   ],
   currency: 'ocean',
   isLoading: false,
-  needsConfig: false,
-  prices,
-  priceChanges
+  needsConfig: false
 }

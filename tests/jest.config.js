@@ -19,7 +19,7 @@ module.exports = {
     '<rootDir>/coverage'
   ],
   testURL: 'http://localhost',
-  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setupTests.js'],
   runner: '@jest-runner/electron',
   testEnvironment: '@jest-runner/electron/environment',
   coverageDirectory: '../../coverage/',

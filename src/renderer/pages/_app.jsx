@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 // import { ipcRenderer } from 'electron'
+import Layout from '../Layout'
 
 import '../global.css'
-import Layout from '../Layout'
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {

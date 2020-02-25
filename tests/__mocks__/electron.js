@@ -11,6 +11,10 @@ const remote = {
   getCurrentWindow: jest.fn()
 }
 
+const ipcRenderer = {
+  on: jest.fn()
+}
+
 // for the shell module above
 const shell = {
   openExternal: jest.fn()
@@ -19,5 +23,6 @@ const shell = {
 module.exports = {
   electron,
   remote,
-  shell
+  shell,
+  ipcRenderer
 }

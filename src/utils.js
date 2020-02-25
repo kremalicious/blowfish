@@ -1,20 +1,18 @@
 const { app, shell } = require('electron')
 const { formatCurrency } = require('@coingecko/cryptoformat')
+const axios = require('axios')
 
 const fetchData = async url => {
   try {
-    const response = await fetch(url)
+    const response = await axios(url)
 
     if (response.status !== 200) {
-      return console.log('Non-200 response: ' + response.status) // eslint-disable-line
+      return console.error('Non-200 response: ' + response.status)
     }
 
-    const json = await response.json()
-    if (!json) return
-
-    return json
+    return response.data
   } catch (error) {
-    console.log('Error parsing json:' + error) // eslint-disable-line
+    console.error('Error parsing json: ' + error.message)
   }
 }
 
