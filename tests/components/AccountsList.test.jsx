@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { StateMock } from '@react-mock/state'
 import { AppContext } from '../../src/renderer/store/createContext'
-import Accounts from '../../src/renderer/components/AccountsList'
+import Accounts from '../../src/renderer/components/Preferences/AccountsList'
 
 describe('Accounts', () => {
   const ui = (

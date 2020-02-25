@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import AccountsList from '../components/AccountsList'
+import AccountsList from '../components/Preferences/AccountsList'
 import styles from './preferences.module.css'
 
 export default function Preferences() {
