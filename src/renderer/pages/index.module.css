@@ -32,3 +32,8 @@
   justify-items: start;
   width: 100%;
 }
+
+.error {
+  font-size: 0.9rem;
+  color: lightcoral;
+}

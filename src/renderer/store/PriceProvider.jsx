@@ -41,10 +41,14 @@ export default function PriceProvider({ children }) {
 
   useEffect(() => {
     async function init() {
-      const { newPrices, newPriceChanges } = await fetchAndSetPrices()
-      setPrices(newPrices)
-      setPriceChanges(newPriceChanges)
-      global.ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
+      try {
+        const { newPrices, newPriceChanges } = await fetchAndSetPrices()
+        setPrices(newPrices)
+        setPriceChanges(newPriceChanges)
+        global.ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
+      } catch (error) {
+        console.error(error.message)
+      }
     }
 
     init()

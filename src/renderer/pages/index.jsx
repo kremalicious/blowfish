@@ -11,7 +11,7 @@ import IconCog from '../images/cog.svg'
 import styles from './index.module.css'
 
 export default function Home() {
-  const { isLoading, needsConfig } = useContext(AppContext)
+  const { isLoading, error, needsConfig } = useContext(AppContext)
 
   return (
     <>
@@ -24,6 +24,8 @@ export default function Home() {
 
         {needsConfig ? (
           <Welcome />
+        ) : error ? (
+          <div className={styles.error}>{error}</div>
         ) : isLoading ? (
           <Spinner />
         ) : (

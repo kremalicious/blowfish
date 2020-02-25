@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 // import { ipcRenderer } from 'electron'
+import AppProvider from '../store/AppProvider'
+import PriceProvider from '../store/PriceProvider'
 import Layout from '../Layout'
 
 import '../global.css'
@@ -14,9 +16,13 @@ export default function App({ Component, pageProps }) {
   }, [])
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <PriceProvider>
+      <AppProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AppProvider>
+    </PriceProvider>
   )
 }
 

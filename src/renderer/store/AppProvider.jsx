@@ -10,7 +10,7 @@ import { refreshInterval, conversions, oceanTokenContract } from '../../config'
 
 async function getBalance(account) {
   const json = await fetchData(
-    `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${oceanTokenContract}&address=${account}&tag=latest`
+    `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${oceanTokenContract}&address=${account}&tag=latest&apikey=${process.env.ETHERSCAN_API_KEY}`
   )
 
   const balance = unit.fromWei(`${json.result}`, 'ether')
@@ -24,18 +24,26 @@ export default function AppProvider({ children }) {
   const [needsConfig, setNeedsConfig] = useState(false)
   const [currency, setCurrency] = useState('ocean')
   const [accentColor, setAccentColor] = useState('#f6388a')
+  const [error, setError] = useState()
 
   useEffect(() => {
     // listener for accent color
-    global.ipcRenderer.on('accent-color', (evt, accentColor) => {
-      setAccentColor(accentColor)
-    })
+    if (process.env.NODE_ENV !== 'test') {
+      global.ipcRenderer.on('accent-color', (evt, accentColor) => {
+        setAccentColor(accentColor)
+      })
+    }
   }, [])
 
   useEffect(() => {
     async function init() {
-      await setBalances()
-      setIsLoading(false)
+      try {
+        await setBalances()
+        setIsLoading(false)
+      } catch (error) {
+        console.error(error.message)
+        setError(error.message)
+      }
 
       // listener for touchbar
       global.ipcRenderer.on('setCurrency', (evt, currency) =>
@@ -96,9 +104,9 @@ export default function AppProvider({ children }) {
   }
 
   function toggleCurrencies(currency) {
+    setCurrency(currency)
     const pricesNew = Array.from(prices)
     global.ipcRenderer.send('currency-updated', pricesNew, currency)
-    setCurrency(currency)
   }
 
   const context = {
@@ -107,8 +115,9 @@ export default function AppProvider({ children }) {
     currency,
     needsConfig,
     accentColor,
-    toggleCurrencies: currency => toggleCurrencies(currency),
-    setBalances: () => setBalances()
+    error,
+    toggleCurrencies,
+    setBalances
   }
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>
