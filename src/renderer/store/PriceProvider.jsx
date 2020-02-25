@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import ms from 'ms'
 import { PriceContext } from './createContext'
-import { fetchData } from '../../utils'
 import { refreshInterval, conversions } from '../../config'
+import { fetchAndSetPrices } from './helpers'
 
 export default function PriceProvider({ children }) {
   // construct initial prices Map to get consistent
@@ -21,28 +21,10 @@ export default function PriceProvider({ children }) {
     )
   )
 
-  async function fetchAndSetPrices() {
-    const currencies = conversions.join(',')
-    const json = await fetchData(
-      `https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=${currencies}&include_24hr_change=true`
-    )
-
-    let newPrices = new Map(prices) // make a shallow copy of the Map
-    conversions.map(key => newPrices.set(key, json['ocean-protocol'][key])) // modify the copy
-
-    const newPriceChanges = await Object.assign(
-      ...conversions.map(key => ({
-        [key]: json['ocean-protocol'][key + '_24h_change']
-      }))
-    )
-
-    return { newPrices, newPriceChanges }
-  }
-
   useEffect(() => {
     async function init() {
       try {
-        const { newPrices, newPriceChanges } = await fetchAndSetPrices()
+        const { newPrices, newPriceChanges } = await fetchAndSetPrices(prices)
         setPrices(newPrices)
         setPriceChanges(newPriceChanges)
         global.ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
