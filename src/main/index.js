@@ -18,6 +18,8 @@ let mainWindow
 const width = 640
 const height = 450
 
+app.allowRendererProcessReuse = true
+
 const createWindow = async () => {
   const isDarkMode = nativeTheme.shouldUseDarkColors
 

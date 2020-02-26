@@ -1,7 +1,8 @@
 import Store from 'electron-store'
-import unit from 'ethjs-unit'
+import Eth from 'ethjs'
 import { fetchData } from '../../utils'
 import { oceanTokenContract, conversions } from '../../config'
+import { abi } from '@oceanprotocol/keeper-contracts/artifacts/OceanToken.pacific.json'
 
 export async function fetchAndSetPrices(prices) {
   const currencies = conversions.join(',')
@@ -22,12 +23,14 @@ export async function fetchAndSetPrices(prices) {
 }
 
 export async function getBalance(account) {
-  const json = await fetchData(
-    `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${oceanTokenContract}&address=${account}&tag=latest&apikey=${process.env.ETHERSCAN_API_KEY}`
+  const provider = new Eth.HttpProvider(
+    `https://mainnet.infura.io/v3/${process.env.INFURA_PROJECT_ID}`
   )
+  const eth = new Eth(provider)
+  const token = eth.contract(abi).at(oceanTokenContract)
+  const balance = await token.balanceOf(account)
 
-  const balance = unit.fromWei(`${json.result}`, 'ether')
-  return balance
+  return Eth.fromWei(balance[0], 'ether')
 }
 
 export async function getAccounts() {

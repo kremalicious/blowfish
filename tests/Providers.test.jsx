@@ -1,22 +1,47 @@
 import React from 'react'
-import { render, waitForElement } from '@testing-library/react'
+import {
+  render,
+  waitForElement,
+  waitForElementToBeRemoved,
+  fireEvent
+} from '@testing-library/react'
 import AppProvider from '../src/renderer/store/AppProvider'
 import PriceProvider from '../src/renderer/store/PriceProvider'
-import { PriceContext } from '../src/renderer/store/createContext'
+import { PriceContext, AppContext } from '../src/renderer/store/createContext'
 import { priceContext } from './__fixtures__/context'
 
 describe('Providers', () => {
-  it('PriceProvider', async () => {
-    const { getByText } = render(<PriceProvider>Hello</PriceProvider>)
-    await waitForElement(() => getByText('Hello'))
+  describe('PriceProvider', () => {
+    it('renders without crashing', async () => {
+      const { getByText } = render(
+        <PriceProvider>
+          <PriceContext.Consumer>
+            {({ priceChanges }) => JSON.stringify(priceChanges)}
+          </PriceContext.Consumer>
+        </PriceProvider>
+      )
+      await waitForElementToBeRemoved(() => getByText(/"eur":0/))
+      expect(getByText(/eur/)).toBeInTheDocument()
+    })
   })
 
-  it('AppProvider', async () => {
-    const { getByText } = render(
-      <PriceContext.Provider value={priceContext}>
-        <AppProvider>Hello</AppProvider>
-      </PriceContext.Provider>
-    )
-    await waitForElement(() => getByText('Hello'))
+  describe('AppProvider', () => {
+    it('renders without crashing', async () => {
+      const { getByText } = render(
+        <PriceContext.Provider value={priceContext}>
+          <AppProvider>
+            <AppContext.Consumer>
+              {({ toggleCurrencies }) => (
+                <button onClick={() => toggleCurrencies('eur')}>Click</button>
+              )}
+            </AppContext.Consumer>
+          </AppProvider>
+        </PriceContext.Provider>
+      )
+      await waitForElement(() => getByText('Click'))
+      expect(getByText('Click')).toBeInTheDocument()
+
+      fireEvent.click(getByText('Click'))
+    })
   })
 })
