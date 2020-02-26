@@ -40,7 +40,7 @@
 - show a total balance of all account balances
 - convert those balances against multiple currencies
 - re-fetches everything automatically every minute
-- balances are fetched via etherscan.io API
+- balances are fetched directly from the OceanToken contract on-chain via [infura.io](https://infura.io) & [ethjs](https://github.com/ethjs/ethjs)
 - spot prices are fetched from coingecko.com API
 - detects dark appearance setting and switches to dark theme automatically (macOS only)
 - detects system accent color and uses it as primary color (macOS & Windows only)
