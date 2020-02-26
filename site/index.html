@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blowfish</title>
+
+    <link rel="stylesheet" href="https://use.typekit.net/meh5rjc.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="header">
+        <h1>Blowfish</h1>
+        <h2>
+          Desktop app to retrieve and display your total Ocean Token balances.
+        </h2>
+      </header>
+
+      <figure class="screen">
+        <img src="screens.png" />
+      </figure>
+
+      <main>
+        <ul class="downloads">
+          <li>
+            <a
+              class="button"
+              href="https://github.com/kremalicious/blowfish/releases"
+            >
+              Download
+            </a>
+          </li>
+        </ul>
+        <p class="release">
+          Latest release:
+          <a href="https://github.com/kremalicious/blowfish/releases">
+            <span class="release__tag">...</span>
+          </a>
+          <span class="release__date">...</span>
+        </p>
+      </main>
+
+      <footer class="footer">
+        <p class="credit">
+          Made with ♥ by
+          <a href="https://matthiaskretschmann.com">Matthias Kretschmann</a>
+        </p>
+
+        <p class="thanks">
+          <span>Say thanks with OCEAN or ETH</span>
+          <code>0xf50F267b5689b005FE107cfdb34619f24c014457</code>
+        </p>
+        <p class="thanks">
+          <span>Say thanks with BTC</span>
+          <code>3DiHNMt875UWa2j73qFpr3cVB9foFhYArc</code>
+        </p>
+      </footer>
+    </div>
+    <script src="scripts.js"></script>
+
+    <script>
+      var _paq = window._paq || []
+      _paq.push(['trackPageView'])
+      _paq.push(['enableLinkTracking'])
+      ;(function() {
+        var u = 'https://analytics.kremalicious.com/'
+        _paq.push(['setTrackerUrl', u + 'matomo.php'])
+        _paq.push(['setSiteId', '7'])
+        var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0]
+        g.type = 'text/javascript'
+        g.async = true
+        g.defer = true
+        g.src = u + 'matomo.js'
+        s.parentNode.insertBefore(g, s)
+      })()
+    </script>
+    <noscript
+      ><p>
+        <img
+          src="https://analytics.kremalicious.com/matomo.php?idsite=7&amp;rec=1"
+          style="border:0;"
+          alt=""
+        /></p
+    ></noscript>
+  </body>
+</html>
