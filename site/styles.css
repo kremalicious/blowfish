@@ -3,6 +3,8 @@
   --color-secondary: #725418;
   --color-signal: #049985;
   --border-radius: 0.2rem;
+  --font-family-base: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
+    oxygen-sans, ubuntu, cantarell, 'Helvetica Neue', sans-serif;
 }
 
 *,
@@ -25,12 +27,11 @@ body {
   min-height: 100vh;
   background: var(--color-primary);
   color: var(--color-secondary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-family-base);
   font-size: 1rem;
   font-weight: 400;
   font-style: normal;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 h1,
@@ -50,6 +51,13 @@ svg {
   margin: 0;
 }
 
+code {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.1rem 0.3rem;
+  border-radius: var(--border-radius);
+  display: inline-block;
+}
+
 a {
   color: var(--color-signal);
   text-decoration: none;
@@ -65,17 +73,38 @@ a {
   margin-bottom: 2rem;
 }
 
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-signal);
+}
+
+.header strong {
+  font-size: 1.2rem;
+}
+
 .screen {
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   text-align: center;
 }
 
+.screen img {
+  display: inline-block;
+}
+
+@media (min-width: 60rem) {
+  .screen img {
+    max-width: 60rem;
+  }
+}
+
 .button {
+  font-size: 1.2rem;
   display: inline-block;
   background: var(--color-signal);
   color: var(--color-primary);
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   margin-bottom: 1rem;
   border-radius: var(--border-radius);
   transition: 0.2s ease-out;
@@ -86,13 +115,29 @@ a {
   background: var(--color-secondary);
 }
 
+.button span {
+  font-size: 1rem;
+  margin-left: 0.25rem;
+  font-family: var(--font-family-base);
+  font-weight: 400;
+}
+
 .downloads {
   margin-top: 2rem;
   padding: 0;
   text-align: center;
 }
 
+.downloads a:not(.button) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .downloads li {
+  display: inline;
+}
+
+.downloads li:first-child {
   display: block;
 }
 
@@ -104,13 +149,6 @@ a {
 .footer {
   margin-top: 4rem;
   font-size: 0.8rem;
-}
-
-code {
-  background: rgba(255, 255, 255, 0.15);
-  padding: 0.1rem 0.3rem;
-  border-radius: var(--border-radius);
-  display: inline-block;
 }
 
 .credit {

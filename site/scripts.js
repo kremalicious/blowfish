@@ -1,3 +1,10 @@
+async function init() {
+  const release = await getLatestRelease()
+  replaceDom(release)
+}
+
+window.addEventListener('load', () => init())
+
 async function getLatestRelease() {
   const response = await fetch(
     'https://api.github.com/repos/kremalicious/blowfish/releases/latest'
@@ -25,7 +32,7 @@ function getDownloads(release) {
       const isWin = asset.name.includes('.exe')
 
       return {
-        name: `Download (${isMac ? 'macOS' : isWin ? 'Windows' : 'Linux'})`,
+        name: isMac ? 'macOS' : isWin ? 'Windows' : 'Linux, deb',
         url: asset.browser_download_url
       }
     })
@@ -42,24 +49,44 @@ function replaceDom(release) {
   const dateFormatted = new Date(release.published_at).toLocaleDateString()
 
   releaseTagElement.innerHTML = release.tag_name
-  releaseDateElement.innerHTML = dateFormatted
+  releaseDateElement.innerHTML = `on ${dateFormatted}`
 
   const downloads = getDownloads(release)
   downloadsElement.innerHTML = ''
 
-  downloads.map(download => {
+  const isMac = navigator.userAgent.includes('Mac OS')
+  const isWin = navigator.userAgent.includes('Windows')
+  const isLinux = navigator.userAgent.includes('Linux')
+
+  const downloadAll = downloads.map(download => {
+    const isTargetOs =
+      isMac & download.name.includes('mac') ||
+      isWin & download.name.includes('Windows') ||
+      isLinux & download.name.includes('Linux')
+
     const li = document.createElement('li')
     const a = document.createElement('a')
     a.href = download.url
-    a.className = 'button'
-    a.appendChild(document.createTextNode(download.name))
-    downloadsElement.appendChild(li).appendChild(a)
+
+    if (isTargetOs) {
+      a.className = 'button'
+      a.innerHTML = `Download <span>${download.name}</span>`
+    } else {
+      a.appendChild(document.createTextNode(download.name))
+    }
+
+    li.appendChild(a)
+
+    return li
   })
-}
 
-async function init() {
-  const release = await getLatestRelease()
-  replaceDom(release)
-}
+  const downloadMain = downloadAll.filter(
+    link => link.querySelector('a').className === 'button'
+  )
+  const downloadSecondary = downloadAll.filter(
+    link => link.querySelector('a').className !== 'button'
+  )
 
-init()
+  downloadsElement.append(downloadMain[0])
+  downloadSecondary.forEach(download => downloadsElement.append(download))
+}
