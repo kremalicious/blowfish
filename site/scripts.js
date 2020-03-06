@@ -1,23 +1,10 @@
 async function init() {
-  const release = await getLatestRelease()
+  const response = await fetch('/api/github')
+  const release = await response.json()
   replaceDom(release)
 }
 
 window.addEventListener('load', () => init())
-
-async function getLatestRelease() {
-  const response = await fetch(
-    'https://api.github.com/repos/kremalicious/blowfish/releases/latest'
-  )
-
-  if (response.status !== 200) {
-    console.error(`Non-200 response code from GitHub: ${response.status}`)
-    return null
-  }
-
-  const json = await response.json()
-  return json
-}
 
 function getDownloads(release) {
   const downloads = release.assets
