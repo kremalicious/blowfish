@@ -3,29 +3,7 @@ async function init() {
   const release = await response.json()
   replaceDom(release)
 }
-
 window.addEventListener('load', () => init())
-
-function getDownloads(release) {
-  const downloads = release.assets
-    .filter(
-      asset =>
-        asset.name.includes('mac.zip') |
-        (asset.name.includes('.exe') && !asset.name.includes('.exe.blockmap')) |
-        asset.name.includes('.deb')
-    )
-    .map(asset => {
-      const isMac = asset.name.includes('mac.zip')
-      const isWin = asset.name.includes('.exe')
-
-      return {
-        name: isMac ? 'macOS' : isWin ? 'Windows' : 'Linux, deb',
-        url: asset.browser_download_url
-      }
-    })
-
-  return downloads
-}
 
 function replaceDom(release) {
   if (!release) return
@@ -38,14 +16,13 @@ function replaceDom(release) {
   releaseTagElement.innerHTML = release.tag_name
   releaseDateElement.innerHTML = `on ${dateFormatted}`
 
-  const downloads = getDownloads(release)
   downloadsElement.innerHTML = ''
 
   const isMac = navigator.userAgent.includes('Mac OS')
   const isWin = navigator.userAgent.includes('Windows')
   const isLinux = navigator.userAgent.includes('Linux')
 
-  const downloadAll = downloads.map(download => {
+  const downloadAll = release.downloads.map(download => {
     const isTargetOs =
       isMac & download.name.includes('mac') ||
       isWin & download.name.includes('Windows') ||
