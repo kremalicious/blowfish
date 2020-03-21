@@ -57,7 +57,7 @@ export default function AppProvider({ children }) {
       const oceanBalance = await getBalance(account)
 
       const conversionsBalance = Object.assign(
-        ...conversions.map(key => ({
+        ...conversions.map((key) => ({
           [key]: oceanBalance * prices.get(key) || 0
         }))
       )

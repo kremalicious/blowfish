@@ -14,13 +14,13 @@ export default function New({
         type="text"
         placeholder="0xxxxxxxx"
         value={input}
-        onChange={e => handleInputChange(e)}
+        onChange={(e) => handleInputChange(e)}
         className={styles.input}
       />
 
       <button
         className={styles.button}
-        onClick={e => handleSave(e)}
+        onClick={(e) => handleSave(e)}
         style={{ color: accentColor }}
       >
         Add

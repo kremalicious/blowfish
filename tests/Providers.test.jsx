@@ -1,9 +1,9 @@
 import React from 'react'
 import {
   render,
-  waitForElement,
   waitForElementToBeRemoved,
-  fireEvent
+  fireEvent,
+  wait
 } from '@testing-library/react'
 import AppProvider from '../src/renderer/store/AppProvider'
 import PriceProvider from '../src/renderer/store/PriceProvider'
@@ -38,7 +38,7 @@ describe('Providers', () => {
           </AppProvider>
         </PriceContext.Provider>
       )
-      await waitForElement(() => getByText('Click'))
+      await wait(() => getByText('Click'))
       expect(getByText('Click')).toBeInTheDocument()
 
       fireEvent.click(getByText('Click'))

@@ -10,12 +10,12 @@ export default function PriceProvider({ children }) {
   // order for Ticker and Touchbar
   let pricesMap = new Map()
   pricesMap.set('ocean', 1)
-  conversions.map(key => pricesMap.set(key, 0))
+  conversions.map((key) => pricesMap.set(key, 0))
 
   const [prices, setPrices] = useState(pricesMap)
   const [priceChanges, setPriceChanges] = useState(
     Object.assign(
-      ...conversions.map(key => ({
+      ...conversions.map((key) => ({
         [key]: 0
       }))
     )

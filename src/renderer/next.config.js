@@ -26,7 +26,7 @@ const withSvgr = (nextConfig = {}) => {
 
 const withElectron = (nextConfig = {}) => {
   return Object.assign({}, nextConfig, {
-    webpack: config => {
+    webpack: (config) => {
       config.target = 'electron-renderer'
       return config
     }

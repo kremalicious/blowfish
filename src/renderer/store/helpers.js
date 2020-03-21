@@ -11,10 +11,10 @@ export async function fetchAndSetPrices(prices) {
   )
 
   let newPrices = new Map(prices) // make a shallow copy of the Map
-  conversions.map(key => newPrices.set(key, json['ocean-protocol'][key])) // modify the copy
+  conversions.map((key) => newPrices.set(key, json['ocean-protocol'][key])) // modify the copy
 
   const newPriceChanges = await Object.assign(
-    ...conversions.map(key => ({
+    ...conversions.map((key) => ({
       [key]: json['ocean-protocol'][key + '_24h_change']
     }))
   )

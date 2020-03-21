@@ -2,7 +2,7 @@ const { app, Menu } = require('electron')
 const { openUrl } = require('../utils')
 const { homepage } = require('../../package.json')
 
-const buildMenu = mainWindow => {
+const buildMenu = (mainWindow) => {
   const template = [
     {
       label: 'Edit',

@@ -55,7 +55,7 @@ const Items = () => {
   ))
 }
 
-const Ticker = props => (
+const Ticker = (props) => (
   <footer className={styles.ticker} {...props}>
     <div className={stylesIndex.balancewrap}>
       <PoseGroup animateOnMount>

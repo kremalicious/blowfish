@@ -2,7 +2,7 @@ const { app, shell } = require('electron')
 const { formatCurrency } = require('@coingecko/cryptoformat')
 const axios = require('axios')
 
-const fetchData = async url => {
+const fetchData = async (url) => {
   try {
     const response = await axios(url)
 
@@ -16,13 +16,13 @@ const fetchData = async url => {
   }
 }
 
-const isFiat = currency => currency === 'eur' || currency === 'usd'
+const isFiat = (currency) => currency === 'eur' || currency === 'usd'
 
-const openUrl = url => {
+const openUrl = (url) => {
   shell.openExternal(url)
 }
 
-const rgbaToHex = color => {
+const rgbaToHex = (color) => {
   const r = color.substr(0, 2)
   const g = color.substr(2, 2)
   const b = color.substr(4, 2)
@@ -35,13 +35,13 @@ const locale =
   typeof navigator !== 'undefined' ? navigator.language : () => app.getLocale()
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat
-const numberFormatter = value =>
+const numberFormatter = (value) =>
   new Intl.NumberFormat(locale, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 4
   }).format(value)
 
-const formatOcean = value => {
+const formatOcean = (value) => {
   const numberformatted = new Intl.NumberFormat(locale, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 4,

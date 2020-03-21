@@ -10,7 +10,7 @@ export default function Saved({ accounts, handleDelete }) {
 
   return (
     <PoseGroup>
-      {accounts.map(account => {
+      {accounts.map((account) => {
         const identicon = toDataUrl(account)
 
         return (
@@ -26,7 +26,7 @@ export default function Saved({ accounts, handleDelete }) {
 
             <button
               className={styles.delete}
-              onClick={e => handleDelete(e, account)}
+              onClick={(e) => handleDelete(e, account)}
               title="Remove account"
             >
               &times;

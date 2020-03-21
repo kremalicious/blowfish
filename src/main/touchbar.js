@@ -21,7 +21,7 @@ const buildTouchbar = (mainWindow, accentColor) => {
   const touchBar = new TouchBar({
     items: [
       createButton(1, 'ocean', mainWindow, accentColor),
-      ...conversions.map(key => createButton(0, key, mainWindow, accentColor))
+      ...conversions.map((key) => createButton(0, key, mainWindow, accentColor))
     ]
   })
 
@@ -34,7 +34,7 @@ const updateTouchbar = (
   accentColor,
   currentCurrency = 'ocean'
 ) => {
-  const items = pricesNew.map(item => {
+  const items = pricesNew.map((item) => {
     return createButton(
       item[1],
       item[0],

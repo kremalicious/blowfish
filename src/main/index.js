@@ -111,7 +111,7 @@ app.on('activate', () => {
   }
 })
 
-const installDevTools = async mainWindow => {
+const installDevTools = async (mainWindow) => {
   if (isDev) {
     const {
       default: installExtension,
@@ -134,7 +134,7 @@ const installDevTools = async mainWindow => {
   }
 }
 
-const createWindowEvents = mainWindow => {
+const createWindowEvents = (mainWindow) => {
   mainWindow.on('enter-full-screen', () =>
     mainWindow.webContents.executeJavaScript(
       'document.getElementsByTagName("html")[0].classList.add("fullscreen")'

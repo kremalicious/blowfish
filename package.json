@@ -17,8 +17,7 @@
     "dist": "./scripts/release-prepare.sh",
     "release": "release-it --non-interactive",
     "changelog": "auto-changelog -p",
-    "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx,json}' && npm run format:css",
-    "format:css": "prettier-stylelint --write --ignore-path .gitignore --quiet 'src/**/*.{css,scss}'"
+    "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx,json,css,scss}'"
   },
   "repository": "https://github.com/kremalicious/blowfish.git",
   "homepage": "https://github.com/kremalicious/blowfish",
@@ -42,8 +41,8 @@
     "shortid": "^2.2.15"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "@jest-runner/electron": "^2.0.3",
     "@react-mock/state": "^0.1.8",
     "@svgr/webpack": "^5.2.0",
@@ -56,23 +55,21 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "electron": "^8.1.1",
-    "electron-builder": "^22.4.0",
+    "electron-builder": "^22.4.1",
     "electron-devtools-installer": "^2.2.4",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-react": "^7.19.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.1.0",
-    "next": "^9.3.0",
-    "prettier": "^1.19.1",
-    "prettier-stylelint": "^0.4.2",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "next": "^9.3.1",
+    "prettier": "^2.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-pose": "^4.0.10",
-    "release-it": "^13.0.0",
+    "release-it": "^13.1.2",
     "stylelint": "^13.2.1",
-    "stylelint-config-css-modules": "^2.2.0",
-    "stylelint-config-standard": "^20.0.0"
+    "stylelint-prettier": "^1.1.2"
   },
   "browserslist": "electron >= 8.0",
   "build": {

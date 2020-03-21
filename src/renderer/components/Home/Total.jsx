@@ -23,7 +23,7 @@ const Total = () => {
   const { accounts } = useContext(AppContext)
 
   const conversionsBalance = Object.assign(
-    ...conversions.map(key => ({
+    ...conversions.map((key) => ({
       [key]: calculateTotalBalance(accounts, key)
     }))
   )

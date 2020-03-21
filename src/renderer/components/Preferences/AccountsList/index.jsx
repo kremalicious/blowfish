@@ -19,11 +19,11 @@ export default class AccountsList extends PureComponent {
     }
   }
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({ input: e.target.value })
   }
 
-  handleSave = e => {
+  handleSave = (e) => {
     e.preventDefault()
 
     const { accounts, input } = this.state
@@ -56,7 +56,7 @@ export default class AccountsList extends PureComponent {
     e.preventDefault()
 
     let array = this.state.accounts
-    array = array.filter(item => account !== item)
+    array = array.filter((item) => account !== item)
 
     const index = array.indexOf(account)
     if (index > -1) {
