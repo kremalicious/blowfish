@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import ms from 'ms'
 import { PriceContext } from './createContext'
 import { refreshInterval, conversions } from '../../config'
-import { fetchAndSetPrices } from './helpers'
+import { fetchData } from '../../utils'
+import { convertPrices } from './helpers'
+import useSWR from 'swr'
+import ms from 'ms'
 
 export default function PriceProvider({ children }) {
   // construct initial prices Map to get consistent
@@ -21,25 +23,32 @@ export default function PriceProvider({ children }) {
     )
   )
 
+  // Fetch new prices periodically with swr
+  const currencies = conversions.join(',')
+  const url = `https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=${currencies}&include_24hr_change=true`
+
+  const { data } = useSWR(url, fetchData, {
+    refreshInterval: ms(refreshInterval),
+    onSuccess
+  })
+
+  async function onSuccess() {
+    if (!data) return
+
+    console.log('Got new prices.')
+    const { newPrices, newPriceChanges } = await convertPrices(data, prices)
+
+    setPrices(newPrices)
+    setPriceChanges(newPriceChanges)
+    global.ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
+  }
+
   useEffect(() => {
     async function init() {
-      try {
-        const { newPrices, newPriceChanges } = await fetchAndSetPrices(prices)
-        setPrices(newPrices)
-        setPriceChanges(newPriceChanges)
-        global.ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
-      } catch (error) {
-        console.error(error.message)
-      }
+      await onSuccess()
     }
-
     init()
-    setInterval(init, ms(refreshInterval))
-
-    return () => {
-      clearInterval(init)
-    }
-  }, [])
+  }, [data])
 
   return (
     <PriceContext.Provider value={{ prices, priceChanges }}>

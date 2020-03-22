@@ -1,21 +1,15 @@
 import Store from 'electron-store'
 import Eth from 'ethjs'
-import { fetchData } from '../../utils'
 import { oceanTokenContract, conversions } from '../../config'
 import { abi } from '@oceanprotocol/keeper-contracts/artifacts/OceanToken.pacific.json'
 
-export async function fetchAndSetPrices(prices) {
-  const currencies = conversions.join(',')
-  const json = await fetchData(
-    `https://api.coingecko.com/api/v3/simple/price?ids=ocean-protocol&vs_currencies=${currencies}&include_24hr_change=true`
-  )
-
+export async function convertPrices(data, prices) {
   let newPrices = new Map(prices) // make a shallow copy of the Map
-  conversions.map((key) => newPrices.set(key, json['ocean-protocol'][key])) // modify the copy
+  conversions.map((key) => newPrices.set(key, data['ocean-protocol'][key])) // modify the copy
 
   const newPriceChanges = await Object.assign(
     ...conversions.map((key) => ({
-      [key]: json['ocean-protocol'][key + '_24h_change']
+      [key]: data['ocean-protocol'][key + '_24h_change']
     }))
   )
 
