@@ -25,9 +25,12 @@ export default function AppProvider({ children }) {
   }, [])
 
   useEffect(() => {
+    if (!prices) return
+
     async function init() {
       try {
         await setBalances()
+        console.log('Updated balance')
         setIsLoading(false)
       } catch (error) {
         console.error(error.message)
