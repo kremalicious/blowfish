@@ -1,0 +1,20 @@
+.update {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid transparent;
+  border-radius: 0.2rem;
+}
+
+.update:hover,
+.update:focus {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+:global(.dark) .update:hover,
+:global(.dark) .update:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+}

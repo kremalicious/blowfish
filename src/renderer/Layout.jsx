@@ -5,6 +5,7 @@ import shortid from 'shortid'
 import { defaultAnimation } from './components/Animations'
 import Titlebar from './components/Titlebar'
 import styles from './Layout.module.css'
+import Update from './components/Update'
 
 const Animation = posed.div(defaultAnimation)
 
@@ -13,6 +14,7 @@ export default function Layout({ children }) {
     <>
       {process.platform === 'darwin' && <Titlebar />}
       <div className={styles.app}>
+        <Update />
         <PoseGroup animateOnMount>
           <Animation key={shortid.generate()}>{children}</Animation>
         </PoseGroup>
