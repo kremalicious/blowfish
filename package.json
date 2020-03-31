@@ -39,7 +39,7 @@
     "ethjs": "^0.4.0",
     "ms": "^2.1.2",
     "shortid": "^2.2.15",
-    "swr": "^0.1.18"
+    "swr": "^0.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
