@@ -69,7 +69,7 @@
     "react-dom": "^16.13.1",
     "react-pose": "^4.0.10",
     "release-it": "^13.6.1",
-    "stylelint": "^13.4.1",
+    "stylelint": "^13.5.0",
     "stylelint-prettier": "^1.1.2"
   },
   "browserslist": "electron >= 8.0",
