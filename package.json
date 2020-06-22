@@ -42,7 +42,7 @@
     "swr": "^0.2.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
+    "@babel/core": "^7.10.3",
     "@babel/preset-env": "^7.10.3",
     "@jest-runner/electron": "^3.0.0",
     "@react-mock/state": "^0.1.8",
