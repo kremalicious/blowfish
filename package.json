@@ -68,7 +68,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-pose": "^4.0.10",
-    "release-it": "^13.6.3",
+    "release-it": "^13.6.4",
     "stylelint": "^13.6.1",
     "stylelint-prettier": "^1.1.2"
   },
