@@ -51,7 +51,7 @@
     "@testing-library/react": "^10.3.0",
     "auto-changelog": "^2.1.0",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.0.1",
+    "babel-jest": "^26.1.0",
     "copy": "^0.3.2",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
