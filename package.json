@@ -60,7 +60,7 @@
     "electron-devtools-installer": "^3.0.0",
     "eslint": "^7.3.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react": "^7.20.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",
     "next": "^9.4.4",
