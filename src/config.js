@@ -1,5 +1,5 @@
 module.exports = {
   conversions: ['eur', 'usd', 'btc', 'eth'],
   refreshInterval: '1m',
-  oceanTokenContract: '0x985dd3D42De1e256d09e1c10F112bCCB8015AD41'
+  oceanTokenContract: '0x7AFeBBB46fDb47ed17b22ed075Cde2447694fB9e'
 }
