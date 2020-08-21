@@ -1,7 +1,7 @@
 import Store from 'electron-store'
 import Eth from 'ethjs'
 import { oceanTokenContract, conversions } from '../../config'
-import { abi } from '@oceanprotocol/keeper-contracts/artifacts/OceanToken.pacific.json'
+import { abi } from '@oceanprotocol/contracts/artifacts/ERC20.json'
 
 export async function convertPrices(data, prices) {
   let newPrices = new Map(prices) // make a shallow copy of the Map
