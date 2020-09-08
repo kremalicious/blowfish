@@ -40,7 +40,8 @@ const createWindow = async () => {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js'),
       scrollBounce: true,
-      enableBlinkFeatures: 'OverlayScrollbars'
+      enableBlinkFeatures: 'OverlayScrollbars',
+      enableRemoteModule: true
     }
   })
 
