@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@coingecko/cryptoformat": "^0.4.0",
+    "@coingecko/cryptoformat": "^0.4.1",
     "@oceanprotocol/contracts": "^0.4.1",
     "axios": "^0.20.0",
     "electron-is-dev": "^1.2.0",
