@@ -57,7 +57,7 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "electron": "^10.1.1",
-    "electron-builder": "^22.8.0",
+    "electron-builder": "^22.8.1",
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
