@@ -1,6 +1,6 @@
-const { app, shell } = require('electron')
-const { formatCurrency } = require('@coingecko/cryptoformat')
-const axios = require('axios')
+import { app, shell } from 'electron'
+import { formatCurrency } from '@coingecko/cryptoformat'
+import axios from 'axios'
 
 const fetchData = async (url) => {
   try {
@@ -75,7 +75,7 @@ const cryptoFormatter = (value, currency) => {
   }
 }
 
-module.exports = {
+export {
   openUrl,
   rgbaToHex,
   locale,

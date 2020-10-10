@@ -5,14 +5,9 @@
     "prettier",
     "prettier/react"
   ],
-  "parser": "babel-eslint",
   "plugins": ["react"],
-  "rules": {
-    "quotes": ["error", "single"],
-    "semi": ["error", "never"]
-  },
   "parserOptions": {
-    "ecmaVersion": 2017,
+    "ecmaVersion": 2020,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true

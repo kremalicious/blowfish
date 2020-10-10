@@ -38,12 +38,6 @@ module.exports = withSvgr(
     env: {
       ETHERSCAN_API_KEY: process.env.ETHERSCAN_API_KEY,
       INFURA_PROJECT_ID: process.env.INFURA_PROJECT_ID
-    },
-    exportPathMap() {
-      return {
-        '/': { page: '/' },
-        '/preferences': { page: '/preferences' }
-      }
     }
   })
 )

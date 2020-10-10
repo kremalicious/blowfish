@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import ethereum_address from 'ethereum-address'
+import electron from 'electron'
 import Store from 'electron-store'
 import { AppContext } from '../../../store/createContext'
 import Saved from './Saved'
@@ -9,12 +10,12 @@ import styles from './index.module.css'
 export default class AccountsList extends PureComponent {
   static contextType = AppContext
 
-  store = process.env.NODE_ENV === 'test' ? new Store() : global.store
+  store = (electron.remote && new Store()) || false
 
   state = { accounts: [], input: '', error: '' }
 
   componentDidMount() {
-    if (this.store.has('accounts')) {
+    if (this.store && this.store.has('accounts')) {
       this.setState({ accounts: this.store.get('accounts') })
     }
   }
@@ -46,7 +47,7 @@ export default class AccountsList extends PureComponent {
     } else {
       const joined = [...accounts, input]
 
-      this.store.set('accounts', joined)
+      this.store && this.store.set('accounts', joined)
       this.setState({ accounts: joined, input: '', error: '' })
       this.context.setBalances()
     }
@@ -63,7 +64,7 @@ export default class AccountsList extends PureComponent {
       array.splice(index, 1)
     }
 
-    this.store.set('accounts', array)
+    this.store && this.store.set('accounts', array)
     this.setState({ accounts: array })
     this.context.setBalances()
   }

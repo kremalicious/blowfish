@@ -1,0 +1,16 @@
+{
+  "appId": "com.kremalicious.blowfish",
+  "directories": { "buildResources": "./src/resources" },
+  "files": ["app", "package.json"],
+  "mac": {
+    "category": "public.app-category.finance",
+    "identity": null,
+    "darkModeSupport": true
+  },
+  "linux": {
+    "target": ["deb", "snap", "AppImage"],
+    "category": "Office",
+    "executableName": "Blowfish",
+    "artifactName": "${productName}-${version}.${ext}"
+  }
+}

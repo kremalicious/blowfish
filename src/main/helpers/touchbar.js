@@ -1,6 +1,6 @@
-const { TouchBar } = require('electron')
-const { cryptoFormatter } = require('../utils')
-const { conversions } = require('../config')
+import { TouchBar } from 'electron'
+import { cryptoFormatter } from '../../utils'
+import { conversions } from '../../config'
 
 const { TouchBarButton } = TouchBar
 
@@ -51,4 +51,4 @@ const updateTouchbar = (
   mainWindow.setTouchBar(touchBar)
 }
 
-module.exports = { buildTouchbar, updateTouchbar }
+export { buildTouchbar, updateTouchbar }
