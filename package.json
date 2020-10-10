@@ -66,7 +66,7 @@
     "hooks": {
       "after:init": "npm test",
       "after:bump": "npm run changelog",
-      "before:release": "npm run dist"
+      "before:release": "npm run build"
     },
     "git": {
       "tagName": "v${version}"
