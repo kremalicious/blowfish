@@ -14,7 +14,7 @@ module.exports = {
     '<rootDir>/src/renderer/.next',
     '<rootDir>/src/renderer/out',
     '<rootDir>/node_modules',
-    '<rootDir>/build',
+    '<rootDir>/app',
     '<rootDir>/dist',
     '<rootDir>/coverage'
   ],

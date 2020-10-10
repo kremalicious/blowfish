@@ -1,3 +1,4 @@
 module.exports = {
-  has: () => jest.fn()
+  has: () => jest.fn(),
+  get: () => jest.fn()
 }
