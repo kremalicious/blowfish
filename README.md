@@ -91,20 +91,14 @@ When building the app yourself, you can configure more in the `src/config.js` fi
 ## Build packages
 
 ```bash
-npm run dist
+npm run build
 ```
 
 Will build and package the app into platform specific packages for macOS, Windows & Linux.
 
-On a Mac and Linux machine, packaging requires [`wine`](https://www.winehq.org) in your `PATH`. To install on macOS with [Homebrew](https://brew.sh):
-
-```bash
-brew install wine
-```
-
 ## Creating Releases
 
-From a clean `main` branch, running any release task will do the following:
+From a clean `main` branch, running the release task will do the following:
 
 - bumps the project version
 - creates a Git tag
@@ -112,11 +106,9 @@ From a clean `main` branch, running any release task will do the following:
 - creates a GitHub release with commit messages as description
 - adds freshly build binaries for macOS, Windows & Linux as assets to each GitHub release
 
-You can execute the script using {major|minor|patch} as first argument to bump the version accordingly:
-
-- To bump a patch version: `npm run release`
-- To bump a minor version: `npm run release minor`
-- To bump a major version: `npm run release major`
+```bash
+npm run release
+```
 
 For the GitHub releases steps a GitHub personal access token, exported as `GITHUB_TOKEN` is required. [Setup](https://github.com/release-it/release-it#github-releases)
 

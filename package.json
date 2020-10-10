@@ -3,25 +3,21 @@
   "productName": "Blowfish",
   "version": "1.5.2",
   "description": "🐡 Simple Electron-based desktop app to retrieve and display your total Ocean Token balances.",
-  "main": "./src/main/index.js",
+  "main": "app/background.js",
   "scripts": {
-    "start": "electron .",
+    "start": "nextron",
+    "build": "nextron build --all",
+    "postinstall": "electron-builder install-app-deps",
     "test": "npm run lint && npm run jest",
     "test:watch": "npm run jest -- --watch",
     "jest": "NODE_ENV=test jest -c tests/jest.config.js",
-    "lint": "eslint --ignore-path .gitignore ./src/**/*.{js,jsx} && stylelint --ignore-path .gitignore ./src/**/*.{css,scss}",
-    "copy:icons": "copy 'src/renderer/images/icon*' build/",
-    "build:react": "cross-env NODE_ENV=production next build src/renderer && next export src/renderer && npm run copy:icons",
-    "build:electron:mac": "electron-builder build -m -p never",
-    "build:electron:linux": "electron-builder build -l -p never",
-    "build:electron:win": "electron-builder build -w -p never",
-    "dist": "./scripts/release-prepare.sh",
-    "release": "release-it --non-interactive",
-    "changelog": "auto-changelog -p",
-    "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx,json,css,scss}'"
+    "lint": "eslint --ignore-path .gitignore ./src/**/*.{js,jsx}",
+    "format": "prettier --write --ignore-path .gitignore 'src/**/*.{js,jsx,json,css,scss}'",
+    "release": "release-it",
+    "changelog": "auto-changelog -p"
   },
   "repository": "https://github.com/kremalicious/blowfish.git",
-  "homepage": "https://github.com/kremalicious/blowfish",
+  "homepage": "https://getblow.fish",
   "author": {
     "name": "Matthias Kretschmann",
     "email": "m@kretschmann.io",
@@ -29,12 +25,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@coingecko/cryptoformat": "^0.4.1",
-    "@oceanprotocol/contracts": "^0.5.3",
+    "@coingecko/cryptoformat": "^0.4.2",
+    "@oceanprotocol/contracts": "^0.5.4",
     "axios": "^0.20.0",
-    "electron-is-dev": "^1.2.0",
-    "electron-next": "^3.1.5",
-    "electron-store": "^6.0.0",
+    "electron-store": "^6.0.1",
     "ethereum-address": "^0.0.4",
     "ethereum-blockies": "github:MyEtherWallet/blockies",
     "ethjs": "^0.4.0",
@@ -43,61 +37,31 @@
     "swr": "^0.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
     "@jest-runner/electron": "^3.0.0",
     "@react-mock/state": "^0.1.8",
     "@svgr/webpack": "^5.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "auto-changelog": "^2.2.1",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.3.0",
-    "copy": "^0.3.2",
-    "cross-env": "^7.0.2",
+    "babel-jest": "^26.5.2",
     "dotenv": "^8.2.0",
     "electron": "^10.1.3",
     "electron-builder": "^22.8.1",
-    "electron-devtools-installer": "^3.1.1",
-    "eslint": "^7.10.0",
+    "electron-serve": "^1.0.0",
+    "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-react": "^7.21.3",
+    "eslint-plugin-react": "^7.21.4",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.4.2",
-    "next": "^9.5.3",
+    "jest": "^26.5.2",
+    "next": "9.5.1",
+    "nextron": "^5.15.2",
     "prettier": "^2.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-pose": "^4.0.10",
-    "release-it": "^14.0.3",
-    "stylelint": "^13.7.2",
-    "stylelint-prettier": "^1.1.2"
+    "release-it": "^14.0.4"
   },
   "browserslist": "electron >= 8.0",
-  "build": {
-    "appId": "com.kremalicious.blowfish",
-    "files": [
-      "./src/main/**/*",
-      "./src/renderer/out/**/*",
-      "./src/*.js",
-      "package.json"
-    ],
-    "mac": {
-      "category": "public.app-category.finance",
-      "identity": null,
-      "darkModeSupport": true
-    },
-    "linux": {
-      "target": [
-        "deb",
-        "snap",
-        "AppImage"
-      ],
-      "category": "Office",
-      "executableName": "Blowfish",
-      "artifactName": "${productName}-${version}.${ext}"
-    }
-  },
   "release-it": {
     "hooks": {
       "after:init": "npm test",

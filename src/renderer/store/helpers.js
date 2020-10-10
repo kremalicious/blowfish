@@ -1,3 +1,4 @@
+import electron from 'electron'
 import Store from 'electron-store'
 import Eth from 'ethjs'
 import { oceanTokenContract, conversions } from '../../config'
@@ -30,9 +31,10 @@ export async function getBalance(account) {
 export async function getAccounts() {
   let needsConfig
   let accountsPref
-  const store = process.env.NODE_ENV === 'test' ? new Store() : global.store
 
-  if (store.has('accounts')) {
+  const store = (electron.remote && new Store()) || false
+
+  if (store && store.has('accounts')) {
     accountsPref = store.get('accounts')
     needsConfig = !accountsPref.length
   } else {

@@ -6,6 +6,9 @@ import { fetchData } from '../../utils'
 import { convertPrices } from './helpers'
 import useSWR from 'swr'
 import ms from 'ms'
+import electron from 'electron'
+
+const ipcRenderer = electron.ipcRenderer || false
 
 export default function PriceProvider({ children }) {
   // construct initial prices Map to get consistent
@@ -40,7 +43,7 @@ export default function PriceProvider({ children }) {
 
     setPrices(newPrices)
     setPriceChanges(newPriceChanges)
-    global.ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
+    ipcRenderer && ipcRenderer.send('prices-updated', Array.from(newPrices)) // convert Map to array, ipc messages seem to kill it
   }
 
   useEffect(() => {

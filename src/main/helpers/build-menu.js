@@ -1,8 +1,8 @@
-const { app, Menu } = require('electron')
-const { openUrl } = require('../utils')
-const { homepage } = require('../../package.json')
+import { app, Menu } from 'electron'
+import { openUrl } from '../../utils'
+import { homepage } from '../../../package.json'
 
-const buildMenu = (mainWindow) => {
+export default function buildMenu(mainWindow) {
   const template = [
     {
       label: 'Edit',
@@ -179,5 +179,3 @@ const buildMenu = (mainWindow) => {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 }
-
-module.exports = buildMenu

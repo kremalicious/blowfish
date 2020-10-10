@@ -23,7 +23,7 @@ before_script:
 script:
   - npm test || travis_terminate 1
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-  - npm run dist
+  - npm run build
 
 branches:
   except:

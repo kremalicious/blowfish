@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  render,
-  waitForElementToBeRemoved,
-  fireEvent,
-  wait
-} from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import AppProvider from '../src/renderer/store/AppProvider'
 import PriceProvider from '../src/renderer/store/PriceProvider'
 import { PriceContext, AppContext } from '../src/renderer/store/createContext'
@@ -20,7 +15,6 @@ describe('Providers', () => {
           </PriceContext.Consumer>
         </PriceProvider>
       )
-      await waitForElementToBeRemoved(() => getByText(/"eur":0/))
       expect(getByText(/eur/)).toBeInTheDocument()
     })
   })
@@ -38,7 +32,7 @@ describe('Providers', () => {
           </AppProvider>
         </PriceContext.Provider>
       )
-      await wait(() => getByText('Click'))
+      await waitFor(() => getByText('Click'))
       expect(getByText('Click')).toBeInTheDocument()
 
       fireEvent.click(getByText('Click'))

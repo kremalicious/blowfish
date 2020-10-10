@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ms from 'ms'
-// import { ipcRenderer } from 'electron'
+import electron from 'electron'
 import { AppContext, PriceContext } from './createContext'
 import { refreshInterval, conversions } from '../../config'
 import { getAccounts, getBalance } from './helpers'
+
+const ipcRenderer = electron.ipcRenderer || false
 
 export default function AppProvider({ children }) {
   const { prices } = useContext(PriceContext)
@@ -15,12 +17,25 @@ export default function AppProvider({ children }) {
   const [accentColor, setAccentColor] = useState('#f6388a')
   const [error, setError] = useState()
 
+  function toggleCurrencies(currency) {
+    setCurrency(currency)
+    const pricesNew = Array.from(prices)
+    ipcRenderer && ipcRenderer.send('currency-updated', pricesNew, currency)
+  }
+
+  // listener for accent color & touchbar
   useEffect(() => {
-    // listener for accent color
-    if (process.env.NODE_ENV !== 'test') {
-      global.ipcRenderer.on('accent-color', (evt, accentColor) => {
-        setAccentColor(accentColor)
-      })
+    if (!ipcRenderer) return
+
+    ipcRenderer.on('accent-color', (evt, accentColor) => {
+      setAccentColor(accentColor)
+    })
+
+    ipcRenderer.on('setCurrency', (evt, currency) => toggleCurrencies(currency))
+
+    return () => {
+      ipcRenderer.removeAllListeners('accent-color')
+      ipcRenderer.removeAllListeners('setCurrency')
     }
   }, [])
 
@@ -36,11 +51,6 @@ export default function AppProvider({ children }) {
         console.error(error.message)
         setError(error.message)
       }
-
-      // listener for touchbar
-      global.ipcRenderer.on('setCurrency', (evt, currency) =>
-        toggleCurrencies(currency)
-      )
     }
 
     init()
@@ -79,12 +89,6 @@ export default function AppProvider({ children }) {
     if (newAccounts !== accounts) {
       setAccounts(newAccounts)
     }
-  }
-
-  function toggleCurrencies(currency) {
-    setCurrency(currency)
-    const pricesNew = Array.from(prices)
-    global.ipcRenderer.send('currency-updated', pricesNew, currency)
   }
 
   const context = {
