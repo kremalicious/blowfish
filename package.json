@@ -46,7 +46,7 @@
     "@jest-runner/electron": "^3.0.0",
     "@react-mock/state": "^0.1.8",
     "@svgr/webpack": "^5.4.0",
-    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.1.0",
     "auto-changelog": "^2.2.1",
     "babel-jest": "^26.5.2",
