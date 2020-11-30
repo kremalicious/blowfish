@@ -34,7 +34,7 @@
     "ethereum-blockies": "github:MyEtherWallet/blockies",
     "ethjs": "^0.4.0",
     "ms": "^2.1.2",
-    "next": "9.5.1",
+    "next": "10.0.3",
     "nextron": "^5.15.3",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
