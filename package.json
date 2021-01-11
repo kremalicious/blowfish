@@ -54,7 +54,7 @@
     "electron-builder": "^22.9.1",
     "electron-serve": "^1.0.0",
     "eslint": "^7.17.0",
-    "eslint-config-prettier": "^6.13.0",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-react": "^7.22.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.5.3",
