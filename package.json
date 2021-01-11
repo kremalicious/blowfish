@@ -47,7 +47,7 @@
     "@react-mock/state": "^0.1.8",
     "@svgr/webpack": "^5.4.0",
     "@testing-library/jest-dom": "^5.11.8",
-    "@testing-library/react": "^11.1.0",
+    "@testing-library/react": "^11.2.3",
     "auto-changelog": "^2.2.1",
     "babel-jest": "^26.5.2",
     "dotenv": "^8.2.0",
