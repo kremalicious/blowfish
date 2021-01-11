@@ -45,7 +45,7 @@
   "devDependencies": {
     "@jest-runner/electron": "^3.0.0",
     "@react-mock/state": "^0.1.8",
-    "@svgr/webpack": "^5.4.0",
+    "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.1.0",
     "auto-changelog": "^2.2.1",
