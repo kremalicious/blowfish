@@ -6,7 +6,8 @@
   "main": "app/background.js",
   "scripts": {
     "start": "nextron",
-    "build": "nextron build --all",
+    "build": "nextron build",
+    "build:all": "nextron build --all",
     "postinstall": "electron-builder install-app-deps",
     "test": "npm run lint && npm run jest",
     "test:watch": "npm run jest -- --watch",
@@ -74,7 +75,7 @@
     "hooks": {
       "after:init": "npm test",
       "after:bump": "npm run changelog",
-      "before:release": "npm run build"
+      "before:release": "npm run build:all"
     },
     "git": {
       "tagName": "v${version}"

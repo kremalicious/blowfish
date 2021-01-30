@@ -12,5 +12,6 @@
     "category": "Office",
     "executableName": "Blowfish",
     "artifactName": "${productName}-${version}.${ext}"
-  }
+  },
+  "publish": false
 }
