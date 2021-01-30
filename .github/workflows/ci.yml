@@ -29,8 +29,6 @@ jobs:
       - run: npm run build
 
   coverage:
-    needs: [test]
-    name: coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
