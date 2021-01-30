@@ -3,10 +3,10 @@ updates:
   - package-ecosystem: npm
     directory: '/site'
     schedule:
-      interval: daily
+      interval: weekly
       time: '04:00'
   - package-ecosystem: npm
     directory: '/'
     schedule:
-      interval: weekly
+      interval: monthly
       time: '04:00'
