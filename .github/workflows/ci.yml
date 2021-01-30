@@ -11,9 +11,9 @@ on:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
-    fail-fast: false
 
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         node: ['14', '12']
