@@ -4,7 +4,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "dotenv": "^16.0.0"
   }
 }
