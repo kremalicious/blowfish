@@ -45,7 +45,7 @@
     "@babel/eslint-parser": "^7.13.8",
     "@jest-runner/electron": "^3.0.1",
     "@react-mock/state": "^0.1.8",
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^6.3.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^12.1.2",
     "auto-changelog": "^2.2.1",
