@@ -27,7 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "@coingecko/cryptoformat": "^0.4.2",
-    "@oceanprotocol/contracts": "^0.5.10",
+    "@oceanprotocol/contracts": "^1.1.1",
     "axios": "^0.24.0",
     "ethereum-address": "^0.0.4",
     "ethereum-blockies": "github:MyEtherWallet/blockies",
